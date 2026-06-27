@@ -3,6 +3,7 @@ import SwiftUI
 @MainActor
 final class HomeModel: ObservableObject {
     @Published var isLoading = false
+    @Published var hasCompletedInitialLoad = false
     @Published var hasError = false
     @Published var dailyStory: Content?
     @Published var categories: [Category] = []
@@ -27,6 +28,7 @@ final class HomeModel: ObservableObject {
                 dailyStory = nil
                 storiesByCategory = [:]
                 loaded = true
+                hasCompletedInitialLoad = true
                 isLoading = false
                 return
             }
@@ -47,9 +49,11 @@ final class HomeModel: ObservableObject {
             dailyStory = try await daily
             storiesByCategory = grouped
             loaded = true
+            hasCompletedInitialLoad = true
             isLoading = false
         } catch {
             hasError = true
+            hasCompletedInitialLoad = true
             isLoading = false
         }
     }
@@ -100,7 +104,7 @@ struct HomeScreen: View {
                 .padding(.horizontal, 20)
                 .padding(.top, 10)
 
-                if model.isLoading {
+                if model.isLoading || !model.hasCompletedInitialLoad {
                     Spacer()
                     ProgressView()
                         .tint(LingoRiseColors.primary)
