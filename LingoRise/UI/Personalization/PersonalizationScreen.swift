@@ -552,7 +552,7 @@ private struct MotivationStep: View {
             subtitle: L10n.t("personalization_motivation_subtitle"),
             palette: palette
         ) {
-            PersonalizationFlowLayout(spacing: 10, rowSpacing: 10) {
+            WrappingFlowLayout(spacing: 10, rowSpacing: 10) {
                 ForEach(ConsistencyMotivation.allCases, id: \.self) { motivation in
                     MotivationChip(
                         title: L10n.t(motivation.titleKey),
@@ -920,53 +920,5 @@ private struct PersonalizationCircleIcon: View {
                     .font(.system(size: iconSize, weight: .semibold))
                     .foregroundStyle(LingoRiseColors.primaryLight)
             )
-    }
-}
-
-private struct PersonalizationFlowLayout: Layout {
-    let spacing: CGFloat
-    let rowSpacing: CGFloat
-
-    func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
-        let maxWidth = proposal.width ?? 0
-        var rowWidth: CGFloat = 0
-        var rowHeight: CGFloat = 0
-        var totalHeight: CGFloat = 0
-        var widest: CGFloat = 0
-
-        for subview in subviews {
-            let size = subview.sizeThatFits(.unspecified)
-            if rowWidth > 0 && rowWidth + spacing + size.width > maxWidth {
-                totalHeight += rowHeight + rowSpacing
-                widest = max(widest, rowWidth)
-                rowWidth = size.width
-                rowHeight = size.height
-            } else {
-                rowWidth += rowWidth == 0 ? size.width : spacing + size.width
-                rowHeight = max(rowHeight, size.height)
-            }
-        }
-
-        totalHeight += rowHeight
-        widest = max(widest, rowWidth)
-        return CGSize(width: maxWidth == 0 ? widest : maxWidth, height: totalHeight)
-    }
-
-    func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
-        var x = bounds.minX
-        var y = bounds.minY
-        var rowHeight: CGFloat = 0
-
-        for subview in subviews {
-            let size = subview.sizeThatFits(.unspecified)
-            if x > bounds.minX && x + size.width > bounds.maxX {
-                x = bounds.minX
-                y += rowHeight + rowSpacing
-                rowHeight = 0
-            }
-            subview.place(at: CGPoint(x: x, y: y), proposal: ProposedViewSize(size))
-            x += size.width + spacing
-            rowHeight = max(rowHeight, size.height)
-        }
     }
 }

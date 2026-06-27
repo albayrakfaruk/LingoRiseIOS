@@ -301,7 +301,7 @@ private struct StoryBadgeFlow: View {
     let content: Content?
 
     var body: some View {
-        StoryFlowLayout(spacing: 8, lineSpacing: 6) {
+        WrappingFlowLayout(spacing: 8, rowSpacing: 6, fallbackWidth: UIScreen.main.bounds.width - 40, usesContentWidth: true) {
             if let level = content?.level, !level.isEmpty {
                 StoryBadge(text: L10n.format("story_level_format", level), primary: true, showPulseDot: true)
             }
@@ -685,48 +685,6 @@ private final class TargetWordAudioPlayer: ObservableObject {
     deinit {
         player?.pause()
         preloadTasks.values.forEach { $0.cancel() }
-    }
-}
-
-private struct StoryFlowLayout: Layout {
-    let spacing: CGFloat
-    let lineSpacing: CGFloat
-
-    func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
-        layout(in: proposal.width ?? UIScreen.main.bounds.width - 40, subviews: subviews).size
-    }
-
-    func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
-        let result = layout(in: bounds.width, subviews: subviews)
-        for item in result.items {
-            subviews[item.index].place(
-                at: CGPoint(x: bounds.minX + item.origin.x, y: bounds.minY + item.origin.y),
-                proposal: ProposedViewSize(item.size)
-            )
-        }
-    }
-
-    private func layout(in maxWidth: CGFloat, subviews: Subviews) -> (items: [(index: Int, origin: CGPoint, size: CGSize)], size: CGSize) {
-        var items: [(index: Int, origin: CGPoint, size: CGSize)] = []
-        var x: CGFloat = 0
-        var y: CGFloat = 0
-        var lineHeight: CGFloat = 0
-        var totalWidth: CGFloat = 0
-
-        for index in subviews.indices {
-            let size = subviews[index].sizeThatFits(.unspecified)
-            if x > 0, x + size.width > maxWidth {
-                x = 0
-                y += lineHeight + lineSpacing
-                lineHeight = 0
-            }
-            items.append((index, CGPoint(x: x, y: y), size))
-            totalWidth = max(totalWidth, x + size.width)
-            x += size.width + spacing
-            lineHeight = max(lineHeight, size.height)
-        }
-
-        return (items, CGSize(width: totalWidth, height: y + lineHeight))
     }
 }
 

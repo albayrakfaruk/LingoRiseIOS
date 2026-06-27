@@ -44,6 +44,20 @@
 		0B0000010000000000000142 /* ReadingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0000010000000000000141 /* ReadingScreen.swift */; };
 		0B0000010000000000000152 /* PracticeRecordingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0000010000000000000151 /* PracticeRecordingScreen.swift */; };
 		0B0000010000000000000162 /* StoryRatingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0000010000000000000161 /* StoryRatingService.swift */; };
+		0D0000010000000000000102 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0000010000000000000101 /* AppState.swift */; };
+		0D0000010000000000000112 /* NavigationModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0000010000000000000111 /* NavigationModels.swift */; };
+		0D0000010000000000000122 /* ContentModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0000010000000000000121 /* ContentModels.swift */; };
+		0D0000010000000000000132 /* ContentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0000010000000000000131 /* ContentService.swift */; };
+		0D0000010000000000000142 /* FirestoreDTOs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0000010000000000000141 /* FirestoreDTOs.swift */; };
+		0D0000010000000000000152 /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0000010000000000000151 /* SampleData.swift */; };
+		0D0000010000000000000162 /* String+Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0000010000000000000161 /* String+Regex.swift */; };
+		0D0000010000000000000172 /* ContentFormatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0000010000000000000171 /* ContentFormatters.swift */; };
+		0D0000010000000000000182 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0000010000000000000181 /* RootView.swift */; };
+		0D0000010000000000000192 /* MainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0000010000000000000191 /* MainScreen.swift */; };
+		0D00000100000000000001A2 /* SharedComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D00000100000000000001A1 /* SharedComponents.swift */; };
+		0D00000100000000000001B2 /* PracticeRecordingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D00000100000000000001B1 /* PracticeRecordingModel.swift */; };
+		0D00000100000000000001C2 /* PracticePuzzleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D00000100000000000001C1 /* PracticePuzzleBuilder.swift */; };
+		0D00000100000000000001D2 /* PracticeAudioController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D00000100000000000001D1 /* PracticeAudioController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -98,6 +112,20 @@
 		0B0000010000000000000141 /* ReadingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingScreen.swift; sourceTree = "<group>"; };
 		0B0000010000000000000151 /* PracticeRecordingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeRecordingScreen.swift; sourceTree = "<group>"; };
 		0B0000010000000000000161 /* StoryRatingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryRatingService.swift; sourceTree = "<group>"; };
+		0D0000010000000000000101 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		0D0000010000000000000111 /* NavigationModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationModels.swift; sourceTree = "<group>"; };
+		0D0000010000000000000121 /* ContentModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentModels.swift; sourceTree = "<group>"; };
+		0D0000010000000000000131 /* ContentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentService.swift; sourceTree = "<group>"; };
+		0D0000010000000000000141 /* FirestoreDTOs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreDTOs.swift; sourceTree = "<group>"; };
+		0D0000010000000000000151 /* SampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
+		0D0000010000000000000161 /* String+Regex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Regex.swift"; sourceTree = "<group>"; };
+		0D0000010000000000000171 /* ContentFormatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentFormatters.swift; sourceTree = "<group>"; };
+		0D0000010000000000000181 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		0D0000010000000000000191 /* MainScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreen.swift; sourceTree = "<group>"; };
+		0D00000100000000000001A1 /* SharedComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedComponents.swift; sourceTree = "<group>"; };
+		0D00000100000000000001B1 /* PracticeRecordingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeRecordingModel.swift; sourceTree = "<group>"; };
+		0D00000100000000000001C1 /* PracticePuzzleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticePuzzleBuilder.swift; sourceTree = "<group>"; };
+		0D00000100000000000001D1 /* PracticeAudioController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeAudioController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,9 +193,12 @@
 		0A0000010000000000000034 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				0D0000010000000000000200 /* App */,
+				0D0000010000000000000201 /* Models */,
+				0A00000100000000000000E3 /* Services */,
 				0A0000010000000000000035 /* Theme */,
 				0A00000100000000000000E0 /* Localization */,
-				0A00000100000000000000E3 /* Services */,
+				0D0000010000000000000202 /* Utils */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -184,6 +215,8 @@
 		0A0000010000000000000036 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+					0D0000010000000000000203 /* Main */,
+					0D0000010000000000000204 /* Shared */,
 					0B0000010000000000000100 /* Home */,
 					0B0000010000000000000110 /* Explore */,
 					0B0000010000000000000120 /* Profile */,
@@ -245,6 +278,9 @@
 					0A00000100000000000000B5 /* AppPreferences.swift */,
 					0A00000100000000000000B6 /* AppRemoteConfig.swift */,
 					0A00000100000000000000B7 /* AppSubscriptionService.swift */,
+					0D0000010000000000000131 /* ContentService.swift */,
+					0D0000010000000000000141 /* FirestoreDTOs.swift */,
+					0D0000010000000000000151 /* SampleData.swift */,
 					0B0000010000000000000161 /* StoryRatingService.swift */,
 				);
 				path = Services;
@@ -287,8 +323,54 @@
 			isa = PBXGroup;
 			children = (
 				0B0000010000000000000151 /* PracticeRecordingScreen.swift */,
+				0D00000100000000000001B1 /* PracticeRecordingModel.swift */,
+				0D00000100000000000001C1 /* PracticePuzzleBuilder.swift */,
+				0D00000100000000000001D1 /* PracticeAudioController.swift */,
 			);
 			path = Practice;
+			sourceTree = "<group>";
+		};
+		0D0000010000000000000200 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				0D0000010000000000000101 /* AppState.swift */,
+				0D0000010000000000000111 /* NavigationModels.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		0D0000010000000000000201 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				0D0000010000000000000121 /* ContentModels.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		0D0000010000000000000202 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				0D0000010000000000000161 /* String+Regex.swift */,
+				0D0000010000000000000171 /* ContentFormatters.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		0D0000010000000000000203 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				0D0000010000000000000181 /* RootView.swift */,
+				0D0000010000000000000191 /* MainScreen.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		0D0000010000000000000204 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				0D00000100000000000001A1 /* SharedComponents.swift */,
+			);
+			path = Shared;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -412,7 +494,21 @@
 				0B0000010000000000000132 /* StoryDetailScreen.swift in Sources */,
 				0B0000010000000000000142 /* ReadingScreen.swift in Sources */,
 				0B0000010000000000000152 /* PracticeRecordingScreen.swift in Sources */,
+				0D00000100000000000001B2 /* PracticeRecordingModel.swift in Sources */,
+				0D00000100000000000001C2 /* PracticePuzzleBuilder.swift in Sources */,
+				0D00000100000000000001D2 /* PracticeAudioController.swift in Sources */,
 				0B0000010000000000000162 /* StoryRatingService.swift in Sources */,
+				0D0000010000000000000102 /* AppState.swift in Sources */,
+				0D0000010000000000000112 /* NavigationModels.swift in Sources */,
+				0D0000010000000000000122 /* ContentModels.swift in Sources */,
+				0D0000010000000000000132 /* ContentService.swift in Sources */,
+				0D0000010000000000000142 /* FirestoreDTOs.swift in Sources */,
+				0D0000010000000000000152 /* SampleData.swift in Sources */,
+				0D0000010000000000000162 /* String+Regex.swift in Sources */,
+				0D0000010000000000000172 /* ContentFormatters.swift in Sources */,
+				0D0000010000000000000182 /* RootView.swift in Sources */,
+				0D0000010000000000000192 /* MainScreen.swift in Sources */,
+				0D00000100000000000001A2 /* SharedComponents.swift in Sources */,
 				0A0000010000000000000001 /* LingoRiseApp.swift in Sources */,
 				0A000001000000000000000C /* LingoRiseColors.swift in Sources */,
 				0A000001000000000000000D /* LexendFont.swift in Sources */,
