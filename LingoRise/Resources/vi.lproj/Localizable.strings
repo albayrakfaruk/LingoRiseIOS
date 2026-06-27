@@ -150,6 +150,10 @@
 
 /* Profile synchronized from Android */
 "error_revenuecat_not_configured" = "RevenueCat chưa được định cấu hình. Vui lòng kiểm tra cấu hình của bạn.";
+"error_no_active_subscriptions" = "Không tìm thấy đăng ký hoạt động.";
+"paywall_products_unavailable" = "Các tùy chọn đăng ký tạm thời không khả dụng. Vui lòng thử lại.";
+"paywall_purchase_failed" = "Không thể hoàn tất giao dịch mua. Vui lòng thử lại.";
+"paywall_restore_failed" = "Không thể khôi phục giao dịch mua. Vui lòng thử lại.";
 "profile_manage_account" = "Quản lý tài khoản và cài đặt của bạn";
 "profile_general_settings" = "CÀI ĐẶT CHUNG";
 "profile_dark_theme" = "Chủ đề tối";

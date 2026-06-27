@@ -150,6 +150,10 @@
 
 /* Profile synchronized from Android */
 "error_revenuecat_not_configured" = "RevenueCat nicht konfiguriert. Bitte überprüfen Sie Ihre Konfiguration.";
+"error_no_active_subscriptions" = "Keine aktiven Abonnements gefunden.";
+"paywall_products_unavailable" = "Abonnementoptionen sind vorübergehend nicht verfügbar. Bitte versuchen Sie es erneut.";
+"paywall_purchase_failed" = "Der Kauf konnte nicht abgeschlossen werden. Bitte versuchen Sie es erneut.";
+"paywall_restore_failed" = "Einkäufe konnten nicht wiederhergestellt werden. Bitte versuchen Sie es erneut.";
 "profile_manage_account" = "Verwalten Sie Ihr Konto und Ihre Einstellungen";
 "profile_general_settings" = "ALLGEMEINE EINSTELLUNGEN";
 "profile_dark_theme" = "Dunkles Thema";

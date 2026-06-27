@@ -150,6 +150,10 @@
 
 /* Profile synchronized from Android */
 "error_revenuecat_not_configured" = "RevenueCat が設定されていません。設定を確認してください。";
+"error_no_active_subscriptions" = "アクティブなサブスクリプションが見つかりません。";
+"paywall_products_unavailable" = "サブスクリプション オプションは一時的に利用できなくなります。もう一度試してください。";
+"paywall_purchase_failed" = "購入を完了できませんでした。もう一度試してください。";
+"paywall_restore_failed" = "購入を復元できませんでした。もう一度試してください。";
 "profile_manage_account" = "アカウントと設定を管理";
 "profile_general_settings" = "一般設定";
 "profile_dark_theme" = "ダークテーマ";

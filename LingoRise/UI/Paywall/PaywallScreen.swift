@@ -47,6 +47,8 @@ struct PaywallScreen: View {
 
     @State private var selectedPlan: PaywallPlanKind = .yearly
     @State private var canDismiss = false
+    @State private var isLoading = true
+    @State private var errorMessage: String?
     @State private var weeklyOption = AppSubscriptionOption.fallbackWeekly
     @State private var yearlyOption = AppSubscriptionOption.fallbackYearly
 
@@ -175,6 +177,7 @@ struct PaywallScreen: View {
                     source: source,
                     palette: palette,
                     bottomInset: geometry.safeAreaInsets.bottom,
+                    isLoading: isLoading,
                     onPlanSelected: { plan in
                         AppAnalytics.logPaywallPlanSelect(
                             source: source,
@@ -190,8 +193,17 @@ struct PaywallScreen: View {
                     onTerms: { openRemoteUrl(AppRemoteConfig.shared.termsOfUseUrl) },
                     onRestore: { restorePurchases() }
                 )
+
+                if let errorMessage {
+                    PaywallSnackbar(message: errorMessage, palette: palette)
+                        .padding(.horizontal, 22)
+                        .padding(.bottom, max(geometry.safeAreaInsets.bottom, 10) + 94)
+                        .transition(.move(edge: .bottom).combined(with: .opacity))
+                        .zIndex(4)
+                }
             }
             .animation(.easeInOut(duration: 0.26), value: canDismiss)
+            .animation(.spring(response: 0.28, dampingFraction: 0.9), value: errorMessage)
             .onAppear {
                 AppAnalytics.logPaywallView(source: source)
                 canDismiss = false
@@ -220,7 +232,17 @@ struct PaywallScreen: View {
     }
 
     private func loadOfferings() async {
-        guard let result = await AppSubscriptionService.shared.fetchOfferings() else { return }
+        await MainActor.run {
+            isLoading = true
+            errorMessage = nil
+        }
+        guard let result = await AppSubscriptionService.shared.fetchOfferings() else {
+            await MainActor.run {
+                isLoading = false
+                showError(L10n.t("paywall_products_unavailable"))
+            }
+            return
+        }
         await MainActor.run {
             if let weekly = result.weekly {
                 weeklyOption = weekly
@@ -228,38 +250,56 @@ struct PaywallScreen: View {
             if let yearly = result.yearly {
                 yearlyOption = yearly
             }
+            if result.weekly == nil && result.yearly == nil {
+                showError(L10n.t("paywall_products_unavailable"))
+            }
+            isLoading = false
         }
     }
 
     private func purchase(_ plan: PaywallPlan) {
+        guard !isLoading else { return }
+        guard AppSubscriptionService.shared.isConfigured() else {
+            showError(L10n.t("error_revenuecat_not_configured"))
+            return
+        }
         AppAnalytics.logPurchaseStart(optionId: plan.optionId, optionLabel: plan.id.rawValue, source: source)
+        isLoading = true
+        errorMessage = nil
         Task {
-            if AppSubscriptionService.shared.isConfigured() {
-                let result = await AppSubscriptionService.shared.purchase(optionId: plan.optionId)
-                await MainActor.run {
-                    switch result {
-                    case .success:
-                        AppAnalytics.logPurchaseSuccess(optionId: plan.optionId, optionLabel: plan.id.rawValue, source: source)
-                        appState.isPremium = true
-                        appState.completePaywall(source: source)
-                    case let .failure(error):
-                        AppAnalytics.logPurchaseFail(optionId: plan.optionId, errorMessage: error.message, source: source)
-                    }
-                }
-            } else {
-                await MainActor.run {
+            let result = await AppSubscriptionService.shared.purchase(optionId: plan.optionId)
+            await MainActor.run {
+                isLoading = false
+                switch result {
+                case .success:
+                    AppAnalytics.logPurchaseSuccess(optionId: plan.optionId, optionLabel: plan.id.rawValue, source: source)
                     appState.isPremium = true
                     appState.completePaywall(source: source)
+                case let .failure(error):
+                    if error.message == "cancelled" {
+                        AppAnalytics.logPurchaseCancel(optionId: plan.optionId, optionLabel: plan.id.rawValue, source: source)
+                    } else {
+                        AppAnalytics.logPurchaseFail(optionId: plan.optionId, errorMessage: error.message, source: source)
+                        showError(L10n.t("paywall_purchase_failed"))
+                    }
                 }
             }
         }
     }
 
     private func restorePurchases() {
+        guard !isLoading else { return }
+        guard AppSubscriptionService.shared.isConfigured() else {
+            showError(L10n.t("error_revenuecat_not_configured"))
+            return
+        }
         AppAnalytics.logRestoreStart(source: source)
+        isLoading = true
+        errorMessage = nil
         Task {
             let result = await AppSubscriptionService.shared.restorePurchases()
             await MainActor.run {
+                isLoading = false
                 switch result {
                 case .success:
                     AppAnalytics.logRestoreSuccess(source: source)
@@ -267,6 +307,10 @@ struct PaywallScreen: View {
                     appState.completePaywall(source: source)
                 case let .failure(error):
                     AppAnalytics.logRestoreFail(errorMessage: error.message, source: source)
+                    let message = error.message.localizedCaseInsensitiveContains("active")
+                        ? L10n.t("error_no_active_subscriptions")
+                        : L10n.t("paywall_restore_failed")
+                    showError(message)
                 }
             }
         }
@@ -275,6 +319,18 @@ struct PaywallScreen: View {
     private func openRemoteUrl(_ urlString: String) {
         guard let url = URL(string: urlString), UIApplication.shared.canOpenURL(url) else { return }
         UIApplication.shared.open(url)
+    }
+
+    private func showError(_ message: String) {
+        errorMessage = message
+        Task {
+            try? await Task.sleep(nanoseconds: 3_000_000_000)
+            await MainActor.run {
+                if errorMessage == message {
+                    errorMessage = nil
+                }
+            }
+        }
     }
 }
 
@@ -421,6 +477,7 @@ private struct StickyPurchasePanel: View {
     let source: PaywallSource
     let palette: PaywallPalette
     let bottomInset: CGFloat
+    let isLoading: Bool
     let onPlanSelected: (PaywallPlan) -> Void
     let onPurchase: () -> Void
     let onPrivacy: () -> Void
@@ -442,7 +499,7 @@ private struct StickyPurchasePanel: View {
 
             PremiumCtaButton(
                 title: ctaText,
-                enabled: true,
+                enabled: !isLoading,
                 action: onPurchase
             )
             .frame(maxWidth: 440)
@@ -722,6 +779,29 @@ private struct FooterLink: View {
                 .padding(.horizontal, 4)
         }
         .buttonStyle(.plain)
+    }
+}
+
+private struct PaywallSnackbar: View {
+    let message: String
+    let palette: PaywallPalette
+
+    var body: some View {
+        Text(message)
+            .font(LexendFont.font(13, weight: .semibold))
+            .foregroundStyle(palette.onSurface)
+            .multilineTextAlignment(.leading)
+            .fixedSize(horizontal: false, vertical: true)
+            .padding(.horizontal, 14)
+            .padding(.vertical, 12)
+            .frame(maxWidth: 440, alignment: .leading)
+            .background(palette.surface)
+            .overlay(
+                RoundedRectangle(cornerRadius: 12, style: .continuous)
+                    .stroke(palette.outlineVariant, lineWidth: 1)
+            )
+            .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+            .shadow(color: .black.opacity(0.24), radius: 18, x: 0, y: 8)
     }
 }
 

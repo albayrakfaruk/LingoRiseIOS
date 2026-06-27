@@ -150,6 +150,10 @@
 
 /* Profile synchronized from Android */
 "error_revenuecat_not_configured" = "RevenueCat не настроен. Пожалуйста, проверьте вашу конфигурацию.";
+"error_no_active_subscriptions" = "Активных подписок не обнаружено.";
+"paywall_products_unavailable" = "Варианты подписки временно недоступны. Пожалуйста, попробуйте еще раз.";
+"paywall_purchase_failed" = "Не удалось совершить покупку. Пожалуйста, попробуйте еще раз.";
+"paywall_restore_failed" = "Покупки не удалось восстановить. Пожалуйста, попробуйте еще раз.";
 "profile_manage_account" = "Управляйте своей учетной записью и настройками";
 "profile_general_settings" = "ОБЩИЕ НАСТРОЙКИ";
 "profile_dark_theme" = "Темная тема";

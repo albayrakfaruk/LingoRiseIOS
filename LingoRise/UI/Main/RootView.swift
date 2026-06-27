@@ -35,9 +35,20 @@ struct RootView: View {
                 await appState.resolveStartRoute()
             }
         }
+        .onAppear {
+            logScreenView(appState.route)
+        }
+        .onChange(of: appState.route) { _, route in
+            logScreenView(route)
+        }
     }
 
     private var appBackground: Color {
         appState.effectiveDarkTheme(systemColorScheme: colorScheme) ? LingoRiseColors.backgroundDark : LingoRiseColors.backgroundLight
+    }
+
+    private func logScreenView(_ route: Route) {
+        guard let screenName = route.screenName else { return }
+        AppAnalytics.logScreenView(screenName)
     }
 }

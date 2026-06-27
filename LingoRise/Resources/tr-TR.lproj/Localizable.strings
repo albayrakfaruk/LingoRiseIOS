@@ -150,6 +150,10 @@
 
 /* Profile synchronized from Android */
 "error_revenuecat_not_configured" = "RevenueCat yapılandırılmadı. Lütfen yapılandırmanızı kontrol edin.";
+"error_no_active_subscriptions" = "Aktif abonelik bulunamadı.";
+"paywall_products_unavailable" = "Abonelik seçenekleri geçici olarak kullanılamıyor. Lütfen tekrar dene.";
+"paywall_purchase_failed" = "Satın alma tamamlanamadı. Lütfen tekrar dene.";
+"paywall_restore_failed" = "Satın almalar geri yüklenemedi. Lütfen tekrar dene.";
 "profile_manage_account" = "Hesabınızı ve ayarlarınızı yönetin";
 "profile_general_settings" = "GENEL AYARLAR";
 "profile_dark_theme" = "Koyu tema";

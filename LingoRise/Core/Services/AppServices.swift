@@ -8,6 +8,8 @@ import FirebaseCore
 enum AppServices {
     static func configure() {
         configureFirebase()
+        AppAnalytics.configure()
+        AppNotificationService.shared.configure()
         AppRemoteConfig.shared.initialize()
         AppSubscriptionService.shared.initialize()
     }

@@ -150,6 +150,10 @@
 
 /* Profile synchronized from Android */
 "error_revenuecat_not_configured" = "RevenueCat tidak dikonfigurasi. Silakan periksa konfigurasi Anda.";
+"error_no_active_subscriptions" = "Tidak ditemukan langganan aktif.";
+"paywall_products_unavailable" = "Opsi berlangganan untuk sementara tidak tersedia. Silakan coba lagi.";
+"paywall_purchase_failed" = "Pembelian tidak dapat diselesaikan. Silakan coba lagi.";
+"paywall_restore_failed" = "Pembelian tidak dapat dipulihkan. Silakan coba lagi.";
 "profile_manage_account" = "Kelola akun & pengaturan Anda";
 "profile_general_settings" = "PENGATURAN UMUM";
 "profile_dark_theme" = "Tema gelap";

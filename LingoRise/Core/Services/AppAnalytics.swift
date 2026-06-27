@@ -6,6 +6,13 @@ import FirebaseCore
 #endif
 
 enum AppAnalytics {
+    static func configure() {
+        #if canImport(FirebaseAnalytics)
+        guard FirebaseApp.app() != nil else { return }
+        Analytics.setAnalyticsCollectionEnabled(!isDebugBuild)
+        #endif
+    }
+
     static func logEvent(_ name: String, parameters: [String: Any] = [:]) {
         #if canImport(FirebaseAnalytics)
         guard FirebaseApp.app() != nil else {
@@ -291,7 +298,16 @@ enum AppAnalytics {
         if value.contains("entitlement") || value.contains("subscription") { return "no_entitlement" }
         return "sdk_error"
     }
+
+    private static var isDebugBuild: Bool {
+        #if DEBUG
+        true
+        #else
+        false
+        #endif
+    }
 }
+
 
 extension PaywallSource {
     var analyticsKey: String {

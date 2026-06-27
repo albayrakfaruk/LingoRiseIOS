@@ -9,6 +9,27 @@ enum Route: Equatable {
     case reading(String, Bool)
     case practice(String, Bool)
     case paywall(source: PaywallSource)
+
+    var screenName: String? {
+        switch self {
+        case .boot:
+            return nil
+        case .onboarding:
+            return "onboarding"
+        case .personalization:
+            return "personalization"
+        case .main:
+            return "main"
+        case .storyDetail:
+            return "story_detail"
+        case .reading:
+            return "reading"
+        case .practice:
+            return "practice_recording"
+        case .paywall:
+            return "paywall"
+        }
+    }
 }
 
 enum MainTab: String, CaseIterable {

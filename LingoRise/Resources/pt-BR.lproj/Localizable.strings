@@ -150,6 +150,10 @@
 
 /* Profile synchronized from Android */
 "error_revenuecat_not_configured" = "RevenueCat não configurado. Verifique sua configuração.";
+"error_no_active_subscriptions" = "Nenhuma assinatura ativa encontrada.";
+"paywall_products_unavailable" = "As opções de assinatura estão temporariamente indisponíveis. Tente novamente.";
+"paywall_purchase_failed" = "Não foi possível concluir a compra. Tente novamente.";
+"paywall_restore_failed" = "Não foi possível restaurar as compras. Tente novamente.";
 "profile_manage_account" = "Gerencie sua conta e configurações";
 "profile_general_settings" = "CONFIGURAÇÕES GERAIS";
 "profile_dark_theme" = "Tema escuro";

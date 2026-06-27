@@ -84,12 +84,6 @@ final class AppState: ObservableObject {
     }
 
     func show(_ content: Content, dailyPick: Bool = false) {
-        AppAnalytics.logStoryView(
-            storyId: content.id,
-            storyTitle: content.title,
-            level: content.level,
-            categoryName: content.category.title
-        )
         selectedContent = content
         storyPackage = nil
         route = .storyDetail(content.id, dailyPick)

@@ -116,7 +116,7 @@ struct StoryDetailScreen: View {
                     service: appState.contentService
                 )
             }
-            .onChange(of: model.content?.targetWords ?? []) { words in
+            .onChange(of: model.content?.targetWords ?? []) { _, words in
                 for (index, word) in words.enumerated() where !word.audioUrl.isEmpty {
                     audioPlayer.preload(cacheKey: audioCacheKey(index: index, word: word), audioUrl: word.audioUrl)
                 }

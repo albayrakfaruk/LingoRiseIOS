@@ -97,13 +97,17 @@ struct MainScreen: View {
         .animation(.spring(response: 0.28, dampingFraction: 0.92), value: activeExploreSheet)
         .animation(.spring(response: 0.28, dampingFraction: 0.92), value: isProfileLanguageSheetPresented)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .onChange(of: appState.selectedTab) { _, _ in
+        .onChange(of: appState.selectedTab) { _, tab in
             activeExploreSheet = nil
             isProfileLanguageSheetPresented = false
+            if tab == .home {
+                AppNotificationService.shared.requestAuthorizationFromHomeIfNeeded()
+            }
         }
         .onAppear {
             homeModel.configure(service: appState.contentService)
             exploreModel.configure(service: appState.contentService)
+            AppNotificationService.shared.requestAuthorizationFromHomeIfNeeded()
             Task {
                 await homeModel.load()
                 await exploreModel.load()

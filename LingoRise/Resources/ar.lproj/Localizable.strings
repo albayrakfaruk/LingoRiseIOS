@@ -150,6 +150,10 @@
 
 /* Profile synchronized from Android */
 "error_revenuecat_not_configured" = "لم يتم تكوين RevenueCat. يرجى التحقق من التكوين الخاص بك.";
+"error_no_active_subscriptions" = "لم يتم العثور على اشتراكات نشطة.";
+"paywall_products_unavailable" = "خيارات الاشتراك غير متاحة مؤقتًا. يرجى المحاولة مرة أخرى.";
+"paywall_purchase_failed" = "لا يمكن إكمال عملية الشراء. يرجى المحاولة مرة أخرى.";
+"paywall_restore_failed" = "لا يمكن استعادة المشتريات. يرجى المحاولة مرة أخرى.";
 "profile_manage_account" = "إدارة حسابك والإعدادات";
 "profile_general_settings" = "الإعدادات العامة";
 "profile_dark_theme" = "موضوع مظلم";
