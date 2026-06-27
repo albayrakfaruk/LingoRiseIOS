@@ -795,7 +795,7 @@ private struct ReadingAudioDock: View {
                     }
                     .frame(maxWidth: .infinity)
 
-                    ControlIcon(systemName: "checklist", label: L10n.t("cd_go_to_practice"), enabled: true, action: onShowPracticeCta)
+                    ControlIcon(systemName: "puzzlepiece.extension.fill", label: L10n.t("cd_go_to_practice"), enabled: true, action: onShowPracticeCta)
                         .frame(width: 44)
                 }
                 .padding(.top, 16)
@@ -963,7 +963,7 @@ private struct ReadingCompletedOverlay: View {
 
                 Button(action: onPractice) {
                     HStack(spacing: 8) {
-                        Image(systemName: "checklist")
+                        Image(systemName: "puzzlepiece.extension.fill")
                             .font(.system(size: 22, weight: .semibold))
                         Text(L10n.t("reading_practice_now"))
                             .font(LexendFont.font(16, weight: .semibold))

@@ -27,7 +27,8 @@ struct OnboardingScreen: View {
             let isDarkMode = appState.effectiveDarkTheme(systemColorScheme: colorScheme)
             let palette = OnboardingPalette(isDark: isDarkMode)
             let background = palette.background
-            let bottomControlsPadding = geometry.safeAreaInsets.bottom + (isCompactHeight ? 20 : 36) + (currentStep == 3 ? 24 : 0)
+            let controlsBottomPadding = geometry.safeAreaInsets.bottom + (isCompactHeight ? 54 : 82) + (currentStep == 3 ? 28 : 0)
+            let controlsBackgroundHeight: CGFloat = isCompactHeight ? 232 : 304
             ZStack {
                 background.ignoresSafeArea()
 
@@ -113,7 +114,7 @@ struct OnboardingScreen: View {
                 }
                 .padding(.horizontal, 24)
                 .padding(.top, isCompactHeight ? 12 : 24)
-                .padding(.bottom, bottomControlsPadding)
+                .padding(.bottom, controlsBottomPadding)
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
                 .background(
                     LinearGradient(
@@ -121,7 +122,7 @@ struct OnboardingScreen: View {
                         startPoint: .top,
                         endPoint: .bottom
                     )
-                    .frame(height: isCompactHeight ? 194 : 252)
+                    .frame(height: controlsBackgroundHeight)
                     .frame(maxHeight: .infinity, alignment: .bottom)
                 )
             }

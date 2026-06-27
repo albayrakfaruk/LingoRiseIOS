@@ -142,7 +142,7 @@ struct PaywallScreen: View {
                                     palette: palette
                                 )
                                 PaywallValueRow(
-                                    symbol: "sparkles",
+                                    symbol: "puzzlepiece.extension.fill",
                                     title: L10n.t("paywall_feature_pronunciation"),
                                     subtitle: L10n.t("paywall_feature_pronunciation_sub"),
                                     palette: palette
