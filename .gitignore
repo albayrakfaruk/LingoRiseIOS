@@ -1,7 +1,8 @@
 .DS_Store
 *.xcuserdata
+xcuserdata/
 *.xcuserstate
 DerivedData/
 build/
 *.zip
-
+LingoRise-Android/
