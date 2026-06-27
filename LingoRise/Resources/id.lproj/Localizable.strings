@@ -209,3 +209,32 @@
 "home_empty_message" = "Belum ada konten yang dipublikasikan. Harap segera periksa kembali.";
 "common_retry" = "Coba lagi";
 "premium_badge_short" = "PRO";
+
+/* Story detail */
+"cd_back" = "Kembali";
+"story_start_reading" = "Mulai Membaca";
+"story_level_format" = "Tingkat %1$@";
+"story_by_author" = "Oleh %1$@";
+"story_source_label" = "Sumber:";
+"story_synopsis" = "Sinopsis";
+"story_key_vocabulary" = "Kosakata Kunci";
+"story_rating" = "Peringkat";
+"story_rating_count_format" = "Peringkat %1$d";
+"story_not_rated_yet" = "Belum diberi peringkat";
+"cd_play_word" = "Mainkan pengucapan untuk %1$@";
+"story_words" = "Kata-kata";
+"content_type_story" = "Cerita";
+"content_type_fact" = "Fakta singkat";
+"content_type_article" = "Artikel";
+"content_type_news" = "Berita";
+"error_story_not_found" = "Cerita tidak ditemukan";
+"error_story_unavailable" = "Cerita tidak tersedia";
+"error_content_unavailable" = "Tidak ada konten yang tersedia";
+"story_duration" = "Durasi";
+"story_accent_us" = "Bahasa Inggris AS";
+"story_accent_uk" = "Inggris Britania";
+"story_voice_accent_format" = "Suara: %2$@ %1$@";
+"story_news_global" = "Global";
+"story_news_regional" = "Daerah";
+"story_photo_credit_format" = "Foto: %1$@";
+"story_sources" = "Sumber";

@@ -209,3 +209,32 @@
 "home_empty_message" = "Chưa có nội dung được công bố. Vui lòng kiểm tra lại sớm.";
 "common_retry" = "Thử lại";
 "premium_badge_short" = "PRO";
+
+/* Story detail */
+"cd_back" = "Quay lại";
+"story_start_reading" = "Bắt đầu đọc";
+"story_level_format" = "Cấp %1$@";
+"story_by_author" = "Bởi %1$@";
+"story_source_label" = "Nguồn:";
+"story_synopsis" = "Tóm tắt";
+"story_key_vocabulary" = "Từ vựng chính";
+"story_rating" = "Đánh giá";
+"story_rating_count_format" = "Xếp hạng %1$d";
+"story_not_rated_yet" = "Chưa được xếp hạng";
+"cd_play_word" = "Chơi phát âm cho %1$@";
+"story_words" = "từ";
+"content_type_story" = "Câu chuyện";
+"content_type_fact" = "Thực tế nhanh chóng";
+"content_type_article" = "Bài viết";
+"content_type_news" = "Tin tức";
+"error_story_not_found" = "Không tìm thấy câu chuyện";
+"error_story_unavailable" = "Câu chuyện không có sẵn";
+"error_content_unavailable" = "Không có nội dung có sẵn";
+"story_duration" = "Thời lượng";
+"story_accent_us" = "Tiếng Anh Mỹ";
+"story_accent_uk" = "Tiếng Anh của người Anh";
+"story_voice_accent_format" = "Giọng nói: %2$@ %1$@";
+"story_news_global" = "Toàn cầu";
+"story_news_regional" = "Khu vực";
+"story_photo_credit_format" = "Ảnh: %1$@";
+"story_sources" = "Nguồn";

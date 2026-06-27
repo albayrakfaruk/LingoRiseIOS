@@ -209,3 +209,32 @@
 "home_empty_message" = "まだ公開されたコンテンツはありません。すぐにもう一度ご確認ください。";
 "common_retry" = "再試行";
 "premium_badge_short" = "PRO";
+
+/* Story detail */
+"cd_back" = "戻る";
+"story_start_reading" = "読み始める";
+"story_level_format" = "レベル%1$@";
+"story_by_author" = "投稿者：%1$@";
+"story_source_label" = "出典:";
+"story_synopsis" = "あらすじ";
+"story_key_vocabulary" = "重要な語彙";
+"story_rating" = "評価";
+"story_rating_count_format" = "%1$d の評価";
+"story_not_rated_yet" = "まだ評価されていません";
+"cd_play_word" = "%1$@ の発音を再生する";
+"story_words" = "言葉";
+"content_type_story" = "ストーリー";
+"content_type_fact" = "簡単な事実";
+"content_type_article" = "記事";
+"content_type_news" = "ニュース";
+"error_story_not_found" = "ストーリーが見つかりません";
+"error_story_unavailable" = "ストーリーは利用できません";
+"error_content_unavailable" = "利用可能なコンテンツがありません";
+"story_duration" = "期間";
+"story_accent_us" = "アメリカ英語";
+"story_accent_uk" = "イギリス英語";
+"story_voice_accent_format" = "音声: %2$@ %1$@";
+"story_news_global" = "グローバル";
+"story_news_regional" = "地域別";
+"story_photo_credit_format" = "写真：%1$@";
+"story_sources" = "情報源";

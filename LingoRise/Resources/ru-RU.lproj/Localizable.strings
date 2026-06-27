@@ -209,3 +209,32 @@
 "home_empty_message" = "Опубликованного контента пока нет. Пожалуйста, зайдите позже.";
 "common_retry" = "Повторить попытку";
 "premium_badge_short" = "PRO";
+
+/* Story detail */
+"cd_back" = "Назад";
+"story_start_reading" = "Начать чтение";
+"story_level_format" = "Уровень %1$@";
+"story_by_author" = "Автор %1$@";
+"story_source_label" = "Источник:";
+"story_synopsis" = "Краткое содержание";
+"story_key_vocabulary" = "Ключевой словарь";
+"story_rating" = "Рейтинг";
+"story_rating_count_format" = "Рейтинги %1$d";
+"story_not_rated_yet" = "Еще не оценено";
+"cd_play_word" = "Воспроизвести произношение %1$@";
+"story_words" = "Слова";
+"content_type_story" = "История";
+"content_type_fact" = "Быстрый факт";
+"content_type_article" = "Статья";
+"content_type_news" = "Новости";
+"error_story_not_found" = "История не найдена";
+"error_story_unavailable" = "История недоступна";
+"error_content_unavailable" = "Нет доступного контента";
+"story_duration" = "Продолжительность";
+"story_accent_us" = "Американский английский";
+"story_accent_uk" = "Британский английский";
+"story_voice_accent_format" = "Голос: %2$@ %1$@";
+"story_news_global" = "Глобальный";
+"story_news_regional" = "Региональный";
+"story_photo_credit_format" = "Фото: %1$@";
+"story_sources" = "Источники";

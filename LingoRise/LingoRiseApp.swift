@@ -182,6 +182,11 @@ enum EnglishAccent: String, Codable {
     }
 }
 
+enum NewsScope: String, Codable {
+    case global
+    case regional
+}
+
 enum ExploreSortOption: String, CaseIterable {
     case newest = "Newest"
     case shortestDuration = "Shortest Duration"
@@ -235,6 +240,14 @@ struct SourceReference: Identifiable, Hashable {
     let isLocal: Bool
 }
 
+struct ImageAttribution: Hashable {
+    let source: String
+    let creator: String
+    let sourcePageUrl: String
+    let license: String
+    let attribution: String
+}
+
 struct Content: Identifiable, Hashable {
     let id: String
     let title: String
@@ -254,7 +267,12 @@ struct Content: Identifiable, Hashable {
     let rating: Double?
     let ratingCount: Int
     let accent: EnglishAccent
+    let newsScope: NewsScope?
+    let regionCode: String
+    let regionLabel: String
+    let countryCodes: [String]
     let sourceReferences: [SourceReference]
+    let imageAttribution: ImageAttribution?
     let practiceSentenceIndexes: [Int]
 }
 
@@ -439,197 +457,6 @@ struct FloatingTabBar: View {
         .clipShape(Capsule())
         .overlay(Capsule().stroke(isDark ? Color.white.opacity(0.08) : Color.black.opacity(0.04), lineWidth: 1))
         .shadow(color: .black.opacity(isDark ? 0.42 : 0.18), radius: 14, x: 0, y: 8)
-    }
-}
-
-struct StoryDetailScreen: View {
-    @EnvironmentObject private var appState: AppState
-    let storyId: String
-    let isDailyPick: Bool
-    @State private var content: Content?
-    @State private var isLoading = false
-    @State private var hasError = false
-
-    var body: some View {
-        ZStack(alignment: .topLeading) {
-            if let content {
-                ScrollView {
-                    VStack(alignment: .leading, spacing: 22) {
-                        ZStack(alignment: .bottomLeading) {
-                            AsyncStoryImage(url: content.imageUrl)
-                                .frame(height: 410)
-                                .overlay(
-                                    LinearGradient(colors: [.clear, Color(hex: 0x111621, alpha: 0.94)], startPoint: .center, endPoint: .bottom)
-                                )
-                            VStack(alignment: .leading, spacing: 12) {
-                                HStack {
-                                    Badge(text: content.contentType.label)
-                                    Badge(text: content.level)
-                                    if isDailyPick {
-                                        Badge(text: "Free today", tint: Color(hex: 0xFACC15))
-                                    }
-                                }
-                                Text(content.title)
-                                    .font(.system(size: 38, weight: .bold))
-                                    .foregroundStyle(.white)
-                                Text("By \(content.author.isEmpty ? "LingoRise" : content.author)")
-                                    .font(.system(size: 14, weight: .medium))
-                                    .foregroundStyle(.white.opacity(0.8))
-                            }
-                            .padding(22)
-                        }
-                        .clipShape(RoundedRectangle(cornerRadius: 0))
-
-                        HStack(spacing: 10) {
-                            DetailStat(value: localizedDuration(content.duration), label: "Duration")
-                            DetailStat(value: "\(content.wordCount)", label: "Words")
-                            if let rating = content.rating {
-                                DetailStat(value: String(format: "%.1f", rating), label: "Rating")
-                            } else {
-                                DetailStat(value: "—", label: "Rating")
-                            }
-                        }
-                        .padding(.horizontal, 20)
-
-                        VStack(alignment: .leading, spacing: 10) {
-                            Text("Synopsis")
-                                .font(.system(size: 22, weight: .bold))
-                            Text(content.summary)
-                                .font(.system(size: 16))
-                                .foregroundStyle(.secondary)
-                                .lineSpacing(5)
-                        }
-                        .padding(.horizontal, 20)
-
-                        if !content.targetWords.isEmpty {
-                            VStack(alignment: .leading, spacing: 10) {
-                                Text("Key Vocabulary")
-                                    .font(.system(size: 22, weight: .bold))
-                                ForEach(content.targetWords.prefix(5)) { word in
-                                    KeyVocabularyItem(word: word)
-                                }
-                            }
-                            .padding(.horizontal, 20)
-                        }
-
-                        VStack(alignment: .leading, spacing: 10) {
-                            Text("About this content")
-                                .font(.system(size: 22, weight: .bold))
-                            Text("Format: \(content.contentType.label)")
-                            Text("Voice: \(content.accent.label)")
-                            if let source = content.sourceReferences.first {
-                                Text("Source: \(source.publisher)")
-                            }
-                        }
-                        .font(.system(size: 15, weight: .medium))
-                        .foregroundStyle(.secondary)
-                        .padding(.horizontal, 20)
-
-                        Button {
-                            AppAnalytics.logStartReading(storyId: content.id, storyTitle: content.title)
-                            appState.route = .reading(storyId, isDailyPick)
-                        } label: {
-                            Text("Start Reading")
-                                .font(.system(size: 17, weight: .semibold))
-                                .frame(maxWidth: .infinity)
-                                .frame(height: 56)
-                                .foregroundStyle(.white)
-                                .background(LingoRiseColors.primary)
-                                .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
-                        }
-                        .padding(.horizontal, 20)
-                        .padding(.bottom, 30)
-                    }
-                }
-                .ignoresSafeArea(edges: .top)
-            } else if isLoading {
-                ProgressView()
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-            } else {
-                MessageState(title: hasError ? "Story unavailable" : "Story not found", message: "No content available")
-            }
-
-            CircleAction(systemName: "chevron.left") {
-                appState.route = .main
-            }
-            .padding(.leading, 18)
-            .padding(.top, 54)
-        }
-        .task {
-            await load()
-        }
-    }
-
-    @MainActor
-    private func load() async {
-        if let selected = appState.selectedContent, selected.id == storyId {
-            content = selected
-            return
-        }
-        isLoading = true
-        do {
-            content = try await appState.contentService.getContent(id: storyId)
-            hasError = content == nil
-        } catch {
-            hasError = true
-        }
-        isLoading = false
-    }
-}
-
-struct Badge: View {
-    let text: String
-    var tint: Color = LingoRiseColors.primaryLight
-
-    var body: some View {
-        Text(text)
-            .font(.system(size: 12, weight: .bold))
-            .foregroundStyle(.white)
-            .padding(.horizontal, 10)
-            .padding(.vertical, 6)
-            .background(tint.opacity(0.82))
-            .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
-    }
-}
-
-struct DetailStat: View {
-    let value: String
-    let label: String
-
-    var body: some View {
-        VStack(spacing: 4) {
-            Text(value)
-                .font(.system(size: 18, weight: .bold))
-            Text(label)
-                .font(.system(size: 12, weight: .medium))
-                .foregroundStyle(.secondary)
-        }
-        .frame(maxWidth: .infinity)
-        .padding(.vertical, 14)
-        .background(Color(.secondarySystemBackground))
-        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-    }
-}
-
-struct KeyVocabularyItem: View {
-    let word: TargetWord
-
-    var body: some View {
-        HStack {
-            VStack(alignment: .leading, spacing: 3) {
-                Text(word.text)
-                    .font(.system(size: 16, weight: .bold))
-                Text(word.pronunciation)
-                    .font(.system(size: 13))
-                    .foregroundStyle(.secondary)
-            }
-            Spacer()
-            Image(systemName: "speaker.wave.2.fill")
-                .foregroundStyle(LingoRiseColors.primary)
-        }
-        .padding(14)
-        .background(Color(.secondarySystemBackground))
-        .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
     }
 }
 
@@ -1603,6 +1430,7 @@ final class ContentService {
         let category = categories[categoryId] ?? Category(id: categoryId, title: categoryId.isEmpty ? "Stories" : categoryId, symbol: "book.fill")
         let type = ContentType(rawValue: (doc.string("contentType") ?? "story").lowercased()) ?? .story
         let accent = EnglishAccent(rawValue: doc.string("accent") ?? "en-US") ?? .us
+        let newsScope = doc.string("newsScope").flatMap { NewsScope(rawValue: $0.lowercased()) }
         return Content(
             id: id,
             title: title,
@@ -1622,7 +1450,12 @@ final class ContentService {
             rating: doc.double("averageRating").flatMap { $0 > 0 ? $0 : nil },
             ratingCount: doc.int("ratingCount") ?? 0,
             accent: accent,
+            newsScope: newsScope,
+            regionCode: doc.string("regionCode") ?? "",
+            regionLabel: doc.string("regionLabel") ?? "",
+            countryCodes: doc.array("countryCodes").compactMap(\.stringValue),
             sourceReferences: doc.array("sourceReferences").compactMap(Self.sourceReference),
+            imageAttribution: doc.fields?["imageAttribution"].flatMap(Self.imageAttribution),
             practiceSentenceIndexes: []
         )
     }
@@ -1635,6 +1468,7 @@ final class ContentService {
         let category = categories[categoryId] ?? Category(id: categoryId, title: categoryId.isEmpty ? "Stories" : categoryId, symbol: "book.fill")
         let type = ContentType(rawValue: (stringValue(data["contentType"]) ?? "story").lowercased()) ?? .story
         let accent = EnglishAccent(rawValue: stringValue(data["accent"]) ?? "en-US") ?? .us
+        let newsScope = stringValue(data["newsScope"]).flatMap { NewsScope(rawValue: $0.lowercased()) }
         return Content(
             id: id,
             title: title,
@@ -1654,7 +1488,12 @@ final class ContentService {
             rating: doubleValue(data["averageRating"]).flatMap { $0 > 0 ? $0 : nil },
             ratingCount: intValue(data["ratingCount"]),
             accent: accent,
+            newsScope: newsScope,
+            regionCode: stringValue(data["regionCode"]) ?? "",
+            regionLabel: stringValue(data["regionLabel"]) ?? "",
+            countryCodes: stringArray(data["countryCodes"]),
             sourceReferences: sourceReferences(data["sourceReferences"]),
+            imageAttribution: imageAttribution(data["imageAttribution"]),
             practiceSentenceIndexes: []
         )
     }
@@ -1677,6 +1516,17 @@ final class ContentService {
             publishedAt: fields["publishedAt"]?.stringValue ?? "",
             countryCode: fields["countryCode"]?.stringValue ?? "",
             isLocal: fields["isLocal"]?.booleanValue ?? false
+        )
+    }
+
+    private static func imageAttribution(_ value: FirestoreValue) -> ImageAttribution? {
+        guard case let .mapValue(map) = value, let fields = map.fields else { return nil }
+        return ImageAttribution(
+            source: fields["source"]?.stringValue ?? "",
+            creator: fields["creator"]?.stringValue ?? "",
+            sourcePageUrl: fields["sourcePageUrl"]?.stringValue ?? "",
+            license: fields["license"]?.stringValue ?? "",
+            attribution: fields["attribution"]?.stringValue ?? ""
         )
     }
 
@@ -1704,6 +1554,21 @@ final class ContentService {
                 isLocal: boolValue(item["isLocal"]) ?? false
             )
         } ?? []
+    }
+
+    private static func imageAttribution(_ raw: Any?) -> ImageAttribution? {
+        guard let item = raw as? [String: Any] else { return nil }
+        return ImageAttribution(
+            source: stringValue(item["source"]) ?? "",
+            creator: stringValue(item["creator"]) ?? "",
+            sourcePageUrl: stringValue(item["sourcePageUrl"]) ?? "",
+            license: stringValue(item["license"]) ?? "",
+            attribution: stringValue(item["attribution"]) ?? ""
+        )
+    }
+
+    private static func stringArray(_ raw: Any?) -> [String] {
+        (raw as? [String]) ?? (raw as? [Any])?.compactMap { $0 as? String } ?? []
     }
 
     private static func stringValue(_ raw: Any?) -> String? {
@@ -1783,7 +1648,12 @@ extension Content {
             rating: rating,
             ratingCount: ratingCount,
             accent: accent,
+            newsScope: newsScope,
+            regionCode: regionCode,
+            regionLabel: regionLabel,
+            countryCodes: countryCodes,
             sourceReferences: sourceReferences,
+            imageAttribution: imageAttribution,
             practiceSentenceIndexes: practiceSentenceIndexes
         )
     }
@@ -1900,12 +1770,43 @@ struct FirestoreMap: Decodable {
 
 struct CallablePackageResponse: Decodable {
     let result: StoryPackage
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        if let package = try container.decodeIfPresent(StoryPackage.self, forKey: .result) {
+            result = package
+            return
+        }
+        if let data = try container.decodeIfPresent(StoryPackage.self, forKey: .data) {
+            result = data
+            return
+        }
+        result = try StoryPackage(from: decoder)
+    }
+
+    enum CodingKeys: String, CodingKey {
+        case result
+        case data
+    }
 }
 
 struct StoryPackage: Decodable {
     let sentences: [SentenceAudio]
     let targetWords: [TargetWord]
     let practiceSentenceIndexes: [Int]
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        sentences = try container.decodeIfPresent([SentenceAudio].self, forKey: .sentences) ?? []
+        targetWords = try container.decodeIfPresent([TargetWord].self, forKey: .targetWords) ?? []
+        practiceSentenceIndexes = try container.decodeIfPresent([Int].self, forKey: .practiceSentenceIndexes) ?? []
+    }
+
+    enum CodingKeys: String, CodingKey {
+        case sentences
+        case targetWords
+        case practiceSentenceIndexes
+    }
 }
 
 extension SentenceAudio: Decodable {
@@ -1927,7 +1828,20 @@ extension SentenceAudio: Decodable {
     }
 }
 
-extension TargetWord: Decodable {}
+extension TargetWord: Decodable {
+    enum CodingKeys: String, CodingKey {
+        case text
+        case pronunciation
+        case audioUrl
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        text = try container.decodeIfPresent(String.self, forKey: .text) ?? ""
+        pronunciation = try container.decodeIfPresent(String.self, forKey: .pronunciation) ?? ""
+        audioUrl = try container.decodeIfPresent(String.self, forKey: .audioUrl) ?? ""
+    }
+}
 
 enum SampleData {
     static let categories = [
@@ -1966,7 +1880,12 @@ enum SampleData {
             rating: 4.8,
             ratingCount: 124,
             accent: .us,
+            newsScope: nil,
+            regionCode: "",
+            regionLabel: "",
+            countryCodes: [],
             sourceReferences: [],
+            imageAttribution: nil,
             practiceSentenceIndexes: [0, 1, 2]
         ),
         Content(
@@ -1988,7 +1907,12 @@ enum SampleData {
             rating: 4.6,
             ratingCount: 89,
             accent: .uk,
+            newsScope: nil,
+            regionCode: "",
+            regionLabel: "",
+            countryCodes: [],
             sourceReferences: [],
+            imageAttribution: nil,
             practiceSentenceIndexes: [0, 1]
         ),
         Content(
@@ -2010,7 +1934,12 @@ enum SampleData {
             rating: nil,
             ratingCount: 0,
             accent: .us,
+            newsScope: .global,
+            regionCode: "",
+            regionLabel: "",
+            countryCodes: [],
             sourceReferences: [],
+            imageAttribution: nil,
             practiceSentenceIndexes: [1, 2]
         )
     ]

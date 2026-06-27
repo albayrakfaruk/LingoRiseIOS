@@ -209,3 +209,32 @@
 "home_empty_message" = "لا يوجد محتوى منشور حتى الآن. يرجى التحقق مرة أخرى قريبا.";
 "common_retry" = "أعد المحاولة";
 "premium_badge_short" = "PRO";
+
+/* Story detail */
+"cd_back" = "العودة";
+"story_start_reading" = "ابدأ القراءة";
+"story_level_format" = "المستوى %1$@";
+"story_by_author" = "بواسطة %1$@";
+"story_source_label" = "المصدر:";
+"story_synopsis" = "ملخص";
+"story_key_vocabulary" = "المفردات الرئيسية";
+"story_rating" = "التقييم";
+"story_rating_count_format" = "تقييمات %1$d";
+"story_not_rated_yet" = "لم يتم تقييمه بعد";
+"cd_play_word" = "تشغيل النطق لـ %1$@";
+"story_words" = "كلمات";
+"content_type_story" = "قصة";
+"content_type_fact" = "حقيقة سريعة";
+"content_type_article" = "مقالة";
+"content_type_news" = "أخبار";
+"error_story_not_found" = "لم يتم العثور على القصة";
+"error_story_unavailable" = "القصة غير متوفرة";
+"error_content_unavailable" = "لا يوجد محتوى متاح";
+"story_duration" = "المدة";
+"story_accent_us" = "الإنجليزية الأمريكية";
+"story_accent_uk" = "الإنجليزية البريطانية";
+"story_voice_accent_format" = "الصوت: %2$@ %1$@";
+"story_news_global" = "عالمي";
+"story_news_regional" = "إقليمي";
+"story_photo_credit_format" = "الصورة: %1$@";
+"story_sources" = "المصادر";

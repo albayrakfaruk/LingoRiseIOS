@@ -209,3 +209,32 @@
 "home_empty_message" = "Aucun contenu n’est encore publié. Revenez bientôt.";
 "common_retry" = "Réessayer";
 "premium_badge_short" = "PRO";
+
+/* Story detail */
+"cd_back" = "Retour";
+"story_start_reading" = "Commencer à lire";
+"story_level_format" = "Niveau %1$@";
+"story_by_author" = "Par %1$@";
+"story_source_label" = "Source: ";
+"story_synopsis" = "Synopsis";
+"story_key_vocabulary" = "Vocabulaire clé";
+"story_rating" = "Note";
+"story_rating_count_format" = "%1$d évaluations";
+"story_not_rated_yet" = "Pas encore évalué";
+"cd_play_word" = "Écouter la prononciation de %1$@";
+"story_words" = "Mots";
+"content_type_story" = "Histoire";
+"content_type_fact" = "Info express";
+"content_type_article" = "Article";
+"content_type_news" = "Actualité";
+"error_story_not_found" = "Histoire introuvable";
+"error_story_unavailable" = "Histoire indisponible";
+"error_content_unavailable" = "Aucun contenu disponible";
+"story_duration" = "Durée";
+"story_accent_us" = "Anglais américain";
+"story_accent_uk" = "Anglais britannique";
+"story_voice_accent_format" = "Voix : %2$@ %1$@";
+"story_news_global" = "International";
+"story_news_regional" = "Régional";
+"story_photo_credit_format" = "Photo : %1$@";
+"story_sources" = "Sources";

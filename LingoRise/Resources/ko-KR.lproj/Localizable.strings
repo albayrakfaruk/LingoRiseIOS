@@ -209,3 +209,32 @@
 "home_empty_message" = "아직 공개된 내용이 없습니다. 나중에 다시 확인해 주세요.";
 "common_retry" = "재시도";
 "premium_badge_short" = "PRO";
+
+/* Story detail */
+"cd_back" = "뒤로";
+"story_start_reading" = "읽기 시작";
+"story_level_format" = "레벨 %1$@";
+"story_by_author" = "작성자: %1$@";
+"story_source_label" = "출처:";
+"story_synopsis" = "시놉시스";
+"story_key_vocabulary" = "주요 어휘";
+"story_rating" = "등급";
+"story_rating_count_format" = "%1$d 등급";
+"story_not_rated_yet" = "아직 평가되지 않음";
+"cd_play_word" = "%1$@에 대한 발음 재생";
+"story_words" = "단어";
+"content_type_story" = "스토리";
+"content_type_fact" = "빠른 사실";
+"content_type_article" = "기사";
+"content_type_news" = "뉴스";
+"error_story_not_found" = "스토리를 찾을 수 없습니다";
+"error_story_unavailable" = "스토리를 볼 수 없음";
+"error_content_unavailable" = "사용 가능한 콘텐츠가 없습니다.";
+"story_duration" = "기간";
+"story_accent_us" = "미국 영어";
+"story_accent_uk" = "영국식 영어";
+"story_voice_accent_format" = "음성: %2$@ %1$@";
+"story_news_global" = "글로벌";
+"story_news_regional" = "지역";
+"story_photo_credit_format" = "사진: %1$@";
+"story_sources" = "출처";

@@ -163,7 +163,6 @@
 "explore_load_error_title" = "Hikayeler yüklenemedi";
 "explore_load_error_message" = "Bağlantını kontrol edip tekrar dene.";
 "explore_catalog_empty_message" = "Henüz yayınlanmış içerik yok. Lütfen daha sonra tekrar bak.";
-"story_voice_accent_format" = "Ses: %2$@ %1$@";
 "profile_title" = "Profil";
 "profile_premium_plan" = "Premium Plan";
 "profile_restore_purchase" = "Satın almayı geri yükle";
@@ -233,3 +232,32 @@
 "home_empty_message" = "Henüz yayınlanmış içerik yok. Lütfen yakında tekrar kontrol et.";
 "common_retry" = "Tekrar Dene";
 "premium_badge_short" = "PRO";
+
+/* Story detail */
+"cd_back" = "Geri";
+"story_start_reading" = "Okumaya Başla";
+"story_level_format" = "Seviye %1$@";
+"story_by_author" = "Yazar: %1$@";
+"story_source_label" = "Kaynak: ";
+"story_synopsis" = "Özet";
+"story_key_vocabulary" = "Önemli Kelimeler";
+"story_rating" = "Puan";
+"story_rating_count_format" = "%1$d değerlendirme";
+"story_not_rated_yet" = "Henüz değerlendirilmedi";
+"cd_play_word" = "%1$@ kelimesinin telaffuzunu çal";
+"story_words" = "Kelime";
+"content_type_story" = "Hikâye";
+"content_type_fact" = "Kısa bilgi";
+"content_type_article" = "Makale";
+"content_type_news" = "Haber";
+"error_story_not_found" = "Hikaye bulunamadı";
+"error_story_unavailable" = "Hikaye kullanılamıyor";
+"error_content_unavailable" = "İçerik mevcut değil";
+"story_duration" = "Süre";
+"story_accent_us" = "Amerikan İngilizcesi";
+"story_accent_uk" = "Britanya İngilizcesi";
+"story_voice_accent_format" = "Ses: %2$@ %1$@";
+"story_news_global" = "Global";
+"story_news_regional" = "Bölgesel";
+"story_photo_credit_format" = "Fotoğraf: %1$@";
+"story_sources" = "Kaynaklar";

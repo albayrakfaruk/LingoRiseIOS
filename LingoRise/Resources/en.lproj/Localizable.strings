@@ -163,7 +163,6 @@
 "explore_load_error_title" = "Couldn’t load stories";
 "explore_load_error_message" = "Check your connection and try again.";
 "explore_catalog_empty_message" = "There is no published content yet. Please check back soon.";
-"story_voice_accent_format" = "Voice: %2$@ %1$@";
 "profile_title" = "Profile";
 "profile_premium_plan" = "Premium Plan";
 "profile_restore_purchase" = "Restore purchase";
@@ -233,3 +232,32 @@
 "home_empty_message" = "There is no published content yet. Please check back soon.";
 "common_retry" = "Retry";
 "premium_badge_short" = "PRO";
+
+/* Story detail */
+"cd_back" = "Back";
+"story_start_reading" = "Start Reading";
+"story_level_format" = "Level %1$@";
+"story_by_author" = "By %1$@";
+"story_source_label" = "Source: ";
+"story_synopsis" = "Synopsis";
+"story_key_vocabulary" = "Key Vocabulary";
+"story_rating" = "Rating";
+"story_rating_count_format" = "%1$d ratings";
+"story_not_rated_yet" = "Not rated yet";
+"cd_play_word" = "Play pronunciation for %1$@";
+"story_words" = "Words";
+"content_type_story" = "Story";
+"content_type_fact" = "Quick fact";
+"content_type_article" = "Article";
+"content_type_news" = "News";
+"error_story_not_found" = "Story not found";
+"error_story_unavailable" = "Story unavailable";
+"error_content_unavailable" = "No content available";
+"story_duration" = "Duration";
+"story_accent_us" = "US English";
+"story_accent_uk" = "British English";
+"story_voice_accent_format" = "Voice: %2$@ %1$@";
+"story_news_global" = "Global";
+"story_news_regional" = "Regional";
+"story_photo_credit_format" = "Photo: %1$@";
+"story_sources" = "Sources";

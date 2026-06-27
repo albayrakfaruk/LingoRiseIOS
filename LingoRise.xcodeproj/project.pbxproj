@@ -39,6 +39,7 @@
 		0B0000010000000000000102 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0000010000000000000101 /* HomeScreen.swift */; };
 		0B0000010000000000000112 /* ExploreScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0000010000000000000111 /* ExploreScreen.swift */; };
 		0B0000010000000000000122 /* ProfileScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0000010000000000000121 /* ProfileScreen.swift */; };
+		0B0000010000000000000132 /* StoryDetailScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0000010000000000000131 /* StoryDetailScreen.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -89,6 +90,7 @@
 		0B0000010000000000000101 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
 		0B0000010000000000000111 /* ExploreScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreScreen.swift; sourceTree = "<group>"; };
 		0B0000010000000000000121 /* ProfileScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreen.swift; sourceTree = "<group>"; };
+		0B0000010000000000000131 /* StoryDetailScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryDetailScreen.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,6 +179,7 @@
 					0B0000010000000000000100 /* Home */,
 					0B0000010000000000000110 /* Explore */,
 					0B0000010000000000000120 /* Profile */,
+					0B0000010000000000000130 /* Story */,
 					0A0000010000000000000037 /* Splash */,
 					0A0000010000000000000038 /* Onboarding */,
 					0A00000100000000000000E1 /* Personalization */,
@@ -259,6 +262,14 @@
 				0B0000010000000000000121 /* ProfileScreen.swift */,
 			);
 			path = Profile;
+			sourceTree = "<group>";
+		};
+		0B0000010000000000000130 /* Story */ = {
+			isa = PBXGroup;
+			children = (
+				0B0000010000000000000131 /* StoryDetailScreen.swift */,
+			);
+			path = Story;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -378,6 +389,7 @@
 				0B0000010000000000000102 /* HomeScreen.swift in Sources */,
 				0B0000010000000000000112 /* ExploreScreen.swift in Sources */,
 				0B0000010000000000000122 /* ProfileScreen.swift in Sources */,
+				0B0000010000000000000132 /* StoryDetailScreen.swift in Sources */,
 				0A0000010000000000000001 /* LingoRiseApp.swift in Sources */,
 				0A000001000000000000000C /* LingoRiseColors.swift in Sources */,
 				0A000001000000000000000D /* LexendFont.swift in Sources */,
