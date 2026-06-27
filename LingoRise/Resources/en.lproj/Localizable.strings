@@ -284,3 +284,27 @@
 "cd_replay" = "Replay";
 "cd_play" = "Play";
 "cd_pause" = "Pause";
+
+/* Practice */
+"common_continue" = "Continue";
+"practice_listening_title" = "Listening Practice";
+"practice_mode" = "Practice mode";
+"practice_listen_build_title" = "Listen and build the sentence";
+"practice_listen_build_subtitle" = "Play the audio, then tap the words in the order you hear them.";
+"practice_speed_normal" = "1x";
+"practice_speed_slow" = "0.75x";
+"practice_tap_words_hint" = "Tap the words below to build the sentence.";
+"practice_check" = "Check";
+"practice_finish" = "Finish";
+"practice_correct_title" = "Nice work";
+"practice_try_again_title" = "Try again";
+"practice_select_all_words" = "Use every word before checking your answer.";
+"practice_listening_correct" = "You caught the full sentence.";
+"practice_listening_incorrect" = "Almost. Listen again and rebuild the sentence.";
+"practice_not_ready_title" = "Practice is not ready yet";
+"practice_not_ready_message" = "This content does not have short audio sentences for practice yet.";
+"practice_completed_title" = "Practice Completed!";
+"practice_completed_message" = "Great work! You are one step closer to fluency.";
+"practice_done" = "Explore Stories";
+"reading_rate_story" = "RATE THIS STORY";
+"error_audio_unavailable" = "Audio unavailable";

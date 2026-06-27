@@ -42,6 +42,8 @@
 		0B0000010000000000000122 /* ProfileScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0000010000000000000121 /* ProfileScreen.swift */; };
 		0B0000010000000000000132 /* StoryDetailScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0000010000000000000131 /* StoryDetailScreen.swift */; };
 		0B0000010000000000000142 /* ReadingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0000010000000000000141 /* ReadingScreen.swift */; };
+		0B0000010000000000000152 /* PracticeRecordingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0000010000000000000151 /* PracticeRecordingScreen.swift */; };
+		0B0000010000000000000162 /* StoryRatingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0000010000000000000161 /* StoryRatingService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -94,6 +96,8 @@
 		0B0000010000000000000121 /* ProfileScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreen.swift; sourceTree = "<group>"; };
 		0B0000010000000000000131 /* StoryDetailScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryDetailScreen.swift; sourceTree = "<group>"; };
 		0B0000010000000000000141 /* ReadingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingScreen.swift; sourceTree = "<group>"; };
+		0B0000010000000000000151 /* PracticeRecordingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeRecordingScreen.swift; sourceTree = "<group>"; };
+		0B0000010000000000000161 /* StoryRatingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryRatingService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -184,6 +188,7 @@
 					0B0000010000000000000110 /* Explore */,
 					0B0000010000000000000120 /* Profile */,
 					0B0000010000000000000130 /* Story */,
+					0B0000010000000000000150 /* Practice */,
 					0A0000010000000000000037 /* Splash */,
 					0A0000010000000000000038 /* Onboarding */,
 					0A00000100000000000000E1 /* Personalization */,
@@ -240,6 +245,7 @@
 					0A00000100000000000000B5 /* AppPreferences.swift */,
 					0A00000100000000000000B6 /* AppRemoteConfig.swift */,
 					0A00000100000000000000B7 /* AppSubscriptionService.swift */,
+					0B0000010000000000000161 /* StoryRatingService.swift */,
 				);
 				path = Services;
 				sourceTree = "<group>";
@@ -275,6 +281,14 @@
 				0B0000010000000000000141 /* ReadingScreen.swift */,
 			);
 			path = Story;
+			sourceTree = "<group>";
+		};
+		0B0000010000000000000150 /* Practice */ = {
+			isa = PBXGroup;
+			children = (
+				0B0000010000000000000151 /* PracticeRecordingScreen.swift */,
+			);
+			path = Practice;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -397,6 +411,8 @@
 				0B0000010000000000000122 /* ProfileScreen.swift in Sources */,
 				0B0000010000000000000132 /* StoryDetailScreen.swift in Sources */,
 				0B0000010000000000000142 /* ReadingScreen.swift in Sources */,
+				0B0000010000000000000152 /* PracticeRecordingScreen.swift in Sources */,
+				0B0000010000000000000162 /* StoryRatingService.swift in Sources */,
 				0A0000010000000000000001 /* LingoRiseApp.swift in Sources */,
 				0A000001000000000000000C /* LingoRiseColors.swift in Sources */,
 				0A000001000000000000000D /* LexendFont.swift in Sources */,

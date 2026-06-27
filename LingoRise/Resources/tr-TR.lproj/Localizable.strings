@@ -247,6 +247,30 @@
 "reading_completed_title" = "Hikâye tamamlandı";
 "reading_completed_message" = "Dinlemeyi bitirdin. Şimdi kısa bir konuşma alıştırmasıyla telaffuzunu güçlendir.";
 "reading_practice_now" = "Şimdi pratik yap";
+
+/* Practice */
+"common_continue" = "Devam Et";
+"practice_listening_title" = "Dinleme Pratiği";
+"practice_mode" = "Pratik modu";
+"practice_listen_build_title" = "Dinle ve cümleyi kur";
+"practice_listen_build_subtitle" = "Sesi çal, sonra duyduğun kelimelere sırayla dokun.";
+"practice_speed_normal" = "1x";
+"practice_speed_slow" = "0.75x";
+"practice_tap_words_hint" = "Cümleyi kurmak için aşağıdaki kelimelere dokun.";
+"practice_check" = "Kontrol Et";
+"practice_finish" = "Bitir";
+"practice_correct_title" = "Çok iyi";
+"practice_try_again_title" = "Tekrar dene";
+"practice_select_all_words" = "Cevabını kontrol etmeden önce tüm kelimeleri kullan.";
+"practice_listening_correct" = "Cümlenin tamamını yakaladın.";
+"practice_listening_incorrect" = "Neredeyse. Tekrar dinle ve cümleyi yeniden kur.";
+"practice_not_ready_title" = "Pratik henüz hazır değil";
+"practice_not_ready_message" = "Bu içerikte pratik için kısa sesli cümleler henüz yok.";
+"practice_completed_title" = "Pratik Tamamlandı!";
+"practice_completed_message" = "Harika iş! Akıcılığa bir adım daha yaklaştın.";
+"practice_done" = "Hikayeleri Keşfet";
+"reading_rate_story" = "BU HIKAYEYI PUANLA";
+"error_audio_unavailable" = "Ses kullanılamıyor";
 "reading_sentence_time" = "Cümle %1$d · %2$@ / %3$@";
 "reading_audio_retry" = "Ses yüklenemedi. Tekrar dene";
 "reading_btn_prev" = "Geri 10 sn";
