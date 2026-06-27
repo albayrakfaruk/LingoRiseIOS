@@ -56,7 +56,11 @@
 "paywall_price_per_year" = "/年";
 "paywall_cta_subscribe" = "サブスクリプションを開始する";
 "personalization_transition_title" = "さあ、学習計画を立てましょう";
-"personalization_transition_subtitle" = "4 つの簡単な質問に答えてください";
+"personalization_transition_subtitle" = "5つの質問に答えてください";
+"personalization_name_eyebrow" = "名前";
+"personalization_name_title" = "何とお呼びすればよいですか？";
+"personalization_name_subtitle" = "あなたの名前を使って、プランをよりパーソナルにします。";
+"personalization_name_placeholder" = "お名前";
 "personalization_continue" = "続ける";
 "personalization_goal_eyebrow" = "目標";
 "personalization_goal_title" = "何があなたをここに連れてきたのですか？";
@@ -202,6 +206,7 @@
 "nav_explore" = "探検する";
 "nav_profile" = "プロフィール";
 "home_hi_there" = "こんにちは👋";
+"home_hi_name" = "こんにちは、%@ 👋";
 "home_tagline" = "小さな練習。大きな進歩。";
 "home_today_pick" = "今日のおすすめ";
 "home_free_today" = "本日無料";

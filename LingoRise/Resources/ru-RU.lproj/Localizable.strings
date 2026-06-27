@@ -56,7 +56,11 @@
 "paywall_price_per_year" = "/ год";
 "paywall_cta_subscribe" = "Начать подписку";
 "personalization_transition_title" = "Теперь давайте составим ваш план обучения";
-"personalization_transition_subtitle" = "Ответьте на 4 простых вопроса";
+"personalization_transition_subtitle" = "Ответьте на 5 коротких вопросов";
+"personalization_name_eyebrow" = "Имя";
+"personalization_name_title" = "Как к вам обращаться?";
+"personalization_name_subtitle" = "Мы будем использовать ваше имя, чтобы сделать план более личным.";
+"personalization_name_placeholder" = "Ваше имя";
 "personalization_continue" = "Продолжить";
 "personalization_goal_eyebrow" = "Цель";
 "personalization_goal_title" = "Что привело вас сюда?";
@@ -202,6 +206,7 @@
 "nav_explore" = "Исследуйте";
 "nav_profile" = "Профиль";
 "home_hi_there" = "Привет 👋";
+"home_hi_name" = "Привет, %@ 👋";
 "home_tagline" = "Маленькая практика. Большой прогресс.";
 "home_today_pick" = "Сегодняшний выбор";
 "home_free_today" = "Сегодня бесплатно";

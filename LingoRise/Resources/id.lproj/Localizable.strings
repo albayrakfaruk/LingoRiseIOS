@@ -56,7 +56,11 @@
 "paywall_price_per_year" = "/ tahun";
 "paywall_cta_subscribe" = "Mulai berlangganan";
 "personalization_transition_title" = "Sekarang mari buat rencana pembelajaran Anda";
-"personalization_transition_subtitle" = "Jawab 4 pertanyaan cepat";
+"personalization_transition_subtitle" = "Jawab 5 pertanyaan singkat";
+"personalization_name_eyebrow" = "Nama";
+"personalization_name_title" = "Kami harus memanggilmu apa?";
+"personalization_name_subtitle" = "Kami akan menggunakan namamu agar rencanamu terasa lebih personal.";
+"personalization_name_placeholder" = "Namamu";
 "personalization_continue" = "Lanjutkan";
 "personalization_goal_eyebrow" = "Tujuan";
 "personalization_goal_title" = "Apa yang membawamu ke sini?";
@@ -202,6 +206,7 @@
 "nav_explore" = "Jelajahi";
 "nav_profile" = "Profil";
 "home_hi_there" = "Halo 👋";
+"home_hi_name" = "Hai, %@ 👋";
 "home_tagline" = "Latihan kecil. Kemajuan besar.";
 "home_today_pick" = "Pilihan hari ini";
 "home_free_today" = "Gratis hari ini";

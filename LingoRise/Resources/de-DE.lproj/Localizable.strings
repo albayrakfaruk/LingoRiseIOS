@@ -56,7 +56,11 @@
 "paywall_price_per_year" = "/ Jahr";
 "paywall_cta_subscribe" = "Abonnement starten";
 "personalization_transition_title" = "Lassen Sie uns nun Ihren Lernplan erstellen";
-"personalization_transition_subtitle" = "Beantworten Sie 4 kurze Fragen";
+"personalization_transition_subtitle" = "Beantworte 5 kurze Fragen";
+"personalization_name_eyebrow" = "Name";
+"personalization_name_title" = "Wie sollen wir dich nennen?";
+"personalization_name_subtitle" = "Wir nutzen deinen Namen, damit sich dein Plan persönlicher anfühlt.";
+"personalization_name_placeholder" = "Dein Name";
 "personalization_continue" = "Weiter";
 "personalization_goal_eyebrow" = "Ziel";
 "personalization_goal_title" = "Was führt dich hierher?";
@@ -202,6 +206,7 @@
 "nav_explore" = "Entdecken";
 "nav_profile" = "Profil";
 "home_hi_there" = "Hallo 👋";
+"home_hi_name" = "Hallo, %@ 👋";
 "home_tagline" = "Kleine Praxis. Großer Fortschritt.";
 "home_today_pick" = "Die heutige Wahl";
 "home_free_today" = "Heute kostenlos";

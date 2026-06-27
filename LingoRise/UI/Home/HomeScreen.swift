@@ -67,6 +67,7 @@ final class HomeModel: ObservableObject {
 struct HomeScreen: View {
     @EnvironmentObject private var appState: AppState
     @Environment(\.colorScheme) private var colorScheme
+    @AppStorage("personalization_display_name") private var displayName = ""
     @ObservedObject var model: HomeModel
     let onShowCategory: (Category) -> Void
 
@@ -88,7 +89,7 @@ struct HomeScreen: View {
                             .lineLimit(1)
                             .truncationMode(.tail)
                             .foregroundStyle(palette.onSurfaceVariant)
-                        Text(L10n.t("home_hi_there"))
+                        Text(greetingText())
                             .font(LexendFont.font(32, weight: .bold))
                             .lineLimit(1)
                             .minimumScaleFactor(0.82)
@@ -158,6 +159,12 @@ struct HomeScreen: View {
         formatter.timeStyle = .none
         formatter.locale = Locale(identifier: AppLocalization.localeIdentifier(for: appState.appLanguage))
         return formatter.string(from: Date())
+    }
+
+    private func greetingText() -> String {
+        let name = displayName.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !name.isEmpty else { return L10n.t("home_hi_there") }
+        return L10n.format("home_hi_name", name)
     }
 }
 

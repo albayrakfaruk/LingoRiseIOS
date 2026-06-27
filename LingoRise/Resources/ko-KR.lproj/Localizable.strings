@@ -56,7 +56,11 @@
 "paywall_price_per_year" = "/년";
 "paywall_cta_subscribe" = "구독 시작";
 "personalization_transition_title" = "이제 학습 계획을 세워 봅시다";
-"personalization_transition_subtitle" = "간단한 질문 4개에 답하세요";
+"personalization_transition_subtitle" = "간단한 질문 5개에 답하세요";
+"personalization_name_eyebrow" = "이름";
+"personalization_name_title" = "무엇이라고 불러드릴까요?";
+"personalization_name_subtitle" = "이름을 사용해 학습 계획을 더 개인화합니다.";
+"personalization_name_placeholder" = "이름";
 "personalization_continue" = "계속";
 "personalization_goal_eyebrow" = "목표";
 "personalization_goal_title" = "무슨 일로 여기까지 왔나요?";
@@ -202,6 +206,7 @@
 "nav_explore" = "탐색";
 "nav_profile" = "프로필";
 "home_hi_there" = "안녕하세요 👋";
+"home_hi_name" = "안녕하세요, %@ 👋";
 "home_tagline" = "작은 연습. 큰 진전.";
 "home_today_pick" = "오늘의 픽";
 "home_free_today" = "오늘 무료";

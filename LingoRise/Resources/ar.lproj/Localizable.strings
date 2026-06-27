@@ -56,7 +56,11 @@
 "paywall_price_per_year" = "/ سنة";
 "paywall_cta_subscribe" = "ابدأ الاشتراك";
 "personalization_transition_title" = "الآن دعونا نبني خطة التعلم الخاصة بك";
-"personalization_transition_subtitle" = "أجب عن 4 أسئلة سريعة";
+"personalization_transition_subtitle" = "أجب عن 5 أسئلة سريعة";
+"personalization_name_eyebrow" = "الاسم";
+"personalization_name_title" = "ماذا نادِيك؟";
+"personalization_name_subtitle" = "سنستخدم اسمك لجعل خطتك أكثر شخصية.";
+"personalization_name_placeholder" = "اسمك";
 "personalization_continue" = "متابعة";
 "personalization_goal_eyebrow" = "هدف";
 "personalization_goal_title" = "ما الذي أتى بك إلى هنا؟";
@@ -202,6 +206,7 @@
 "nav_explore" = "استكشاف";
 "nav_profile" = "الملف الشخصي";
 "home_hi_there" = "مرحبًا 👋";
+"home_hi_name" = "مرحبًا، %@ 👋";
 "home_tagline" = "ممارسة صغيرة. تقدم كبير.";
 "home_today_pick" = "اختيار اليوم";
 "home_free_today" = "مجاني اليوم";

@@ -56,7 +56,11 @@
 "paywall_price_per_year" = "/ year";
 "paywall_cta_subscribe" = "Start subscription";
 "personalization_transition_title" = "Now let’s build your learning plan";
-"personalization_transition_subtitle" = "Answer 4 quick questions";
+"personalization_transition_subtitle" = "Answer 5 quick questions";
+"personalization_name_eyebrow" = "Name";
+"personalization_name_title" = "What should we call you?";
+"personalization_name_subtitle" = "We'll use your name to make your plan feel personal.";
+"personalization_name_placeholder" = "Your name";
 "personalization_continue" = "Continue";
 "personalization_goal_eyebrow" = "Goal";
 "personalization_goal_title" = "What brings you here?";
@@ -225,6 +229,7 @@
 "nav_explore" = "Explore";
 "nav_profile" = "Profile";
 "home_hi_there" = "Hi there 👋";
+"home_hi_name" = "Hi, %@ 👋";
 "home_tagline" = "Small practice. Big progress.";
 "home_today_pick" = "Today’s pick";
 "home_free_today" = "Free today";

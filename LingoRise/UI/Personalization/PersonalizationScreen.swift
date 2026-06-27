@@ -1,6 +1,6 @@
 import SwiftUI
 
-private let totalQuestionSteps = 4
+private let totalQuestionSteps = 5
 
 enum LearningGoal: String, CaseIterable {
     case speakConfidently
@@ -193,7 +193,10 @@ struct PersonalizationScreen: View {
     @AppStorage("personalization_level") private var savedLevel = ""
     @AppStorage("personalization_commitment") private var savedCommitment = ""
     @AppStorage("personalization_motivations") private var savedMotivations = ""
+    @AppStorage("personalization_display_name") private var savedDisplayName = ""
+    @AppStorage("personalization_flow_version") private var savedFlowVersion = 1
     @State private var step = 0
+    @State private var displayName = ""
     @State private var goal: LearningGoal?
     @State private var level: LearningLevel?
     @State private var commitment: DailyCommitment?
@@ -234,14 +237,16 @@ struct PersonalizationScreen: View {
                         case 0:
                             TransitionStep(palette: palette)
                         case 1:
-                            GoalStep(selected: $goal, palette: palette)
+                            NameStep(name: $displayName, palette: palette)
                         case 2:
-                            LevelStep(selected: $level, palette: palette)
+                            GoalStep(selected: $goal, palette: palette)
                         case 3:
-                            CommitmentStep(selected: $commitment, palette: palette)
+                            LevelStep(selected: $level, palette: palette)
                         case 4:
-                            MotivationStep(selected: $motivations, palette: palette)
+                            CommitmentStep(selected: $commitment, palette: palette)
                         case 5:
+                            MotivationStep(selected: $motivations, palette: palette)
+                        case 6:
                             GeneratingStep(generatedItems: generatedItems, palette: palette)
                         default:
                             ResultStep(
@@ -259,7 +264,7 @@ struct PersonalizationScreen: View {
                     ))
                     .animation(.easeInOut(duration: 0.22), value: step)
 
-                    if step != 5 {
+                    if step != 6 {
                         Spacer().frame(height: 4)
                         PrimaryCtaButton(
                             title: L10n.t("personalization_continue"),
@@ -274,6 +279,14 @@ struct PersonalizationScreen: View {
             }
         }
         .onAppear(perform: restoreState)
+        .onChange(of: displayName) { _, newValue in
+            let sanitized = sanitizedDisplayName(newValue)
+            if sanitized != newValue {
+                displayName = sanitized
+                return
+            }
+            persistState()
+        }
         .onChange(of: goal) { _, newValue in
             persistState()
             guard restoredState, let newValue else { return }
@@ -305,11 +318,12 @@ struct PersonalizationScreen: View {
     private var canContinue: Bool {
         switch step {
         case 0: return true
-        case 1: return goal != nil
-        case 2: return level != nil
-        case 3: return commitment != nil
-        case 4: return !motivations.isEmpty
-        case 6: return true
+        case 1: return !displayName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        case 2: return goal != nil
+        case 3: return level != nil
+        case 4: return commitment != nil
+        case 5: return !motivations.isEmpty
+        case 7: return true
         default: return false
         }
     }
@@ -320,11 +334,14 @@ struct PersonalizationScreen: View {
         lastContinueAt = now
 
         switch step {
-        case 0...3:
+        case 0...4:
+            if step == 1 {
+                AppAnalytics.logPersonalizationAnswer(question: "display_name", answer: "provided")
+            }
             moveToStep(step + 1)
-        case 4:
+        case 5:
             startPlanGeneration()
-        case 6:
+        case 7:
             persistState()
             AppAnalytics.logPersonalizationComplete(
                 goal: goal?.analyticsKey,
@@ -352,12 +369,12 @@ struct PersonalizationScreen: View {
     }
 
     private func startPlanGeneration() {
-        moveToStep(5)
+        moveToStep(6)
         generatedItems = 0
         generationTask?.cancel()
         generationTask = Task {
             for index in 1...4 {
-                try? await Task.sleep(nanoseconds: 850_000_000)
+                try? await Task.sleep(nanoseconds: 520_000_000)
                 guard !Task.isCancelled else { return }
                 await MainActor.run {
                     withAnimation(.easeInOut(duration: 0.22)) {
@@ -365,17 +382,23 @@ struct PersonalizationScreen: View {
                     }
                 }
             }
-            try? await Task.sleep(nanoseconds: 520_000_000)
+            try? await Task.sleep(nanoseconds: 420_000_000)
             guard !Task.isCancelled else { return }
             await MainActor.run {
-                moveToStep(6)
+                moveToStep(7)
             }
         }
     }
 
     private func restoreState() {
-        let restoredStep = min(max(savedStep, 0), 6)
-        step = restoredStep == 5 ? 4 : restoredStep
+        if savedFlowVersion < 2 {
+            savedStep = savedStep > 0 ? min(savedStep + 1, 7) : savedStep
+            savedFlowVersion = 2
+        }
+
+        let restoredStep = min(max(savedStep, 0), 7)
+        step = restoredStep == 6 ? 5 : restoredStep
+        displayName = sanitizedDisplayName(savedDisplayName)
         goal = LearningGoal(rawValue: savedGoal)
         level = LearningLevel(rawValue: savedLevel)
         commitment = DailyCommitment(rawValue: savedCommitment)
@@ -386,6 +409,7 @@ struct PersonalizationScreen: View {
 
     private func persistState() {
         savedStep = step
+        savedDisplayName = sanitizedDisplayName(displayName)
         savedGoal = goal?.rawValue ?? ""
         savedLevel = level?.rawValue ?? ""
         savedCommitment = commitment?.rawValue ?? ""
@@ -394,14 +418,19 @@ struct PersonalizationScreen: View {
 
     private func stepName(_ step: Int) -> String {
         switch step {
-        case 1: return "goal"
-        case 2: return "current_level"
-        case 3: return "daily_commitment"
-        case 4: return "motivation"
-        case 5: return "generating_plan"
-        case 6: return "personalized_result"
+        case 1: return "display_name"
+        case 2: return "goal"
+        case 3: return "current_level"
+        case 4: return "daily_commitment"
+        case 5: return "motivation"
+        case 6: return "generating_plan"
+        case 7: return "personalized_result"
         default: return "transition"
         }
+    }
+
+    private func sanitizedDisplayName(_ value: String) -> String {
+        String(value.replacingOccurrences(of: "\n", with: " ").prefix(32))
     }
 }
 
@@ -415,7 +444,8 @@ private struct PersonalizationProgress: View {
         case 1: return 1
         case 2: return 2
         case 3: return 3
-        case 4, 5, 6: return 4
+        case 4: return 4
+        case 5, 6, 7: return 5
         default: return 0
         }
     }
@@ -455,6 +485,44 @@ private struct TransitionStep: View {
                 Spacer(minLength: 96)
             }
             .frame(maxWidth: .infinity)
+        }
+    }
+}
+
+private struct NameStep: View {
+    @Binding var name: String
+    let palette: PersonalizationPalette
+    @FocusState private var isFocused: Bool
+
+    var body: some View {
+        QuestionShell(
+            eyebrow: L10n.t("personalization_name_eyebrow"),
+            title: L10n.t("personalization_name_title"),
+            subtitle: L10n.t("personalization_name_subtitle"),
+            palette: palette,
+            topSpacing: 62
+        ) {
+            VStack(spacing: 14) {
+                PersonalizationCircleIcon(symbol: "person.fill", size: 64, iconSize: 28)
+                    .frame(maxWidth: .infinity)
+
+                TextField(L10n.t("personalization_name_placeholder"), text: $name)
+                    .font(LexendFont.font(18, weight: .semibold))
+                    .foregroundStyle(palette.onSurface)
+                    .textInputAutocapitalization(.words)
+                    .autocorrectionDisabled()
+                    .submitLabel(.next)
+                    .focused($isFocused)
+                    .padding(.horizontal, 18)
+                    .frame(height: 58)
+                    .background(palette.surface)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 18, style: .continuous)
+                            .stroke(isFocused ? LingoRiseColors.primary : palette.outlineVariant, lineWidth: isFocused ? 1.6 : 1)
+                    )
+                    .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
+            }
+            .padding(.top, 8)
         }
     }
 }

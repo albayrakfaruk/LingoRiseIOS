@@ -56,7 +56,11 @@
 "paywall_price_per_year" = "/ anno";
 "paywall_cta_subscribe" = "Abbonati Ora";
 "personalization_transition_title" = "Ora creiamo il tuo piano di apprendimento";
-"personalization_transition_subtitle" = "Rispondi a 4 domande rapide";
+"personalization_transition_subtitle" = "Rispondi a 5 domande rapide";
+"personalization_name_eyebrow" = "Nome";
+"personalization_name_title" = "Come dovremmo chiamarti?";
+"personalization_name_subtitle" = "Useremo il tuo nome per rendere il piano più personale.";
+"personalization_name_placeholder" = "Il tuo nome";
 "personalization_continue" = "Continua";
 "personalization_goal_eyebrow" = "Obiettivo";
 "personalization_goal_title" = "Cosa ti porta qui?";
@@ -202,6 +206,7 @@
 "nav_explore" = "Esplora";
 "nav_profile" = "Profilo";
 "home_hi_there" = "Ciao 👋";
+"home_hi_name" = "Ciao, %@ 👋";
 "home_tagline" = "Piccola pratica. Grandi progressi.";
 "home_today_pick" = "Scelta di oggi";
 "home_free_today" = "Gratis oggi";

@@ -56,7 +56,11 @@
 "paywall_price_per_year" = "/ yıl";
 "paywall_cta_subscribe" = "Şimdi Abone Ol";
 "personalization_transition_title" = "Şimdi öğrenme planını oluşturalım";
-"personalization_transition_subtitle" = "4 hızlı soruyu yanıtla";
+"personalization_transition_subtitle" = "5 hızlı soruyu yanıtla";
+"personalization_name_eyebrow" = "İsim";
+"personalization_name_title" = "Sana nasıl hitap edelim?";
+"personalization_name_subtitle" = "Planını ve ana sayfanı daha kişisel göstermek için kullanacağız.";
+"personalization_name_placeholder" = "Adın";
 "personalization_continue" = "Devam et";
 "personalization_goal_eyebrow" = "Hedef";
 "personalization_goal_title" = "Buraya gelme sebebin ne?";
@@ -202,6 +206,7 @@
 "nav_explore" = "Keşfet";
 "nav_profile" = "Profil";
 "home_hi_there" = "Merhaba 👋";
+"home_hi_name" = "Merhaba, %@ 👋";
 "home_tagline" = "Küçük pratik. Büyük ilerleme.";
 "home_today_pick" = "Günün seçimi";
 "home_free_today" = "Bugün ücretsiz";

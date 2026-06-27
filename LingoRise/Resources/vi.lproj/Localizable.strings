@@ -56,7 +56,11 @@
 "paywall_price_per_year" = "/ năm";
 "paywall_cta_subscribe" = "Bắt đầu đăng ký";
 "personalization_transition_title" = "Bây giờ hãy xây dựng kế hoạch học tập của bạn";
-"personalization_transition_subtitle" = "Trả lời 4 câu hỏi nhanh";
+"personalization_transition_subtitle" = "Trả lời 5 câu hỏi nhanh";
+"personalization_name_eyebrow" = "Tên";
+"personalization_name_title" = "Chúng tôi nên gọi bạn là gì?";
+"personalization_name_subtitle" = "Chúng tôi sẽ dùng tên của bạn để cá nhân hóa kế hoạch.";
+"personalization_name_placeholder" = "Tên của bạn";
 "personalization_continue" = "Tiếp tục";
 "personalization_goal_eyebrow" = "Mục tiêu";
 "personalization_goal_title" = "Điều gì đưa bạn đến đây?";
@@ -202,6 +206,7 @@
 "nav_explore" = "Khám phá";
 "nav_profile" = "Hồ sơ";
 "home_hi_there" = "Xin chào 👋";
+"home_hi_name" = "Xin chào, %@ 👋";
 "home_tagline" = "Thực hành nhỏ. Tiến bộ lớn.";
 "home_today_pick" = "Lựa chọn hôm nay";
 "home_free_today" = "Miễn phí hôm nay";
