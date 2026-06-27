@@ -238,3 +238,26 @@
 "story_news_regional" = "地域別";
 "story_photo_credit_format" = "写真：%1$@";
 "story_sources" = "情報源";
+
+/* Reading */
+"common_error" = "エラー";
+"error_something_went_wrong" = "何か問題が発生しました";
+"reading_mode" = "読書モード";
+"reading_chapter_title" = "第 1 章: %1$@";
+"reading_completed_title" = "ストーリーが完了しました";
+"reading_completed_message" = "聞き終わりました。短いスピーキングドリルで発音を強化しましょう。";
+"reading_practice_now" = "今すぐ練習してください";
+"reading_sentence_time" = "文%1$d・%2$@・%3$@";
+"reading_audio_retry" = "音声を読み込めませんでした。もう一度試してください";
+"reading_btn_prev" = "バック 10 秒";
+"reading_btn_next" = "10秒進む";
+"cd_text_settings" = "テキスト設定";
+"cd_replay_10s" = "10秒をリプレイ";
+"cd_forward_10s" = "10秒進む";
+"cd_go_to_practice" = "練習に行く";
+"cd_chapters" = "章";
+"cd_home" = "ホーム";
+"cd_close" = "閉じる";
+"cd_replay" = "リプレイ";
+"cd_play" = "遊ぶ";
+"cd_pause" = "一時停止";

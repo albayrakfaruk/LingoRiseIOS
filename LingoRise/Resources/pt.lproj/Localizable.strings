@@ -238,3 +238,26 @@
 "story_news_regional" = "Regional";
 "story_photo_credit_format" = "Foto: %1$@";
 "story_sources" = "Fontes";
+
+/* Reading */
+"common_error" = "Erro";
+"error_something_went_wrong" = "Algo deu errado";
+"reading_mode" = "Modo leitura";
+"reading_chapter_title" = "Capítulo 1: %1$@";
+"reading_completed_title" = "História concluída";
+"reading_completed_message" = "Você terminou de ouvir. Agora fortaleça sua pronúncia com um breve exercício de fala.";
+"reading_practice_now" = "Praticar agora";
+"reading_sentence_time" = "Frase %1$d · %2$@ / %3$@";
+"reading_audio_retry" = "Não foi possível carregar o áudio. Tentar novamente";
+"reading_btn_prev" = "Voltar 10 s";
+"reading_btn_next" = "Avançar 10 s";
+"cd_text_settings" = "Configurações de texto";
+"cd_replay_10s" = "Replay 10 s";
+"cd_forward_10s" = "Avançar 10 s";
+"cd_go_to_practice" = "Ir para prática";
+"cd_chapters" = "Capítulos";
+"cd_home" = "Início";
+"cd_close" = "Fechar";
+"cd_replay" = "Repetir";
+"cd_play" = "Reproduzir";
+"cd_pause" = "Pausar";

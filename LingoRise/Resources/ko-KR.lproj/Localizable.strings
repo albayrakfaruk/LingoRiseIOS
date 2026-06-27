@@ -238,3 +238,26 @@
 "story_news_regional" = "지역";
 "story_photo_credit_format" = "사진: %1$@";
 "story_sources" = "출처";
+
+/* Reading */
+"common_error" = "오류";
+"error_something_went_wrong" = "문제가 발생했습니다.";
+"reading_mode" = "읽기 모드";
+"reading_chapter_title" = "1장: %1$@";
+"reading_completed_title" = "스토리 완료";
+"reading_completed_message" = "듣기를 마쳤습니다. 이제 짧은 말하기 훈련으로 발음을 강화해보세요.";
+"reading_practice_now" = "지금 연습하세요";
+"reading_sentence_time" = "문장 %1$d · %2$@ / %3$@";
+"reading_audio_retry" = "오디오를 로드할 수 없습니다. 다시 시도하세요";
+"reading_btn_prev" = "10대 후반";
+"reading_btn_next" = "10초 앞으로";
+"cd_text_settings" = "텍스트 설정";
+"cd_replay_10s" = "10초 재생";
+"cd_forward_10s" = "10초 앞으로";
+"cd_go_to_practice" = "연습하러 가세요";
+"cd_chapters" = "장";
+"cd_home" = "홈";
+"cd_close" = "닫기";
+"cd_replay" = "재생";
+"cd_play" = "플레이";
+"cd_pause" = "일시중지";

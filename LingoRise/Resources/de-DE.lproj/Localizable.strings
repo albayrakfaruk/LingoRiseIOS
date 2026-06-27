@@ -238,3 +238,26 @@
 "story_news_regional" = "Regional";
 "story_photo_credit_format" = "Foto: %1$@";
 "story_sources" = "Quellen";
+
+/* Reading */
+"common_error" = "Fehler";
+"error_something_went_wrong" = "Etwas ist schief gelaufen";
+"reading_mode" = "Lesemodus";
+"reading_chapter_title" = "Kapitel 1: %1$@";
+"reading_completed_title" = "Geschichte abgeschlossen";
+"reading_completed_message" = "Du hast zu Ende zugehört. Stärken Sie nun Ihre Aussprache mit einer kurzen Sprechübung.";
+"reading_practice_now" = "Übe jetzt";
+"reading_sentence_time" = "Satz %1$d · %2$@ / %3$@";
+"reading_audio_retry" = "Audio konnte nicht geladen werden. Versuchen Sie es erneut";
+"reading_btn_prev" = "Zurück 10s";
+"reading_btn_next" = "10 Sekunden vorwärts";
+"cd_text_settings" = "Texteinstellungen";
+"cd_replay_10s" = "Wiederholen Sie 10 Sekunden";
+"cd_forward_10s" = "10 Sekunden vorwärts";
+"cd_go_to_practice" = "Geh zum Üben";
+"cd_chapters" = "Kapitel";
+"cd_home" = "Zuhause";
+"cd_close" = "Schließen";
+"cd_replay" = "Wiederholung";
+"cd_play" = "Spielen";
+"cd_pause" = "Pause";

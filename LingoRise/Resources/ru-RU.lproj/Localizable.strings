@@ -238,3 +238,26 @@
 "story_news_regional" = "Региональный";
 "story_photo_credit_format" = "Фото: %1$@";
 "story_sources" = "Источники";
+
+/* Reading */
+"common_error" = "Ошибка";
+"error_something_went_wrong" = "Что-то пошло не так";
+"reading_mode" = "Режим чтения";
+"reading_chapter_title" = "Глава 1: %1$@";
+"reading_completed_title" = "История завершена";
+"reading_completed_message" = "Вы закончили слушать. Теперь укрепите свое произношение с помощью короткого упражнения на разговорную речь.";
+"reading_practice_now" = "Практикуйтесь сейчас";
+"reading_sentence_time" = "Предложение %1$d · %2$@ / %3$@";
+"reading_audio_retry" = "Не удалось загрузить аудио. Попробуйте еще раз";
+"reading_btn_prev" = "Назад 10 секунд";
+"reading_btn_next" = "Вперед 10 с";
+"cd_text_settings" = "Настройки текста";
+"cd_replay_10s" = "Повтор 10 секунд";
+"cd_forward_10s" = "Вперед 10 с";
+"cd_go_to_practice" = "Перейти на практику";
+"cd_chapters" = "Главы";
+"cd_home" = "Главная";
+"cd_close" = "Закрыть";
+"cd_replay" = "Повтор";
+"cd_play" = "Играть";
+"cd_pause" = "Пауза";

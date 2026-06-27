@@ -238,3 +238,26 @@
 "story_news_regional" = "إقليمي";
 "story_photo_credit_format" = "الصورة: %1$@";
 "story_sources" = "المصادر";
+
+/* Reading */
+"common_error" = "خطأ";
+"error_something_went_wrong" = "حدث خطأ ما";
+"reading_mode" = "وضع القراءة";
+"reading_chapter_title" = "الفصل 1: %1$@";
+"reading_completed_title" = "اكتملت القصة";
+"reading_completed_message" = "لقد انتهيت من الاستماع. الآن قم بتعزيز نطقك من خلال تمرين التحدث القصير.";
+"reading_practice_now" = "تدرب الآن";
+"reading_sentence_time" = "الجملة %1$d · %2$@ / %3$@";
+"reading_audio_retry" = "تعذر تحميل الصوت. حاول مرة أخرى";
+"reading_btn_prev" = "العودة 10S";
+"reading_btn_next" = "إلى الأمام 10S";
+"cd_text_settings" = "إعدادات النص";
+"cd_replay_10s" = "إعادة 10S";
+"cd_forward_10s" = "إلى الأمام 10S";
+"cd_go_to_practice" = "اذهب إلى الممارسة";
+"cd_chapters" = "فصول";
+"cd_home" = "الصفحة الرئيسية";
+"cd_close" = "إغلاق";
+"cd_replay" = "إعادة التشغيل";
+"cd_play" = "العب";
+"cd_pause" = "وقفة";

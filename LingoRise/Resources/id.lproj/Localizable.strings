@@ -238,3 +238,26 @@
 "story_news_regional" = "Daerah";
 "story_photo_credit_format" = "Foto: %1$@";
 "story_sources" = "Sumber";
+
+/* Reading */
+"common_error" = "Kesalahan";
+"error_something_went_wrong" = "Ada yang tidak beres";
+"reading_mode" = "Modus Membaca";
+"reading_chapter_title" = "Bab 1: %1$@";
+"reading_completed_title" = "Cerita selesai";
+"reading_completed_message" = "Anda selesai mendengarkan. Sekarang perkuat pengucapan Anda dengan latihan berbicara singkat.";
+"reading_practice_now" = "Berlatihlah sekarang";
+"reading_sentence_time" = "Kalimat %1$d · %2$@ / %3$@";
+"reading_audio_retry" = "Audio tidak dapat dimuat. Coba lagi";
+"reading_btn_prev" = "Kembali 10 detik";
+"reading_btn_next" = "Maju 10 detik";
+"cd_text_settings" = "Pengaturan teks";
+"cd_replay_10s" = "Putar ulang 10 detik";
+"cd_forward_10s" = "Maju 10 detik";
+"cd_go_to_practice" = "Pergi berlatih";
+"cd_chapters" = "bab";
+"cd_home" = "Rumah";
+"cd_close" = "Tutup";
+"cd_replay" = "Putar ulang";
+"cd_play" = "Mainkan";
+"cd_pause" = "Jeda";

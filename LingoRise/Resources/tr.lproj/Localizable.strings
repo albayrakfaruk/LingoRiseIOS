@@ -261,3 +261,26 @@
 "story_news_regional" = "Bölgesel";
 "story_photo_credit_format" = "Fotoğraf: %1$@";
 "story_sources" = "Kaynaklar";
+
+/* Reading */
+"common_error" = "Hata";
+"error_something_went_wrong" = "Bir şeyler yanlış gitti";
+"reading_mode" = "Okuma Modu";
+"reading_chapter_title" = "Bölüm 1: %1$@";
+"reading_completed_title" = "Hikâye tamamlandı";
+"reading_completed_message" = "Dinlemeyi bitirdin. Şimdi kısa bir konuşma alıştırmasıyla telaffuzunu güçlendir.";
+"reading_practice_now" = "Şimdi pratik yap";
+"reading_sentence_time" = "Cümle %1$d · %2$@ / %3$@";
+"reading_audio_retry" = "Ses yüklenemedi. Tekrar dene";
+"reading_btn_prev" = "Geri 10 sn";
+"reading_btn_next" = "İleri 10 sn";
+"cd_text_settings" = "Metin ayarları";
+"cd_replay_10s" = "10 sn geri sar";
+"cd_forward_10s" = "10 sn ileri sar";
+"cd_go_to_practice" = "Pratik yap";
+"cd_chapters" = "Bölümler";
+"cd_home" = "Ana Sayfa";
+"cd_close" = "Kapat";
+"cd_replay" = "Tekrarla";
+"cd_play" = "Oynat";
+"cd_pause" = "Duraklat";

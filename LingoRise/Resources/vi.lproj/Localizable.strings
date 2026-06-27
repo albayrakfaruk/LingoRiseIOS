@@ -238,3 +238,26 @@
 "story_news_regional" = "Khu vực";
 "story_photo_credit_format" = "Ảnh: %1$@";
 "story_sources" = "Nguồn";
+
+/* Reading */
+"common_error" = "Lỗi";
+"error_something_went_wrong" = "Đã xảy ra lỗi";
+"reading_mode" = "Chế độ đọc";
+"reading_chapter_title" = "Chương 1: %1$@";
+"reading_completed_title" = "Truyện đã hoàn thành";
+"reading_completed_message" = "Bạn đã nghe xong. Bây giờ hãy củng cố khả năng phát âm của bạn bằng một bài luyện nói ngắn.";
+"reading_practice_now" = "Thực hành ngay bây giờ";
+"reading_sentence_time" = "Câu %1$d · %2$@ / %3$@";
+"reading_audio_retry" = "Không thể tải âm thanh. Thử lại";
+"reading_btn_prev" = "Quay lại 10 giây";
+"reading_btn_next" = "Chuyển tiếp 10 giây";
+"cd_text_settings" = "Cài đặt văn bản";
+"cd_replay_10s" = "Phát lại 10 giây";
+"cd_forward_10s" = "Chuyển tiếp 10 giây";
+"cd_go_to_practice" = "Đi tập";
+"cd_chapters" = "chương";
+"cd_home" = "Trang chủ";
+"cd_close" = "Đóng";
+"cd_replay" = "Phát lại";
+"cd_play" = "Chơi";
+"cd_pause" = "Tạm dừng";

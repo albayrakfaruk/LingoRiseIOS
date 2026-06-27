@@ -5,6 +5,9 @@ import SwiftUI
 import FirebaseCore
 import FirebaseFirestore
 #endif
+#if canImport(FirebaseFunctions)
+import FirebaseFunctions
+#endif
 
 @main
 struct LingoRiseApp: App {
@@ -460,222 +463,6 @@ struct FloatingTabBar: View {
     }
 }
 
-struct ReadingScreen: View {
-    @EnvironmentObject private var appState: AppState
-    let storyId: String
-    let isDailyPick: Bool
-    @State private var content: Content?
-    @State private var currentIndex = 0
-    @State private var isPlaying = false
-    @State private var speed: Double = 1
-
-    var body: some View {
-        ZStack(alignment: .bottom) {
-            VStack(spacing: 0) {
-                ReadingHeader(title: content?.title ?? "Reading Mode") {
-                    appState.route = .storyDetail(storyId, isDailyPick)
-                }
-                ScrollViewReader { proxy in
-                    ScrollView {
-                        VStack(alignment: .leading, spacing: 18) {
-                            if let content {
-                                Text("Chapter 1: \(content.title)")
-                                    .font(.system(size: 24, weight: .bold))
-                                    .padding(.bottom, 10)
-                                ForEach(Array(content.sentences.enumerated()), id: \.offset) { index, sentence in
-                                    Text(sentence.text)
-                                        .font(.system(size: index == currentIndex ? 22 : 20, weight: index == currentIndex ? .semibold : .regular))
-                                        .lineSpacing(8)
-                                        .foregroundStyle(index == currentIndex ? LingoRiseColors.primary : .primary)
-                                        .id(index)
-                                        .onTapGesture {
-                                            currentIndex = index
-                                        }
-                                }
-                            } else {
-                                ProgressView()
-                                    .frame(maxWidth: .infinity)
-                                    .padding(.top, 120)
-                            }
-                        }
-                        .padding(.horizontal, 22)
-                        .padding(.top, 20)
-                        .padding(.bottom, 170)
-                    }
-                    .onChange(of: currentIndex) { _, newValue in
-                        withAnimation {
-                            proxy.scrollTo(newValue, anchor: .center)
-                        }
-                    }
-                }
-            }
-            if let content {
-                ReadingAudioDock(
-                    content: content,
-                    currentIndex: $currentIndex,
-                    isPlaying: $isPlaying,
-                    speed: $speed
-                ) {
-                    if AppRemoteConfig.shared.isPracticePaywallEnabled && !appState.isPremium {
-                        appState.route = .paywall(source: .practice)
-                    } else {
-                        appState.route = .practice(storyId, isDailyPick)
-                    }
-                }
-                .padding(.horizontal, 16)
-                .padding(.bottom, 18)
-            }
-        }
-        .task { await loadPackage() }
-    }
-
-    @MainActor
-    private func loadPackage() async {
-        if content != nil { return }
-        do {
-            let package = try await appState.contentService.getStoryPackage(id: storyId)
-            content = package
-            appState.storyPackage = package
-        } catch {
-            content = appState.selectedContent
-        }
-    }
-}
-
-struct ReadingHeader: View {
-    let title: String
-    let onBack: () -> Void
-
-    var body: some View {
-        HStack {
-            Button(action: onBack) {
-                Image(systemName: "chevron.left")
-                    .frame(width: 42, height: 42)
-                    .background(Color(.secondarySystemBackground))
-                    .clipShape(Circle())
-            }
-            VStack(alignment: .leading, spacing: 2) {
-                Text("Reading Mode")
-                    .font(.system(size: 12, weight: .bold))
-                    .foregroundStyle(.secondary)
-                Text(title)
-                    .font(.system(size: 16, weight: .bold))
-                    .lineLimit(1)
-            }
-            Spacer()
-        }
-        .foregroundStyle(.primary)
-        .padding(.horizontal, 16)
-        .padding(.top, 10)
-        .padding(.bottom, 10)
-    }
-}
-
-struct ReadingAudioDock: View {
-    let content: Content
-    @Binding var currentIndex: Int
-    @Binding var isPlaying: Bool
-    @Binding var speed: Double
-    let onPractice: () -> Void
-    @State private var didLogCompletion = false
-
-    var body: some View {
-        VStack(spacing: 12) {
-            HStack {
-                Text("Sentence \(min(currentIndex + 1, content.sentences.count)) · \(formatTime(currentSentence.durationMs)) / \(formatTime(totalDuration))")
-                    .font(.system(size: 12, weight: .semibold))
-                    .foregroundStyle(.secondary)
-                Spacer()
-                Button("\(speedLabel)") {
-                    speed = speed == 1 ? 0.75 : speed == 0.75 ? 1.25 : 1
-                    AppAnalytics.logReadingPlaybackSpeed(storyId: content.id, speed: speed)
-                }
-                .font(.system(size: 12, weight: .bold))
-                .foregroundStyle(LingoRiseColors.primary)
-            }
-            Slider(value: Binding(get: {
-                Double(currentIndex)
-            }, set: { value in
-                let nextIndex = min(max(Int(value.rounded()), 0), max(content.sentences.count - 1, 0))
-                if nextIndex != currentIndex {
-                    currentIndex = nextIndex
-                    let denominator = Double(max(content.sentences.count - 1, 1))
-                    AppAnalytics.logReadingSeek(storyId: content.id, progress: Double(nextIndex) / denominator)
-                }
-            }), in: 0...Double(max(content.sentences.count - 1, 0)))
-            HStack(spacing: 18) {
-                Button {
-                    currentIndex = max(0, currentIndex - 1)
-                    AppAnalytics.logReadingReplayForward(storyId: content.id, action: "replay_10")
-                } label: {
-                    Image(systemName: "gobackward.10")
-                }
-                Button {
-                    isPlaying.toggle()
-                    if isPlaying {
-                        Task {
-                            try? await Task.sleep(nanoseconds: 900_000_000)
-                            await MainActor.run {
-                                if currentIndex < content.sentences.count - 1 {
-                                    currentIndex += 1
-                                } else {
-                                    isPlaying = false
-                                    if !didLogCompletion {
-                                        didLogCompletion = true
-                                        AppAnalytics.logReadingComplete(storyId: content.id, storyTitle: content.title)
-                                    }
-                                }
-                            }
-                        }
-                    }
-                } label: {
-                    Image(systemName: isPlaying ? "pause.fill" : "play.fill")
-                        .font(.system(size: 24, weight: .bold))
-                        .foregroundStyle(.white)
-                        .frame(width: 58, height: 58)
-                        .background(LingoRiseColors.primary)
-                        .clipShape(Circle())
-                }
-                Button {
-                    currentIndex = min(content.sentences.count - 1, currentIndex + 1)
-                    AppAnalytics.logReadingReplayForward(storyId: content.id, action: "forward_10")
-                } label: {
-                    Image(systemName: "goforward.10")
-                }
-                Spacer()
-                Button(action: onPractice) {
-                    Image(systemName: "mic.fill")
-                        .foregroundStyle(.white)
-                        .frame(width: 46, height: 46)
-                        .background(Color(hex: 0x22C55E))
-                        .clipShape(Circle())
-                }
-            }
-            .font(.system(size: 22, weight: .semibold))
-            .foregroundStyle(.primary)
-        }
-        .padding(16)
-        .background(.regularMaterial)
-        .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
-        .shadow(color: .black.opacity(0.18), radius: 16, x: 0, y: 8)
-    }
-
-    private var currentSentence: SentenceAudio {
-        guard !content.sentences.isEmpty else {
-            return SentenceAudio(index: 0, text: "", audioUrl: "", durationMs: 0, pronunciation: "")
-        }
-        return content.sentences[min(currentIndex, content.sentences.count - 1)]
-    }
-
-    private var totalDuration: Int {
-        content.sentences.reduce(0) { $0 + $1.durationMs }
-    }
-
-    private var speedLabel: String {
-        speed == 1 ? "1x" : speed == 0.75 ? "0.75x" : "1.25x"
-    }
-}
-
 struct PracticeScreen: View {
     @EnvironmentObject private var appState: AppState
     let storyId: String
@@ -1067,12 +854,19 @@ func voiceLabel(_ accent: EnglishAccent) -> String {
 
 func formatTime(_ ms: Int) -> String {
     let totalSeconds = max(ms / 1000, 0)
-    return "\(totalSeconds / 60):\(String(format: "%02d", totalSeconds % 60))"
+    return String(format: "%02d:%02d", totalSeconds / 60, totalSeconds % 60)
+}
+
+@MainActor
+enum ContentServiceError: Error {
+    case storyNotFound
+    case packageFailed(statusCode: Int, body: String)
 }
 
 @MainActor
 final class ContentService {
     private let projectId = "lingorise-d8497"
+    private let functionsRegion = "europe-west1"
     private let session: URLSession
     private var categoryCache: [Category]?
     private var catalogCache: [Content]?
@@ -1327,7 +1121,9 @@ final class ContentService {
     }
 
     func getStoryPackage(id: String) async throws -> Content {
-        let metadata = try await getContent(id: id) ?? SampleData.contents[0]
+        guard let metadata = try await getContent(id: id) else {
+            throw ContentServiceError.storyNotFound
+        }
         do {
             let package = try await callContentPackage(id: id)
             return metadata.withPackage(
@@ -1336,9 +1132,7 @@ final class ContentService {
                 practiceSentenceIndexes: package.practiceSentenceIndexes
             )
         } catch {
-            if metadata.sentences.isEmpty {
-                return metadata.withPackage(sentences: SampleData.sentences, targetWords: metadata.targetWords, practiceSentenceIndexes: [0, 1, 2])
-            }
+            debugLog("content_package_failed", error)
             return metadata
         }
     }
@@ -1400,12 +1194,25 @@ final class ContentService {
     }
 
     private func callContentPackage(id: String) async throws -> StoryPackage {
-        let url = URL(string: "https://us-central1-\(projectId).cloudfunctions.net/getContentPackage")!
+        #if canImport(FirebaseFunctions)
+        if FirebaseApp.app() != nil {
+            let result = try await Functions.functions(region: functionsRegion)
+                .httpsCallable("getContentPackage")
+                .call(["contentId": id])
+            let data = try JSONSerialization.data(withJSONObject: result.data)
+            return try JSONDecoder().decode(StoryPackage.self, from: data)
+        }
+        #endif
+
+        let url = URL(string: "https://\(functionsRegion)-\(projectId).cloudfunctions.net/getContentPackage")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = try JSONSerialization.data(withJSONObject: ["data": ["contentId": id]])
-        let (data, _) = try await session.data(for: request)
+        let (data, response) = try await session.data(for: request)
+        if let httpResponse = response as? HTTPURLResponse, !(200...299).contains(httpResponse.statusCode) {
+            throw ContentServiceError.packageFailed(statusCode: httpResponse.statusCode, body: String(data: data, encoding: .utf8) ?? "")
+        }
         let decoded = try JSONDecoder().decode(CallablePackageResponse.self, from: data)
         return decoded.result
     }
