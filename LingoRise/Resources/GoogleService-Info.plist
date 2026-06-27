@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyCchL5HW2IGtt_Uc8tNx0P03PYV_z7g42U</string>
+	<key>GCM_SENDER_ID</key>
+	<string>417204425923</string>
+	<key>PROJECT_ID</key>
+	<string>lingorise-d8497</string>
+	<key>STORAGE_BUCKET</key>
+	<string>lingorise-d8497.firebasestorage.app</string>
+</dict>
+</plist>
+
