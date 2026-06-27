@@ -873,59 +873,95 @@ private struct ReadingCompletedOverlay: View {
     var body: some View {
         ZStack {
             palette.background.ignoresSafeArea()
+            GeometryReader { proxy in
+                RadialGradient(
+                    colors: [LingoRiseColors.primary.opacity(0.12), .clear],
+                    center: .center,
+                    startRadius: 0,
+                    endRadius: 130
+                )
+                .frame(width: 260, height: 260)
+                .position(x: proxy.size.width + 80, y: -80)
+
+                RadialGradient(
+                    colors: [LingoRiseColors.primary.opacity(0.10), .clear],
+                    center: .center,
+                    startRadius: 0,
+                    endRadius: 130
+                )
+                .frame(width: 260, height: 260)
+                .position(x: -80, y: proxy.size.height + 80)
+            }
+            .allowsHitTesting(false)
+
             VStack(spacing: 0) {
                 HStack {
-                    CircleButton(systemName: "house.fill", action: onHome)
+                    CircleButton(systemName: "house.fill", palette: palette, action: onHome)
                     Spacer()
-                    CircleButton(systemName: "xmark", action: onClose)
+                    CircleButton(systemName: "xmark", palette: palette, action: onClose)
                 }
-                .padding(.top, 12)
+                .padding(.top, 20)
                 .padding(.bottom, 24)
 
-                Spacer()
+                VStack(spacing: 0) {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 28, style: .continuous)
+                            .fill(palette.surface)
+                            .overlay(RoundedRectangle(cornerRadius: 28, style: .continuous).stroke(palette.outlineVariant, lineWidth: 1))
+                            .aspectRatio(4 / 3, contentMode: .fit)
+                        Circle().fill(LingoRiseColors.primary.opacity(0.12)).frame(width: 180, height: 180)
+                        Circle().fill(LinearGradient(colors: [LingoRiseColors.primary, Color(hex: 0x3B82F6)], startPoint: .topLeading, endPoint: .bottomTrailing)).frame(width: 132, height: 132)
+                        Image(systemName: "headphones")
+                            .font(.system(size: 58, weight: .bold))
+                            .foregroundStyle(.white)
+                        Image(systemName: "star.fill")
+                            .font(.system(size: 32))
+                            .foregroundStyle(Color(hex: 0xFACC15))
+                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
+                            .offset(x: -12, y: 8)
+                        Image(systemName: "star.fill")
+                            .font(.system(size: 26))
+                            .foregroundStyle(Color(hex: 0xFACC15))
+                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
+                            .offset(x: 8, y: -12)
+                        Image(systemName: "music.note")
+                            .font(.system(size: 22, weight: .semibold))
+                            .foregroundStyle(LingoRiseColors.primary.opacity(0.6))
+                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+                            .offset(x: -32, y: -8)
+                    }
+                    .frame(maxWidth: 360)
 
-                ZStack {
-                    RoundedRectangle(cornerRadius: 28, style: .continuous)
-                        .fill(palette.surface)
-                        .overlay(RoundedRectangle(cornerRadius: 28, style: .continuous).stroke(palette.outlineVariant, lineWidth: 1))
-                        .aspectRatio(4 / 3, contentMode: .fit)
-                    Circle().fill(LingoRiseColors.primary.opacity(0.12)).frame(width: 180, height: 180)
-                    Circle().fill(LinearGradient(colors: [LingoRiseColors.primary, Color(hex: 0x3B82F6)], startPoint: .topLeading, endPoint: .bottomTrailing)).frame(width: 132, height: 132)
-                    Image(systemName: "headphones")
-                        .font(.system(size: 58, weight: .bold))
-                        .foregroundStyle(.white)
-                    Image(systemName: "star.fill")
-                        .font(.system(size: 32))
-                        .foregroundStyle(Color(hex: 0xFACC15))
-                        .offset(x: 140, y: -95)
-                    Image(systemName: "star.fill")
-                        .font(.system(size: 26))
-                        .foregroundStyle(Color(hex: 0xFACC15))
-                        .offset(x: -140, y: 95)
+                    Text(L10n.t("reading_completed_title"))
+                        .font(LexendFont.font(28, weight: .bold))
+                        .foregroundStyle(palette.onBackground)
+                        .padding(.top, 32)
+                    Text(L10n.t("reading_completed_message"))
+                        .font(LexendFont.font(15))
+                        .foregroundStyle(palette.onSurfaceVariant)
+                        .multilineTextAlignment(.center)
+                        .padding(.top, 8)
                 }
-                .frame(maxWidth: 360)
-
-                Text(L10n.t("reading_completed_title"))
-                    .font(LexendFont.font(28, weight: .bold))
-                    .foregroundStyle(palette.onBackground)
-                    .padding(.top, 32)
-                Text(L10n.t("reading_completed_message"))
-                    .font(LexendFont.font(15))
-                    .foregroundStyle(palette.onSurfaceVariant)
-                    .multilineTextAlignment(.center)
-                    .padding(.top, 8)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
 
                 Spacer()
 
                 Button(action: onPractice) {
-                    Label(L10n.t("reading_practice_now"), systemImage: "mic.fill")
-                        .font(LexendFont.font(16, weight: .semibold))
-                        .foregroundStyle(.white)
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 56)
-                        .background(LingoRiseColors.primary)
-                        .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
+                    HStack(spacing: 8) {
+                        Image(systemName: "mic.fill")
+                            .font(.system(size: 22, weight: .semibold))
+                        Text(L10n.t("reading_practice_now"))
+                            .font(LexendFont.font(16, weight: .semibold))
+                    }
+                    .foregroundStyle(.white)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 16)
+                    .padding(.horizontal, 20)
+                    .background(LingoRiseColors.primary)
+                    .clipShape(RoundedRectangle(cornerRadius: 28, style: .continuous))
                 }
+                .frame(maxWidth: 480)
+                .padding(.top, 16)
                 .padding(.bottom, 24)
             }
             .padding(.horizontal, 24)
@@ -935,6 +971,7 @@ private struct ReadingCompletedOverlay: View {
 
 private struct CircleButton: View {
     let systemName: String
+    let palette: ReadingPalette
     let action: () -> Void
 
     var body: some View {
@@ -942,10 +979,10 @@ private struct CircleButton: View {
             Image(systemName: systemName)
                 .font(.system(size: 17, weight: .bold))
                 .frame(width: 40, height: 40)
-                .background(Color(.secondarySystemBackground))
+                .background(palette.surfaceVariant)
                 .clipShape(Circle())
         }
-        .foregroundStyle(.secondary)
+        .foregroundStyle(palette.onSurfaceVariant)
     }
 }
 
