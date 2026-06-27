@@ -1,4 +1,5 @@
 import AVFoundation
+import Combine
 import SwiftUI
 
 #if canImport(FirebaseFirestore)
@@ -36,10 +37,17 @@ final class AppState: ObservableObject {
     @Published var storyPackage: Content?
     @Published var isPremium = false
     let contentService = ContentService()
+    private var cancellables = Set<AnyCancellable>()
 
     init() {
         LexendFont.register()
         AppServices.configure()
+        AppSubscriptionService.shared.$isPremium
+            .removeDuplicates()
+            .sink { [weak self] value in
+                self?.isPremium = value
+            }
+            .store(in: &cancellables)
         route = .boot
     }
 
@@ -109,6 +117,16 @@ final class AppState: ObservableObject {
         selectedContent = content
         storyPackage = nil
         route = .storyDetail(content.id, dailyPick)
+    }
+
+    func updateCurrentRating(storyId: String, averageRating: Double, ratingCount: Int) {
+        contentService.updateCurrentRating(storyId: storyId, averageRating: averageRating, ratingCount: ratingCount)
+        if selectedContent?.id == storyId {
+            selectedContent = selectedContent?.withRating(averageRating: averageRating, ratingCount: ratingCount)
+        }
+        if storyPackage?.id == storyId {
+            storyPackage = storyPackage?.withRating(averageRating: averageRating, ratingCount: ratingCount)
+        }
     }
 }
 
@@ -894,6 +912,14 @@ final class ContentService {
         }
     }
 
+    func updateCurrentRating(storyId: String, averageRating: Double, ratingCount: Int) {
+        catalogCache = catalogCache?.map { content in
+            content.id == storyId
+                ? content.withRating(averageRating: averageRating, ratingCount: ratingCount)
+                : content
+        }
+    }
+
     #if canImport(FirebaseFirestore)
     private func fetchFirestoreCategories() async throws -> [Category] {
         let snapshot = try await Firestore.firestore()
@@ -1210,6 +1236,36 @@ extension Content {
             targetWords: targetWords,
             contentType: contentType,
             rating: rating,
+            ratingCount: ratingCount,
+            accent: accent,
+            newsScope: newsScope,
+            regionCode: regionCode,
+            regionLabel: regionLabel,
+            countryCodes: countryCodes,
+            sourceReferences: sourceReferences,
+            imageAttribution: imageAttribution,
+            practiceSentenceIndexes: practiceSentenceIndexes
+        )
+    }
+
+    func withRating(averageRating: Double, ratingCount: Int) -> Content {
+        Content(
+            id: id,
+            title: title,
+            author: author,
+            summary: summary,
+            category: category,
+            level: level,
+            duration: duration,
+            imageUrl: imageUrl,
+            durationMs: durationMs,
+            sentences: sentences,
+            isPremium: isPremium,
+            createdAt: createdAt,
+            wordCount: wordCount,
+            targetWords: targetWords,
+            contentType: contentType,
+            rating: averageRating,
             ratingCount: ratingCount,
             accent: accent,
             newsScope: newsScope,

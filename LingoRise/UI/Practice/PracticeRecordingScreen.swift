@@ -60,8 +60,8 @@ final class PracticeRecordingModel: ObservableObject {
     @Published var selectedRating = 0
 
     private let storyId: String
-    private let contentService: ContentService
     private let ratingService: StoryRatingService
+    private var contentService: ContentService?
     private var practiceItems: [ListeningPuzzle] = []
     private var storyLevel: String?
     private var sessions: [Int: PracticeSessionState] = [:]
@@ -73,11 +73,9 @@ final class PracticeRecordingModel: ObservableObject {
 
     init(
         storyId: String,
-        contentService: ContentService,
         ratingService: StoryRatingService = StoryRatingService()
     ) {
         self.storyId = storyId
-        self.contentService = contentService
         self.ratingService = ratingService
     }
 
@@ -93,15 +91,20 @@ final class PracticeRecordingModel: ObservableObject {
         answerStatus == .correct
     }
 
-    func load() async {
+    func load(cachedPackage: Content?, service: ContentService) async {
         guard !loaded else { return }
         loaded = true
+        contentService = service
         sessions.removeAll()
         isLoading = true
         errorMessage = nil
         hasNoItems = false
         do {
-            let story = try await contentService.getStoryPackage(id: storyId)
+            let story = if let cachedPackage, cachedPackage.id == storyId {
+                cachedPackage
+            } else {
+                try await service.getStoryPackage(id: storyId)
+            }
             let items = selectListeningPuzzleSentences(
                 sentences: story.sentences,
                 preferredIndexes: story.practiceSentenceIndexes,
@@ -134,8 +137,9 @@ final class PracticeRecordingModel: ObservableObject {
     }
 
     func retry() async {
+        guard let contentService else { return }
         loaded = false
-        await load()
+        await load(cachedPackage: nil, service: contentService)
     }
 
     func selectPuzzleToken(_ segmentId: Int) {
@@ -239,7 +243,11 @@ final class PracticeRecordingModel: ObservableObject {
         showCompletionDialog = false
     }
 
-    func rateStory(_ rating: Int, requestReview: @escaping () -> Void) {
+    func rateStory(
+        _ rating: Int,
+        requestReview: @escaping () -> Void,
+        onRatingUpdated: @escaping (_ averageRating: Double, _ ratingCount: Int) -> Void
+    ) {
         guard ratingTask == nil else { return }
         let normalized = min(max(rating, 1), 5)
         selectedRating = normalized
@@ -247,8 +255,14 @@ final class PracticeRecordingModel: ObservableObject {
             guard let self else { return }
             defer { self.ratingTask = nil }
             do {
-                _ = try await ratingService.rateStory(storyId: storyId, rating: normalized)
+                let result = try await ratingService.rateStory(storyId: storyId, rating: normalized)
                 AppAnalytics.logStoryRating(storyId: storyId, rating: normalized)
+                contentService?.updateCurrentRating(
+                    storyId: storyId,
+                    averageRating: result.averageRating,
+                    ratingCount: result.ratingCount
+                )
+                onRatingUpdated(result.averageRating, result.ratingCount)
                 if normalized >= 4 {
                     requestReview()
                 }
@@ -322,7 +336,7 @@ struct PracticeScreen: View {
         self.storyId = storyId
         self.isDailyPick = isDailyPick
         self.hasPracticeAccess = hasPracticeAccess
-        _model = StateObject(wrappedValue: PracticeRecordingModel(storyId: storyId, contentService: ContentService()))
+        _model = StateObject(wrappedValue: PracticeRecordingModel(storyId: storyId))
     }
 
     var body: some View {
@@ -357,6 +371,12 @@ struct PracticeScreen: View {
                     onRate: { rating in
                         model.rateStory(rating) {
                             requestReview()
+                        } onRatingUpdated: { averageRating, ratingCount in
+                            appState.updateCurrentRating(
+                                storyId: storyId,
+                                averageRating: averageRating,
+                                ratingCount: ratingCount
+                            )
                         }
                     },
                     onFinish: {
@@ -369,7 +389,7 @@ struct PracticeScreen: View {
             }
         }
         .task {
-            await model.load()
+            await model.load(cachedPackage: appState.storyPackage, service: appState.contentService)
         }
         .onChange(of: model.audioUrl) { _, audioUrl in
             audio.prepare(audioUrl: audioUrl)
