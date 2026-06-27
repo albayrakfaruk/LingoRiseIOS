@@ -300,7 +300,11 @@ struct RootView: View {
             case let .reading(storyId, dailyPick):
                 ReadingScreen(storyId: storyId, isDailyPick: dailyPick)
             case let .practice(storyId, dailyPick):
-                PracticeScreen(storyId: storyId, isDailyPick: dailyPick)
+                PracticeScreen(
+                    storyId: storyId,
+                    isDailyPick: dailyPick,
+                    hasPracticeAccess: appState.isPremium || !AppRemoteConfig.shared.isPracticePaywallEnabled
+                )
             case let .paywall(source):
                 PaywallScreen(source: source)
             }

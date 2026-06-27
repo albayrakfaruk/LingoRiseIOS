@@ -316,10 +316,12 @@ struct PracticeScreen: View {
 
     let storyId: String
     let isDailyPick: Bool
+    let hasPracticeAccess: Bool
 
-    init(storyId: String, isDailyPick: Bool) {
+    init(storyId: String, isDailyPick: Bool, hasPracticeAccess: Bool) {
         self.storyId = storyId
         self.isDailyPick = isDailyPick
+        self.hasPracticeAccess = hasPracticeAccess
         _model = StateObject(wrappedValue: PracticeRecordingModel(storyId: storyId, contentService: ContentService()))
     }
 
@@ -386,7 +388,7 @@ struct PracticeScreen: View {
     }
 
     private func listen() {
-        guard appState.isPremium else {
+        guard hasPracticeAccess else {
             appState.route = .paywall(source: .practice)
             return
         }
@@ -400,7 +402,7 @@ struct PracticeScreen: View {
     }
 
     private func checkAnswer() {
-        guard appState.isPremium else {
+        guard hasPracticeAccess else {
             appState.route = .paywall(source: .practice)
             return
         }
@@ -1495,6 +1497,6 @@ private extension Array {
 }
 
 #Preview("Practice") {
-    PracticeScreen(storyId: "preview", isDailyPick: false)
+    PracticeScreen(storyId: "preview", isDailyPick: false, hasPracticeAccess: true)
         .environmentObject(AppState())
 }
