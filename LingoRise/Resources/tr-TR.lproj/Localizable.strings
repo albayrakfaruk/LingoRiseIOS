@@ -252,6 +252,7 @@
 "common_continue" = "Devam Et";
 "practice_listening_title" = "Dinleme Pratiği";
 "practice_mode" = "Pratik modu";
+"practice_index_format" = "%1$d / %2$d";
 "practice_listen_build_title" = "Dinle ve cümleyi kur";
 "practice_listen_build_subtitle" = "Sesi çal, sonra duyduğun kelimelere sırayla dokun.";
 "practice_speed_normal" = "1x";

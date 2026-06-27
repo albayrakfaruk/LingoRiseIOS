@@ -536,7 +536,8 @@ private struct PracticeBody: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(.horizontal, 20)
-        .padding(.vertical, 18)
+        .padding(.top, 8)
+        .padding(.bottom, 14)
     }
 }
 
@@ -584,7 +585,7 @@ private struct ListeningPuzzleCard: View {
                 onListen: onListen,
                 onSpeedSelected: onSpeedSelected
             )
-            .padding(.top, 24)
+            .padding(.top, 20)
 
             PuzzleAnswerArea(
                 correctSegments: item.segments,
@@ -593,7 +594,7 @@ private struct ListeningPuzzleCard: View {
                 palette: palette,
                 onRemovePuzzleToken: onRemovePuzzleToken
             )
-            .padding(.top, 22)
+            .padding(.top, 18)
 
             PracticeFlowLayout(spacing: 8, rowSpacing: 10) {
                 ForEach(shuffledSegments) { segment in
@@ -611,7 +612,7 @@ private struct ListeningPuzzleCard: View {
                 }
             }
             .frame(maxWidth: .infinity)
-            .padding(.top, 22)
+            .padding(.top, 18)
 
             PracticeFeedback(
                 answerStatus: answerStatus,
@@ -620,7 +621,7 @@ private struct ListeningPuzzleCard: View {
                 palette: palette
             )
         }
-        .padding(22)
+        .padding(20)
         .frame(maxWidth: .infinity)
         .background(palette.surface)
         .clipShape(RoundedRectangle(cornerRadius: 28, style: .continuous))
@@ -664,7 +665,7 @@ private struct PuzzleAnswerArea: View {
             }
         }
         .frame(maxWidth: .infinity)
-        .padding(14)
+                .padding(12)
         .background(palette.surfaceVariant.opacity(0.55))
         .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
         .overlay(RoundedRectangle(cornerRadius: 20, style: .continuous).stroke(borderColor, lineWidth: 1))
@@ -775,7 +776,7 @@ private struct PuzzleTokenChip: View {
     var body: some View {
         Button(action: onClick) {
             Text(text)
-                .font(LexendFont.font(17, weight: .semibold))
+                .font(LexendFont.font(16, weight: .semibold))
                 .foregroundStyle(textColor)
                 .lineLimit(2)
                 .fixedSize(horizontal: false, vertical: true)
@@ -899,7 +900,7 @@ private struct PracticeHeader: View {
         }
         .padding(.horizontal, 16)
         .padding(.top, 12)
-        .padding(.bottom, 12)
+        .padding(.bottom, 8)
         .background(palette.background)
     }
 }

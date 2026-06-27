@@ -289,6 +289,7 @@
 "common_continue" = "Continue";
 "practice_listening_title" = "Listening Practice";
 "practice_mode" = "Practice mode";
+"practice_index_format" = "%1$d / %2$d";
 "practice_listen_build_title" = "Listen and build the sentence";
 "practice_listen_build_subtitle" = "Play the audio, then tap the words in the order you hear them.";
 "practice_speed_normal" = "1x";
