@@ -53,7 +53,7 @@ struct OnboardingScreen: View {
                         case 2:
                             FollowStoriesStep(isDark: isDarkMode)
                         case 3:
-                            PracticeSpeakingStep(
+                            ListeningPuzzleOnboardingStep(
                                 isDark: isDarkMode,
                                 onPreviousStep: previousStep,
                                 currentStep: 3,
@@ -155,10 +155,10 @@ struct OnboardingScreen: View {
 
     private func stepName(_ step: Int) -> String {
         switch step {
-        case 0: return "speak_stories"
+        case 0: return "stories_with_audio"
         case 1: return "discover_stories"
         case 2: return "follow_stories"
-        case 3: return "practice_speaking"
+        case 3: return "listening_sentence_puzzle"
         case 4: return "start_journey"
         default: return "unknown"
         }
@@ -478,12 +478,14 @@ struct FollowStoriesStep: View {
     }
 }
 
-struct PracticeSpeakingStep: View {
+struct ListeningPuzzleOnboardingStep: View {
     let isDark: Bool
     let onPreviousStep: () -> Void
     let currentStep: Int
     let totalSteps: Int
+    @State private var completedCount = 0
     private var palette: OnboardingPalette { OnboardingPalette(isDark: isDark) }
+    private let words = ["ancient", "map", "showed", "way"]
 
     var body: some View {
         VStack {
@@ -508,7 +510,7 @@ struct PracticeSpeakingStep: View {
                 Spacer().frame(height: 16)
                 HStack {
                     HStack(spacing: 8) {
-                        Circle().fill(.red).frame(width: 8, height: 8)
+                        Circle().fill(LingoRiseColors.primary).frame(width: 8, height: 8)
                         Text(L10n.t("onboarding_recording"))
                             .font(LexendFont.font(11, weight: .semibold))
                             .foregroundStyle(.white)
@@ -523,44 +525,79 @@ struct PracticeSpeakingStep: View {
                         .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
                 }
 
-                Spacer().frame(height: 24)
-                HStack(alignment: .bottom, spacing: 6) {
-                    WordChip(isDark: isDark, word: "The", ipa: "ðə", highlight: false)
-                    WordChip(isDark: isDark, word: "cat", ipa: "kæt", highlight: true)
-                    WordChip(isDark: isDark, word: "sat", ipa: "sæt", highlight: false)
-                    WordChip(isDark: isDark, word: "on", ipa: "ɒn", highlight: false)
-                    WordChip(isDark: isDark, word: "the", ipa: "ðə", highlight: false)
-                    WordChip(isDark: isDark, word: "mat.", ipa: "mæt", highlight: false)
-                }
-
-                Spacer().frame(height: 24)
-                AudioWaveform(heights: [0.2, 0.35, 0.2, 0.4, 0.65, 0.9, 0.55, 0.8, 1, 0.65, 0.8, 0.35, 0.55, 0.2, 0.35, 0.2, 0.2, 0.35, 0.2], maxHeight: 48, minHeight: 8)
-                    .frame(height: 64)
-
-                Spacer().frame(height: 24)
-                HStack(spacing: 24) {
-                    Image(systemName: "arrow.counterclockwise")
-                        .font(.system(size: 22, weight: .semibold))
-                        .foregroundStyle(palette.onSurfaceVariant)
+                Spacer().frame(height: 18)
+                HStack(spacing: 12) {
                     Circle()
                         .fill(LingoRiseColors.primary)
-                        .frame(width: 64, height: 64)
-                        .overlay(Image(systemName: "mic.fill").font(.system(size: 28, weight: .bold)).foregroundStyle(.white))
-                    Image(systemName: "speaker.wave.2.fill")
-                        .font(.system(size: 22, weight: .semibold))
+                        .frame(width: 46, height: 46)
+                        .overlay(Image(systemName: "play.fill").font(.system(size: 17, weight: .bold)).foregroundStyle(.white))
+                    AudioWaveform(
+                        heights: [0.22, 0.34, 0.58, 0.44, 0.82, 0.62, 0.96, 0.46, 0.7, 0.38, 0.56, 0.28],
+                        maxHeight: 32,
+                        minHeight: 8
+                    )
+                    .frame(height: 40)
+                    Text("1x")
+                        .font(LexendFont.font(11, weight: .bold))
                         .foregroundStyle(palette.onSurfaceVariant)
+                        .padding(.horizontal, 9)
+                        .padding(.vertical, 5)
+                        .background(palette.surfaceVariant)
+                        .clipShape(Capsule())
+                }
+                .padding(12)
+                .background(palette.surfaceVariant.opacity(0.74))
+                .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+
+                Spacer().frame(height: 20)
+                VStack(alignment: .leading, spacing: 10) {
+                    Text("The \(completedCount > 0 ? words[0] : "____") \(completedCount > 1 ? words[1] : "____") \(completedCount > 2 ? words[2] : "____") the \(completedCount > 3 ? words[3] : "____").")
+                        .font(LexendFont.font(18, weight: .bold))
+                        .foregroundStyle(palette.onSurface)
+                        .lineLimit(2)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+
+                    HStack(spacing: 8) {
+                        ForEach(words.indices, id: \.self) { index in
+                            SentenceSlot(
+                                isDark: isDark,
+                                word: completedCount > index ? words[index] : "",
+                                active: completedCount == index
+                            )
+                        }
+                    }
+                }
+                .padding(14)
+                .background(palette.surfaceVariant.opacity(0.55))
+                .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+
+                Spacer().frame(height: 16)
+                LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 8), count: 2), spacing: 8) {
+                    ForEach(words.indices, id: \.self) { index in
+                        PuzzleWordChip(
+                            isDark: isDark,
+                            word: words[index],
+                            selected: completedCount > index,
+                            active: completedCount == index
+                        )
+                    }
                 }
 
-                HStack(spacing: 6) {
-                    Image(systemName: "checkmark.circle.fill").font(.system(size: 16, weight: .bold))
-                    Text(L10n.t("onboarding_excellent")).font(LexendFont.font(11, weight: .bold))
+                Spacer().frame(height: 18)
+                if completedCount == words.count {
+                    HStack(spacing: 6) {
+                        Image(systemName: "checkmark.circle.fill").font(.system(size: 16, weight: .bold))
+                        Text(L10n.t("onboarding_excellent")).font(LexendFont.font(11, weight: .bold))
+                    }
+                    .foregroundStyle(.white)
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 6)
+                    .background(Color(hex: 0x22C55E))
+                    .clipShape(Capsule())
+                    .transition(.scale.combined(with: .opacity))
+                } else {
+                    Spacer().frame(height: 30)
                 }
-                .foregroundStyle(.white)
-                .padding(.horizontal, 12)
-                .padding(.vertical, 6)
-                .background(Color(hex: 0x22C55E))
-                .clipShape(Capsule())
-                .padding(.top, 24)
             }
             .padding(24)
             .background(palette.surface.opacity(0.9))
@@ -569,25 +606,69 @@ struct PracticeSpeakingStep: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(.bottom, 176)
+        .task {
+            await runAnimation()
+        }
+    }
+
+    private func runAnimation() async {
+        completedCount = 0
+        while !Task.isCancelled {
+            try? await Task.sleep(nanoseconds: 650_000_000)
+            withAnimation(.spring(response: 0.34, dampingFraction: 0.82)) {
+                completedCount = completedCount >= words.count ? 0 : completedCount + 1
+            }
+            try? await Task.sleep(nanoseconds: completedCount == words.count ? 1_150_000_000 : 220_000_000)
+        }
     }
 }
 
-struct WordChip: View {
+struct SentenceSlot: View {
     let isDark: Bool
     let word: String
-    let ipa: String
-    let highlight: Bool
+    let active: Bool
     private var palette: OnboardingPalette { OnboardingPalette(isDark: isDark) }
 
     var body: some View {
-        VStack(spacing: 2) {
-            Text(ipa)
-                .font(LexendFont.font(10, weight: .medium))
-                .foregroundStyle(highlight ? LingoRiseColors.primaryLight : palette.onSurfaceVariant)
-            Text(word)
-                .font(LexendFont.font(22, weight: .bold))
-                .foregroundStyle(highlight ? LingoRiseColors.primaryLight : palette.onBackground)
-        }
+        Text(word.isEmpty ? " " : word)
+            .font(LexendFont.font(11, weight: .bold))
+            .foregroundStyle(.white)
+            .lineLimit(1)
+            .minimumScaleFactor(0.75)
+            .frame(maxWidth: .infinity)
+            .frame(height: 32)
+            .background(word.isEmpty ? palette.surface : LingoRiseColors.primary)
+            .overlay(
+                RoundedRectangle(cornerRadius: 9, style: .continuous)
+                    .stroke(active ? LingoRiseColors.primaryLight : palette.outlineVariant, lineWidth: active ? 1.4 : 1)
+            )
+            .clipShape(RoundedRectangle(cornerRadius: 9, style: .continuous))
+    }
+}
+
+struct PuzzleWordChip: View {
+    let isDark: Bool
+    let word: String
+    let selected: Bool
+    let active: Bool
+    private var palette: OnboardingPalette { OnboardingPalette(isDark: isDark) }
+
+    var body: some View {
+        Text(word)
+            .font(LexendFont.font(13, weight: .bold))
+            .foregroundStyle(selected ? palette.onSurfaceVariant : palette.onSurface)
+            .lineLimit(1)
+            .minimumScaleFactor(0.8)
+            .frame(maxWidth: .infinity)
+            .frame(height: 38)
+            .background(selected ? palette.surfaceVariant.opacity(0.45) : palette.surface)
+            .overlay(
+                RoundedRectangle(cornerRadius: 11, style: .continuous)
+                    .stroke(active ? LingoRiseColors.primary : palette.outlineVariant, lineWidth: active ? 1.6 : 1)
+            )
+            .clipShape(RoundedRectangle(cornerRadius: 11, style: .continuous))
+            .opacity(selected ? 0.48 : 1)
+            .scaleEffect(active ? 1.03 : 1)
     }
 }
 

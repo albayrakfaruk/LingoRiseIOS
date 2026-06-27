@@ -3,12 +3,12 @@
 "onboarding_continue" = "Devam Et";
 "onboarding_follow_title" = "Yapay Zeka Destekli";
 "onboarding_follow_subtitle" = "Her hikayeyi sürükleyici kılan dinamik ses anlatımının keyfini çıkarın.";
-"onboarding_speak_title" = "Hikâyelerle İngilizce konuş";
-"onboarding_speak_subtitle" = "Dinleyin, okuyun ve telaffuzunuzu doğal şekilde geliştirin.";
-"onboarding_practice_title" = "Telaffuzunu geliştir.";
-"onboarding_practice_subtitle" = "Kendinizi kaydedin ve konuştuğunuz İngilizce hakkında anında geri bildirim alın.";
-"onboarding_start_title" = "Konuşma yolculuğuna başla";
-"onboarding_start_subtitle" = "Bir hikaye açın ve saniyeler içinde başlayın. Sesiniz duyulmaya hazır.";
+"onboarding_speak_title" = "Hikayelerle İngilizce öğren";
+"onboarding_speak_subtitle" = "Dinle, oku ve anlamanı doğal şekilde güçlendir.";
+"onboarding_practice_title" = "Dinle ve cümleleri tamamla.";
+"onboarding_practice_subtitle" = "Her satırı dinle, kelimelere sırayla dokun ve cümleyi yeniden kur.";
+"onboarding_start_title" = "Öğrenme yolculuğuna başla";
+"onboarding_start_subtitle" = "Bir hikaye aç ve saniyeler içinde başla. Kendi hızında dinle, oku ve pratik yap.";
 "onboarding_start_cta" = "Başla";
 "onboarding_trusted_by" = "Dünya genelinde dil öğrenenler tarafından güvenilir";
 "onboarding_new_story" = "Yeni Hikaye";
@@ -25,20 +25,20 @@
 "onboarding_level_advanced" = "İleri";
 "onboarding_min" = "%d dk";
 "onboarding_speak_headline_1" = "Hikayelerle İngilizce ";
-"onboarding_speak_headline_2" = "konuşun";
+"onboarding_speak_headline_2" = "öğren";
 "onboarding_discover_headline_1" = "Hikayelerle ";
 "onboarding_discover_headline_2" = "öğrenin.";
-"onboarding_practice_headline_1" = "Telaffuzunuzu ";
-"onboarding_practice_headline_2" = "mükemmelleştirin.";
-"onboarding_start_headline_1" = "Konuşma ";
-"onboarding_start_headline_2" = "yolculuğunuza başlayın";
+"onboarding_practice_headline_1" = "Dinle ve cümleleri";
+"onboarding_practice_headline_2" = "tamamla.";
+"onboarding_start_headline_1" = "Öğrenme yolculuğuna ";
+"onboarding_start_headline_2" = "başla";
 "onboarding_ai_narrator_active" = "YAPAY ZEKA ANLATICI AKTİF";
 "onboarding_story_lost_kingdom" = "Kayıp Krallık";
 "onboarding_follow_teaser_before" = "Kuzeydeki tepelerden sisler geldi, çoktandır unutulmuş bir dilin fısıltılarını taşıyarak. ";
 "onboarding_follow_teaser_highlight" = "Dikkatle dinledi";
 "onboarding_follow_teaser_after" = ", kadim taşlar parlamaya başlarken kalbi hızla çarpıyordu...";
-"onboarding_recording" = "KAYIT";
-"onboarding_excellent" = "MÜKEMMEL";
+"onboarding_recording" = "DİNLENİYOR";
+"onboarding_excellent" = "CÜMLE TAMAMLANDI";
 "onboarding_new_story_label" = "YENİ HİKAYE";
 "onboarding_status_time" = "9:41";
 "onboarding_follow_timer" = "0:42";
@@ -226,7 +226,7 @@
 "story_rating" = "Puan";
 "story_rating_count_format" = "%1$d değerlendirme";
 "story_not_rated_yet" = "Henüz değerlendirilmedi";
-"cd_play_word" = "%1$@ kelimesinin telaffuzunu çal";
+"cd_play_word" = "%1$@ için sesi çal";
 "story_words" = "Kelime";
 "content_type_story" = "Hikâye";
 "content_type_fact" = "Kısa bilgi";
@@ -250,8 +250,8 @@
 "reading_mode" = "Okuma Modu";
 "reading_chapter_title" = "Bölüm 1: %1$@";
 "reading_completed_title" = "Hikâye tamamlandı";
-"reading_completed_message" = "Dinlemeyi bitirdin. Şimdi kısa bir konuşma alıştırmasıyla telaffuzunu güçlendir.";
-"reading_practice_now" = "Şimdi pratik yap";
+"reading_completed_message" = "Dinlemeyi tamamladın. Şimdi kısa bir dinleme pratiğiyle önemli cümleleri yeniden kur.";
+"reading_practice_now" = "Cümle pratiğini başlat";
 
 /* Practice */
 "common_continue" = "Devam Et";
@@ -284,7 +284,7 @@
 "cd_text_settings" = "Metin ayarları";
 "cd_replay_10s" = "10 sn geri sar";
 "cd_forward_10s" = "10 sn ileri sar";
-"cd_go_to_practice" = "Pratik yap";
+"cd_go_to_practice" = "Cümle pratiğine git";
 "cd_chapters" = "Bölümler";
 "cd_home" = "Ana Sayfa";
 "cd_close" = "Kapat";
