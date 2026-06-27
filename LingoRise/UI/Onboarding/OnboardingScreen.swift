@@ -1,5 +1,6 @@
 import SwiftUI
 import UIKit
+import Foundation
 
 private struct OnboardingPalette {
     let isDark: Bool
@@ -254,6 +255,7 @@ struct SpeakStoriesStep: View {
 
 struct DiscoverStoriesStep: View {
     let isDark: Bool
+    @State private var listOffset: CGFloat = 0
     private var palette: OnboardingPalette { OnboardingPalette(isDark: isDark) }
 
     var body: some View {
@@ -289,29 +291,17 @@ struct DiscoverStoriesStep: View {
                             .foregroundStyle(palette.onSurfaceVariant)
                             .padding(.top, 4)
                         Spacer().frame(height: 20)
-                        DiscoverStoryCard(isDark: isDark, image: "onboarding_story_lost_city_z", title: L10n.t("onboarding_story_lost_city_z"), level: L10n.t("onboarding_level_intermediate"), levelColor: LingoRiseColors.levelYellow, duration: L10n.format("onboarding_min", 4))
-                        Spacer().frame(height: 10)
-                        DiscoverStoryCard(isDark: isDark, image: "onboarding_story_coffee_culture", title: L10n.t("onboarding_story_coffee"), level: L10n.t("onboarding_level_beginner"), levelColor: LingoRiseColors.levelGreen, duration: L10n.format("onboarding_min", 3))
-                        Spacer().frame(height: 10)
-                        DiscoverStoryCard(isDark: isDark, image: "onboarding_story_tech_trends", title: L10n.t("onboarding_story_tech"), level: L10n.t("onboarding_level_advanced"), levelColor: LingoRiseColors.levelRed, duration: L10n.format("onboarding_min", 6))
-                        Spacer().frame(height: 10)
-                        HStack(spacing: 12) {
-                            RoundedRectangle(cornerRadius: 8)
-                                .fill(palette.surfaceVariant)
-                                .frame(width: 80, height: 80)
-                            VStack(alignment: .leading, spacing: 8) {
-                                RoundedRectangle(cornerRadius: 4)
-                                    .fill(palette.surfaceVariant)
-                                    .frame(height: 12)
-                                    .frame(maxWidth: .infinity)
-                                RoundedRectangle(cornerRadius: 4)
-                                    .fill(palette.surfaceVariant)
-                                    .frame(width: 120, height: 8)
+                        ZStack(alignment: .top) {
+                            VStack(spacing: 10) {
+                                DiscoverStoryCard(isDark: isDark, image: "onboarding_story_lost_city_z", title: L10n.t("onboarding_story_lost_city_z"), level: L10n.t("onboarding_level_intermediate"), levelColor: LingoRiseColors.levelYellow, duration: L10n.format("onboarding_min", 4))
+                                DiscoverStoryCard(isDark: isDark, image: "onboarding_story_coffee_culture", title: L10n.t("onboarding_story_coffee"), level: L10n.t("onboarding_level_beginner"), levelColor: LingoRiseColors.levelGreen, duration: L10n.format("onboarding_min", 3))
+                                DiscoverStoryCard(isDark: isDark, image: "onboarding_story_tech_trends", title: L10n.t("onboarding_story_tech"), level: L10n.t("onboarding_level_advanced"), levelColor: LingoRiseColors.levelRed, duration: L10n.format("onboarding_min", 6))
+                                DiscoverStorySkeleton(isDark: isDark)
                             }
+                            .offset(y: listOffset)
                         }
-                        .padding(12)
-                        .background(palette.surface)
-                        .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                        .clipped()
                     }
                     .padding(.horizontal, 20)
                     .padding(.top, 12)
@@ -324,7 +314,39 @@ struct DiscoverStoriesStep: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .padding(.bottom, 176)
+            .task {
+                listOffset = 0
+                try? await Task.sleep(nanoseconds: 350_000_000)
+                withAnimation(.easeInOut(duration: 2.4).repeatForever(autoreverses: true)) {
+                    listOffset = -72
+                }
+            }
         }
+    }
+}
+
+struct DiscoverStorySkeleton: View {
+    let isDark: Bool
+    private var palette: OnboardingPalette { OnboardingPalette(isDark: isDark) }
+
+    var body: some View {
+        HStack(spacing: 12) {
+            RoundedRectangle(cornerRadius: 8)
+                .fill(palette.surfaceVariant)
+                .frame(width: 80, height: 80)
+            VStack(alignment: .leading, spacing: 8) {
+                RoundedRectangle(cornerRadius: 4)
+                    .fill(palette.surfaceVariant)
+                    .frame(height: 12)
+                    .frame(maxWidth: .infinity)
+                RoundedRectangle(cornerRadius: 4)
+                    .fill(palette.surfaceVariant)
+                    .frame(width: 120, height: 8)
+            }
+        }
+        .padding(12)
+        .background(palette.surface)
+        .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
     }
 }
 
@@ -396,6 +418,7 @@ struct DiscoverStoryCard: View {
 
 struct FollowStoriesStep: View {
     let isDark: Bool
+    @State private var activeSentenceIndex = 0
     private var palette: OnboardingPalette { OnboardingPalette(isDark: isDark) }
 
     var body: some View {
@@ -442,20 +465,25 @@ struct FollowStoriesStep: View {
                                 .font(LexendFont.font(22, weight: .bold))
                                 .foregroundStyle(.white)
                             Spacer().frame(height: 8)
-                            (Text(L10n.t("onboarding_follow_teaser_before"))
-                                + Text(L10n.t("onboarding_follow_teaser_highlight"))
-                                .foregroundColor(.white)
-                                .fontWeight(.medium)
-                                + Text(L10n.t("onboarding_follow_teaser_after")))
-                                .font(LexendFont.font(12))
-                                .foregroundStyle(palette.onSurfaceVariant)
+                            FollowSentenceTracker(
+                                isDark: isDark,
+                                activeIndex: activeSentenceIndex,
+                                sentences: [
+                                    L10n.t("onboarding_follow_teaser_before"),
+                                    L10n.t("onboarding_follow_teaser_highlight"),
+                                    L10n.t("onboarding_follow_teaser_after")
+                                ]
+                            )
                             Spacer().frame(height: 16)
                             HStack(spacing: 12) {
                                 Circle()
                                     .fill(LingoRiseColors.primary)
                                     .frame(width: 40, height: 40)
                                     .overlay(Image(systemName: "pause.fill").font(.system(size: 16, weight: .bold)).foregroundStyle(.white))
-                                AudioWaveform(heights: [0.2, 0.4, 0.7, 0.5, 0.35, 0.15, 0.45, 0.6, 0.35, 0.2, 0.4, 0.55, 0.5, 0.3], maxHeight: 24)
+                                AnimatedAudioWaveform(
+                                    baseHeights: [0.2, 0.4, 0.7, 0.5, 0.35, 0.15, 0.45, 0.6, 0.35, 0.2, 0.4, 0.55, 0.5, 0.3],
+                                    maxHeight: 24
+                                )
                                     .frame(maxWidth: .infinity)
                                 Text(L10n.t("onboarding_follow_timer"))
                                     .font(LexendFont.font(11, weight: .medium))
@@ -475,7 +503,69 @@ struct FollowStoriesStep: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .padding(.bottom, 176)
+            .task {
+                activeSentenceIndex = 0
+                while !Task.isCancelled {
+                    try? await Task.sleep(nanoseconds: 950_000_000)
+                    withAnimation(.spring(response: 0.36, dampingFraction: 0.82)) {
+                        activeSentenceIndex = (activeSentenceIndex + 1) % 3
+                    }
+                }
+            }
         }
+    }
+}
+
+struct FollowSentenceTracker: View {
+    let isDark: Bool
+    let activeIndex: Int
+    let sentences: [String]
+    private var palette: OnboardingPalette { OnboardingPalette(isDark: isDark) }
+
+    var body: some View {
+        VStack(spacing: 6) {
+            ForEach(Array(sentences.enumerated()), id: \.offset) { index, sentence in
+                FollowSentenceLine(
+                    text: sentence.onboardingSentenceLineText,
+                    active: activeIndex == index,
+                    isDark: isDark
+                )
+            }
+        }
+        .padding(8)
+        .background(.white.opacity(0.06))
+        .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+        .overlay(
+            RoundedRectangle(cornerRadius: 12, style: .continuous)
+                .stroke(.white.opacity(0.08), lineWidth: 1)
+        )
+    }
+}
+
+struct FollowSentenceLine: View {
+    let text: String
+    let active: Bool
+    let isDark: Bool
+    private var palette: OnboardingPalette { OnboardingPalette(isDark: isDark) }
+
+    var body: some View {
+        HStack(spacing: 8) {
+            RoundedRectangle(cornerRadius: 999)
+                .fill(active ? LingoRiseColors.primary : .white.opacity(0.24))
+                .frame(width: active ? 4 : 3, height: 20)
+                .animation(.easeInOut(duration: 0.22), value: active)
+
+            Text(text.isEmpty ? " " : text)
+                .font(LexendFont.font(active ? 12 : 11, weight: active ? .bold : .medium))
+                .foregroundStyle(active ? .white : palette.onSurfaceVariant)
+                .lineLimit(1)
+                .minimumScaleFactor(0.75)
+                .frame(maxWidth: .infinity, alignment: .leading)
+        }
+        .padding(.horizontal, 10)
+        .padding(.vertical, 7)
+        .background(active ? LingoRiseColors.primary.opacity(0.18) : .white.opacity(0.02))
+        .clipShape(RoundedRectangle(cornerRadius: 9, style: .continuous))
     }
 }
 
@@ -724,6 +814,27 @@ struct StartJourneyStep: View {
     }
 }
 
+struct AnimatedAudioWaveform: View {
+    let baseHeights: [CGFloat]
+    let maxHeight: CGFloat
+    var minHeight: CGFloat = 4
+
+    var body: some View {
+        TimelineView(.animation) { context in
+            let phase = context.date.timeIntervalSinceReferenceDate * 4.2
+            HStack(alignment: .center, spacing: 2) {
+                ForEach(Array(baseHeights.enumerated()), id: \.offset) { index, height in
+                    let wave = (sin(phase + Double(index) * 0.72) + 1) / 2
+                    let animatedHeight = max(minHeight, maxHeight * min(max(height + CGFloat(wave) * 0.18, 0.14), 1))
+                    RoundedRectangle(cornerRadius: 999)
+                        .fill(LingoRiseColors.primary.opacity(0.58 + Double(height) * 0.36))
+                        .frame(width: 4, height: animatedHeight)
+                }
+            }
+        }
+    }
+}
+
 struct AudioWaveform: View {
     let heights: [CGFloat]
     let maxHeight: CGFloat
@@ -753,6 +864,12 @@ private func onboardingImage(_ name: String) -> Image {
     }
 
     return Image(name)
+}
+
+private extension String {
+    var onboardingSentenceLineText: String {
+        trimmingCharacters(in: CharacterSet(charactersIn: " ,.;:،،，。؛").union(.whitespacesAndNewlines))
+    }
 }
 
 private struct FilledOnboardingImage: View {
