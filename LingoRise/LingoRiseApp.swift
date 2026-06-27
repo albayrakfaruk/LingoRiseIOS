@@ -354,18 +354,24 @@ struct MainScreen: View {
         let isBottomSheetPresented = isExploreSheetPresented || isProfileLanguageSheetPresented
         let palette = HomePalette(isDark: appState.effectiveDarkTheme(systemColorScheme: colorScheme))
         ZStack(alignment: .bottom) {
-            Group {
-                switch appState.selectedTab {
-                case .home:
-                    HomeScreen(model: homeModel) { category in
-                        exploreModel.selectCategory(category.id)
-                        appState.selectedTab = .explore
-                    }
-                case .explore:
-                    ExploreScreen(model: exploreModel, activeSheet: $activeExploreSheet)
-                case .profile:
-                    ProfileScreen(showLanguageSheet: $isProfileLanguageSheetPresented)
+            ZStack {
+                HomeScreen(model: homeModel) { category in
+                    exploreModel.selectCategory(category.id)
+                    appState.selectedTab = .explore
                 }
+                .opacity(appState.selectedTab == .home ? 1 : 0)
+                .allowsHitTesting(appState.selectedTab == .home)
+                .accessibilityHidden(appState.selectedTab != .home)
+
+                ExploreScreen(model: exploreModel, activeSheet: $activeExploreSheet)
+                    .opacity(appState.selectedTab == .explore ? 1 : 0)
+                    .allowsHitTesting(appState.selectedTab == .explore)
+                    .accessibilityHidden(appState.selectedTab != .explore)
+
+                ProfileScreen(showLanguageSheet: $isProfileLanguageSheetPresented)
+                    .opacity(appState.selectedTab == .profile ? 1 : 0)
+                    .allowsHitTesting(appState.selectedTab == .profile)
+                    .accessibilityHidden(appState.selectedTab != .profile)
             }
             if !isBottomSheetPresented {
                 FloatingTabBar(selectedTab: $appState.selectedTab)
