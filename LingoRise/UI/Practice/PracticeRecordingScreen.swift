@@ -964,6 +964,7 @@ private struct PracticeCompletionScreen: View {
     let palette: PracticePalette
     let onRate: (Int) -> Void
     let onFinish: () -> Void
+    @State private var decorationsAnimating = false
 
     var body: some View {
         VStack(spacing: 0) {
@@ -988,15 +989,33 @@ private struct PracticeCompletionScreen: View {
                 Image(systemName: "sparkles")
                     .font(.system(size: 27, weight: .bold))
                     .foregroundStyle(Color(hex: 0x34D399))
+                    .rotationEffect(.degrees(decorationsAnimating ? 8 : -6))
+                    .scaleEffect(decorationsAnimating ? 1.08 : 0.96)
                     .offset(x: 88, y: -82)
+                    .animation(
+                        .easeInOut(duration: 1.15).repeatForever(autoreverses: true),
+                        value: decorationsAnimating
+                    )
                 Image(systemName: "star.fill")
                     .font(.system(size: 28, weight: .bold))
                     .foregroundStyle(Color(hex: 0xFACC15))
-                    .offset(x: 102, y: -46)
+                    .rotationEffect(.degrees(decorationsAnimating ? -7 : 7))
+                    .scaleEffect(decorationsAnimating ? 0.94 : 1.12)
+                    .offset(x: 102, y: decorationsAnimating ? -50 : -43)
+                    .animation(
+                        .easeInOut(duration: 1.0).repeatForever(autoreverses: true),
+                        value: decorationsAnimating
+                    )
                 Image(systemName: "party.popper.fill")
                     .font(.system(size: 26, weight: .bold))
                     .foregroundStyle(Color(hex: 0xC084FC))
-                    .offset(x: -92, y: 52)
+                    .rotationEffect(.degrees(decorationsAnimating ? -9 : 5))
+                    .scaleEffect(decorationsAnimating ? 1.07 : 0.97)
+                    .offset(x: -92, y: decorationsAnimating ? 48 : 55)
+                    .animation(
+                        .easeInOut(duration: 1.25).repeatForever(autoreverses: true),
+                        value: decorationsAnimating
+                    )
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .padding(.horizontal, 18)
@@ -1050,6 +1069,9 @@ private struct PracticeCompletionScreen: View {
             .padding(.bottom, 16)
         }
         .background(palette.background.ignoresSafeArea())
+        .onAppear {
+            decorationsAnimating = true
+        }
     }
 }
 
