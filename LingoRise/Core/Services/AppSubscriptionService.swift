@@ -18,8 +18,12 @@ struct AppSubscriptionOption: Identifiable, Equatable {
     let description: String
     let period: AppSubscriptionPeriod
     let weeklyPrice: String?
-    let savingsTag: String?
+    let savingsPercent: Int?
     let hasIntroOffer: Bool
+
+    var savingsTag: String? {
+        savingsPercent.map { L10n.format("paywall_save_badge_format", $0) }
+    }
 
     static let fallbackWeekly = AppSubscriptionOption(
         id: "weekly",
@@ -28,7 +32,7 @@ struct AppSubscriptionOption: Identifiable, Equatable {
         description: "Billed weekly",
         period: .weekly,
         weeklyPrice: nil,
-        savingsTag: nil,
+        savingsPercent: nil,
         hasIntroOffer: false
     )
 
@@ -39,7 +43,7 @@ struct AppSubscriptionOption: Identifiable, Equatable {
         description: "Billed yearly",
         period: .yearly,
         weeklyPrice: "$1.54",
-        savingsTag: "SAVE 23%",
+        savingsPercent: 23,
         hasIntroOffer: false
     )
 }
@@ -132,11 +136,11 @@ final class AppSubscriptionService {
                     uniqueKeysWithValues: current.availablePackages.map { ($0.identifier, $0) }
                 )
 
-                let weekly = weeklyPackage.map { self.mapPackageToUi($0, weeklyPrice: nil, savingsTag: nil) }
+                let weekly = weeklyPackage.map { self.mapPackageToUi($0, weeklyPrice: nil, savingsPercent: nil) }
                 let yearlyWeeklyPrice = yearlyPackage.flatMap { self.weeklyEquivalent(for: $0) }
-                let savingsTag = self.savingsTag(weeklyPackage: weeklyPackage, yearlyPackage: yearlyPackage)
+                let savingsPercent = self.savingsPercent(weeklyPackage: weeklyPackage, yearlyPackage: yearlyPackage)
                 let yearly = yearlyPackage.map {
-                    self.mapPackageToUi($0, weeklyPrice: yearlyWeeklyPrice, savingsTag: savingsTag)
+                    self.mapPackageToUi($0, weeklyPrice: yearlyWeeklyPrice, savingsPercent: savingsPercent)
                 }
                 continuation.resume(returning: AppOfferingsResult(
                     weekly: weekly,
@@ -226,7 +230,7 @@ final class AppSubscriptionService {
         return nil
     }
 
-    private func mapPackageToUi(_ package: Package, weeklyPrice: String?, savingsTag: String?) -> AppSubscriptionOption {
+    private func mapPackageToUi(_ package: Package, weeklyPrice: String?, savingsPercent: Int?) -> AppSubscriptionOption {
         AppSubscriptionOption(
             id: package.identifier,
             title: package.storeProduct.localizedTitle,
@@ -234,7 +238,7 @@ final class AppSubscriptionService {
             description: package.storeProduct.localizedDescription,
             period: period(for: package),
             weeklyPrice: weeklyPrice,
-            savingsTag: savingsTag,
+            savingsPercent: savingsPercent,
             hasIntroOffer: package.storeProduct.introductoryDiscount != nil
         )
     }
@@ -256,7 +260,7 @@ final class AppSubscriptionService {
         return formatPrice(weekly, locale: package.storeProduct.priceFormatter?.locale)
     }
 
-    private func savingsTag(weeklyPackage: Package?, yearlyPackage: Package?) -> String? {
+    private func savingsPercent(weeklyPackage: Package?, yearlyPackage: Package?) -> Int? {
         guard let weeklyPackage, let yearlyPackage else { return nil }
         let weeklyPrice = NSDecimalNumber(decimal: weeklyPackage.storeProduct.price).doubleValue
         let yearlyPrice = NSDecimalNumber(decimal: yearlyPackage.storeProduct.price).doubleValue
@@ -265,7 +269,7 @@ final class AppSubscriptionService {
         let yearlyWeeklyCost = yearlyPrice / 52.0
         let savings = ((comparisonWeeklyCost - yearlyWeeklyCost) / comparisonWeeklyCost) * 100.0
         guard savings > 0 else { return nil }
-        return "SAVE \(Int(savings))%"
+        return Int(savings)
     }
 
     private func formatPrice(_ amount: Double, locale: Locale?) -> String {

@@ -231,6 +231,7 @@
 "home_empty_title" = "New stories are on the way";
 "home_empty_message" = "There is no published content yet. Please check back soon.";
 "common_retry" = "Retry";
+"paywall_save_badge_format" = "SAVE %d%%";
 "premium_badge_short" = "PRO";
 
 /* Story detail */

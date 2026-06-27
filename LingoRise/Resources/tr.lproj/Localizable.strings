@@ -17,8 +17,8 @@
 "onboarding_discover_subtitle" = "İngilizcenizi doğal şekilde geliştirmek için tasarlanmış içerikleri okuyun ve dinleyin.";
 "onboarding_discover_heading" = "Keşfet";
 "onboarding_discover_trending" = "Sizin için trend hikayeler";
-"onboarding_story_lost_city_z" = "Z\\’nin Kayıp Şehri";
-"onboarding_story_coffee" = "İtalya\\’da Kahve Kültürü";
+"onboarding_story_lost_city_z" = "Z’nin Kayıp Şehri";
+"onboarding_story_coffee" = "İtalya’da Kahve Kültürü";
 "onboarding_story_tech" = "2024 Teknoloji Trendleri";
 "onboarding_level_intermediate" = "Orta";
 "onboarding_level_beginner" = "Başlangıç";
@@ -164,7 +164,7 @@
 "explore_load_error_message" = "Bağlantını kontrol edip tekrar dene.";
 "explore_catalog_empty_message" = "Henüz yayınlanmış içerik yok. Lütfen daha sonra tekrar bak.";
 "profile_title" = "Profil";
-"profile_premium_plan" = "Premium Plan";
+"profile_premium_plan" = "Premium Planı";
 "profile_restore_purchase" = "Satın almayı geri yükle";
 "profile_restore_success" = "Satın almalar başarıyla geri yüklendi.";
 "profile_feedback" = "Geri bildirim";
@@ -231,6 +231,7 @@
 "home_empty_title" = "Yeni hikâyeler yolda";
 "home_empty_message" = "Henüz yayınlanmış içerik yok. Lütfen yakında tekrar kontrol et.";
 "common_retry" = "Tekrar Dene";
+"paywall_save_badge_format" = "%%%d TASARRUF";
 "premium_badge_short" = "PRO";
 
 /* Story detail */

@@ -1,7 +1,7 @@
 /* Generated from Android string resources for onboarding, personalization, and personalized paywall. */
 
 "onboarding_continue" = "Continua";
-"onboarding_follow_title" = "Powered by AI";
+"onboarding_follow_title" = "Basato sull’IA";
 "onboarding_follow_subtitle" = "Narrazione dinamica che rende ogni storia coinvolgente.";
 "onboarding_speak_title" = "Parla inglese con le storie";
 "onboarding_speak_subtitle" = "Ascolta, leggi e migliora la pronuncia in modo naturale.";
@@ -175,7 +175,7 @@
 "language_german" = "Deutsch";
 "language_turkish" = "Türkçe";
 "profile_premium_access" = "Accesso Premium";
-"profile_master_english" = "Padroneggia l\\’inglese\n3 volte più veloce";
+"profile_master_english" = "Padroneggia l’inglese\n3 volte più veloce";
 "profile_unlimited_speaking_desc" = "Sblocca tutte le storie, l’audio professionale e la pratica di costruzione delle frasi.";
 "profile_upgrade_now" = "Migliora ora";
 "profile_all_unlocked" = "Tutte le storie e le pratiche sbloccate";
@@ -208,6 +208,7 @@
 "home_empty_title" = "Nuove storie in arrivo";
 "home_empty_message" = "Non ci sono ancora contenuti pubblicati. Torna presto.";
 "common_retry" = "Riprova";
+"paywall_save_badge_format" = "RISPARMIA %d%%";
 "premium_badge_short" = "PRO";
 
 /* Story detail */
@@ -261,3 +262,51 @@
 "cd_replay" = "Riascolta";
 "cd_play" = "Riproduci";
 "cd_pause" = "Pausa";
+
+/* Synced missing Android/iOS strings */
+"common_continue" = "Continua";
+"error_audio_unavailable" = "Audio non disponibile";
+"explore_apply" = "Applica";
+"explore_catalog_empty_message" = "Non ci sono ancora contenuti pubblicati. Torna presto.";
+"explore_category" = "Categoria";
+"explore_clear_all_filters" = "Cancella tutti i filtri";
+"explore_filters" = "Filtri";
+"explore_level" = "Livello";
+"explore_load_error_message" = "Controlla la connessione e riprova.";
+"explore_load_error_title" = "Impossibile caricare le storie";
+"explore_no_stories_found" = "Nessuna storia trovata";
+"explore_no_stories_hint" = "Modifica i filtri o cerca altro per trovare la tua prossima storia.";
+"explore_reset" = "Reimposta";
+"explore_search_placeholder" = "Cerca storie, generi o livelli…";
+"explore_sort_by" = "Ordina per";
+"explore_sort_longest" = "Durata più lunga";
+"explore_sort_newest" = "Più recenti";
+"explore_sort_shortest" = "Durata più breve";
+"practice_check" = "Controlla";
+"practice_completed_message" = "Ottimo lavoro! Sei un passo più vicino alla fluidità.";
+"practice_completed_title" = "Pratica completata!";
+"practice_correct_title" = "Ottimo lavoro";
+"practice_done" = "Esplora le storie";
+"practice_finish" = "Fine";
+"practice_index_format" = "%1$d / %2$d";
+"practice_listen_build_subtitle" = "Riproduci l’audio, poi tocca le parole nell’ordine in cui le senti.";
+"practice_listen_build_title" = "Ascolta e costruisci la frase";
+"practice_listening_correct" = "Hai colto tutta la frase.";
+"practice_listening_incorrect" = "Quasi. Ascolta di nuovo e ricostruisci la frase.";
+"practice_listening_title" = "Pratica di ascolto";
+"practice_mode" = "Modalità pratica";
+"practice_not_ready_message" = "Questo contenuto non ha ancora frasi audio brevi per la pratica.";
+"practice_not_ready_title" = "La pratica non è ancora pronta";
+"practice_select_all_words" = "Usa tutte le parole prima di controllare la risposta.";
+"practice_speed_normal" = "1x";
+"practice_speed_slow" = "0.75x";
+"practice_tap_words_hint" = "Tocca le parole qui sotto per costruire la frase.";
+"practice_try_again_title" = "Riprova";
+"profile_feedback" = "Feedback";
+"profile_premium_plan" = "Piano Premium";
+"profile_restore_purchase" = "Ripristina acquisto";
+"profile_restore_success" = "Acquisti ripristinati con successo.";
+"profile_restoring" = "Ripristino...";
+"profile_title" = "Profilo";
+"profile_version" = "Versione";
+"reading_rate_story" = "VALUTA QUESTA STORIA";

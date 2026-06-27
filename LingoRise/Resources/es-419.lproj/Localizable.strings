@@ -208,6 +208,7 @@
 "home_empty_title" = "Pronto habrá nuevas historias";
 "home_empty_message" = "Todavía no hay contenido publicado. Vuelve a consultarlo pronto.";
 "common_retry" = "Reintentar";
+"paywall_save_badge_format" = "AHORRA %d%%";
 "premium_badge_short" = "PRO";
 
 /* Story detail */
@@ -261,3 +262,51 @@
 "cd_replay" = "Repetir";
 "cd_play" = "Reproducir";
 "cd_pause" = "Pausar";
+
+/* Synced missing Android/iOS strings */
+"common_continue" = "Continuar";
+"error_audio_unavailable" = "Audio no disponible";
+"explore_apply" = "Aplicar";
+"explore_catalog_empty_message" = "Todavía no hay contenido publicado. Vuelve a consultarlo pronto.";
+"explore_category" = "Categoría";
+"explore_clear_all_filters" = "Borrar todos los filtros";
+"explore_filters" = "Filtros";
+"explore_level" = "Nivel";
+"explore_load_error_message" = "Comprueba tu conexión e inténtalo de nuevo.";
+"explore_load_error_title" = "No se pudieron cargar las historias";
+"explore_no_stories_found" = "No se encontraron historias";
+"explore_no_stories_hint" = "Ajusta los filtros o busca otra cosa para encontrar tu próxima historia.";
+"explore_reset" = "Restablecer";
+"explore_search_placeholder" = "Buscar historias, géneros o niveles…";
+"explore_sort_by" = "Ordenar por";
+"explore_sort_longest" = "Duración más larga";
+"explore_sort_newest" = "Más reciente";
+"explore_sort_shortest" = "Duración más corta";
+"practice_check" = "Comprobar";
+"practice_completed_message" = "¡Buen trabajo! Estás un paso más cerca de hablar con fluidez.";
+"practice_completed_title" = "¡Práctica completada!";
+"practice_correct_title" = "Buen trabajo";
+"practice_done" = "Explorar historias";
+"practice_finish" = "Terminar";
+"practice_index_format" = "%1$d / %2$d";
+"practice_listen_build_subtitle" = "Reproduce el audio y toca las palabras en el orden en que las oyes.";
+"practice_listen_build_title" = "Escucha y construye la frase";
+"practice_listening_correct" = "Captaste la frase completa.";
+"practice_listening_incorrect" = "Casi. Escucha de nuevo y reconstruye la frase.";
+"practice_listening_title" = "Práctica de escucha";
+"practice_mode" = "Modo práctica";
+"practice_not_ready_message" = "Este contenido aún no tiene frases cortas con audio para practicar.";
+"practice_not_ready_title" = "La práctica aún no está lista";
+"practice_select_all_words" = "Usa todas las palabras antes de comprobar tu respuesta.";
+"practice_speed_normal" = "1x";
+"practice_speed_slow" = "0.75x";
+"practice_tap_words_hint" = "Toca las palabras de abajo para construir la frase.";
+"practice_try_again_title" = "Inténtalo de nuevo";
+"profile_feedback" = "Comentarios";
+"profile_premium_plan" = "Plan Premium";
+"profile_restore_purchase" = "Restaurar compra";
+"profile_restore_success" = "Compras restauradas correctamente.";
+"profile_restoring" = "Restaurando...";
+"profile_title" = "Perfil";
+"profile_version" = "Versión";
+"reading_rate_story" = "VALORA ESTA HISTORIA";

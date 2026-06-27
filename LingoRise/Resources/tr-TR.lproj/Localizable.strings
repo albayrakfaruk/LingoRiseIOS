@@ -17,8 +17,8 @@
 "onboarding_discover_subtitle" = "İngilizcenizi doğal şekilde geliştirmek için tasarlanmış içerikleri okuyun ve dinleyin.";
 "onboarding_discover_heading" = "Keşfet";
 "onboarding_discover_trending" = "Sizin için trend hikayeler";
-"onboarding_story_lost_city_z" = "Z\\\\’nin Kayıp Şehri";
-"onboarding_story_coffee" = "İtalya\\\\’da Kahve Kültürü";
+"onboarding_story_lost_city_z" = "Z’nin Kayıp Şehri";
+"onboarding_story_coffee" = "İtalya’da Kahve Kültürü";
 "onboarding_story_tech" = "2024 Teknoloji Trendleri";
 "onboarding_level_intermediate" = "Orta";
 "onboarding_level_beginner" = "Başlangıç";
@@ -208,6 +208,7 @@
 "home_empty_title" = "Yeni hikâyeler yolda";
 "home_empty_message" = "Henüz yayınlanmış içerik yok. Lütfen yakında tekrar kontrol et.";
 "common_retry" = "Tekrar Dene";
+"paywall_save_badge_format" = "%%%d TASARRUF";
 "premium_badge_short" = "PRO";
 
 /* Story detail */
@@ -286,3 +287,28 @@
 "cd_replay" = "Tekrarla";
 "cd_play" = "Oynat";
 "cd_pause" = "Duraklat";
+
+/* Synced missing Android/iOS strings */
+"explore_apply" = "Uygula";
+"explore_catalog_empty_message" = "Henüz yayınlanmış içerik yok. Lütfen yakında tekrar kontrol et.";
+"explore_category" = "Kategori";
+"explore_clear_all_filters" = "Tüm filtreleri temizle";
+"explore_filters" = "Filtreler";
+"explore_level" = "Seviye";
+"explore_load_error_message" = "Bağlantını kontrol edip tekrar dene.";
+"explore_load_error_title" = "Hikâyeler yüklenemedi";
+"explore_no_stories_found" = "Hikaye bulunamadı";
+"explore_no_stories_hint" = "Filtrelerinizi değiştirmeyi veya başka bir şey aramayı deneyin.";
+"explore_reset" = "Sıfırla";
+"explore_search_placeholder" = "Hikaye, tür veya seviye ara…";
+"explore_sort_by" = "Sırala";
+"explore_sort_longest" = "En Uzun Süre";
+"explore_sort_newest" = "En Yeni";
+"explore_sort_shortest" = "En Kısa Süre";
+"profile_feedback" = "Geri Bildirim";
+"profile_premium_plan" = "Premium Planı";
+"profile_restore_purchase" = "Satın almayı geri yükle";
+"profile_restore_success" = "Satın almalar başarıyla geri yüklendi.";
+"profile_restoring" = "Geri yükleniyor...";
+"profile_title" = "Profil";
+"profile_version" = "Sürüm";

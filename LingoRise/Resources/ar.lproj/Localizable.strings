@@ -208,6 +208,7 @@
 "home_empty_title" = "قصص جديدة في الطريق";
 "home_empty_message" = "لا يوجد محتوى منشور حتى الآن. يرجى التحقق مرة أخرى قريبا.";
 "common_retry" = "أعد المحاولة";
+"paywall_save_badge_format" = "وفّر %d%%";
 "premium_badge_short" = "PRO";
 
 /* Story detail */
@@ -261,3 +262,51 @@
 "cd_replay" = "إعادة التشغيل";
 "cd_play" = "العب";
 "cd_pause" = "وقفة";
+
+/* Synced missing Android/iOS strings */
+"common_continue" = "متابعة";
+"error_audio_unavailable" = "الصوت غير متاح";
+"explore_apply" = "تطبيق";
+"explore_catalog_empty_message" = "لا يوجد محتوى منشور حتى الآن. يرجى التحقق مرة أخرى قريبا.";
+"explore_category" = "الفئة";
+"explore_clear_all_filters" = "مسح كافة عوامل التصفية";
+"explore_filters" = "المرشحات";
+"explore_level" = "المستوى";
+"explore_load_error_message" = "تحقق من اتصالك وحاول مرة أخرى.";
+"explore_load_error_title" = "تعذر تحميل القصص";
+"explore_no_stories_found" = "لم يتم العثور على قصص";
+"explore_no_stories_hint" = "حاول تعديل عوامل التصفية أو البحث عن شيء آخر للعثور على قصتك التالية.";
+"explore_reset" = "إعادة تعيين";
+"explore_search_placeholder" = "ابحث في القصص أو الأنواع أو المستويات...";
+"explore_sort_by" = "الترتيب حسب";
+"explore_sort_longest" = "أطول مدة";
+"explore_sort_newest" = "الأحدث";
+"explore_sort_shortest" = "أقصر مدة";
+"practice_check" = "تحقق";
+"practice_completed_message" = "عمل عظيم! أنت على بعد خطوة واحدة من الطلاقة.";
+"practice_completed_title" = "اكتملت الممارسة!";
+"practice_correct_title" = "عمل جميل";
+"practice_done" = "استكشاف القصص";
+"practice_finish" = "إنهاء";
+"practice_index_format" = "%1$d/%2$d";
+"practice_listen_build_subtitle" = "قم بتشغيل الصوت، ثم اضغط على الكلمات بالترتيب الذي تسمعه به.";
+"practice_listen_build_title" = "استمع وقم ببناء الجملة";
+"practice_listening_correct" = "لقد قبضت على الجملة كاملة.";
+"practice_listening_incorrect" = "بالكاد. استمع مرة أخرى وأعد بناء الجملة.";
+"practice_listening_title" = "ممارسة الاستماع";
+"practice_mode" = "وضع الممارسة";
+"practice_not_ready_message" = "لا يحتوي هذا المحتوى على جمل صوتية قصيرة للتمرين حتى الآن.";
+"practice_not_ready_title" = "الممارسة ليست جاهزة بعد";
+"practice_select_all_words" = "استخدم كل كلمة قبل التحقق من إجابتك.";
+"practice_speed_normal" = "1x";
+"practice_speed_slow" = "0.75x";
+"practice_tap_words_hint" = "اضغط على الكلمات أدناه لبناء الجملة.";
+"practice_try_again_title" = "حاول مرة أخرى";
+"profile_feedback" = "ردود الفعل";
+"profile_premium_plan" = "الخطة المميزة";
+"profile_restore_purchase" = "استعادة الشراء";
+"profile_restore_success" = "تمت استعادة المشتريات بنجاح.";
+"profile_restoring" = "جارٍ الاستعادة...";
+"profile_title" = "الملف الشخصي";
+"profile_version" = "الإصدار";
+"reading_rate_story" = "قيم هذه القصة";

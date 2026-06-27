@@ -183,10 +183,10 @@ enum ContentType: String, Codable {
 
     var label: String {
         switch self {
-        case .story: return "Story"
-        case .fact: return "Quick fact"
-        case .article: return "Article"
-        case .news: return "News"
+        case .story: return L10n.t("content_type_story")
+        case .fact: return L10n.t("content_type_fact")
+        case .article: return L10n.t("content_type_article")
+        case .news: return L10n.t("content_type_news")
         }
     }
 }
@@ -197,8 +197,8 @@ enum EnglishAccent: String, Codable {
 
     var label: String {
         switch self {
-        case .us: return "US English"
-        case .uk: return "British English"
+        case .us: return L10n.t("story_accent_us")
+        case .uk: return L10n.t("story_accent_uk")
         }
     }
 }

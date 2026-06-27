@@ -208,6 +208,7 @@
 "home_empty_title" = "Новые истории уже в пути";
 "home_empty_message" = "Опубликованного контента пока нет. Пожалуйста, зайдите позже.";
 "common_retry" = "Повторить попытку";
+"paywall_save_badge_format" = "ЭКОНОМИЯ %d%%";
 "premium_badge_short" = "PRO";
 
 /* Story detail */
@@ -261,3 +262,51 @@
 "cd_replay" = "Повтор";
 "cd_play" = "Играть";
 "cd_pause" = "Пауза";
+
+/* Synced missing Android/iOS strings */
+"common_continue" = "Продолжить";
+"error_audio_unavailable" = "Аудио недоступно";
+"explore_apply" = "Применить";
+"explore_catalog_empty_message" = "Опубликованного контента пока нет. Пожалуйста, зайдите позже.";
+"explore_category" = "Категория";
+"explore_clear_all_filters" = "Очистить все фильтры";
+"explore_filters" = "Фильтры";
+"explore_level" = "Уровень";
+"explore_load_error_message" = "Проверьте подключение и повторите попытку.";
+"explore_load_error_title" = "Не удалось загрузить истории";
+"explore_no_stories_found" = "Истории не найдены";
+"explore_no_stories_hint" = "Попробуйте настроить фильтры или поискать что-нибудь еще, чтобы найти следующую историю.";
+"explore_reset" = "Сброс";
+"explore_search_placeholder" = "Ищите истории, жанры или уровни…";
+"explore_sort_by" = "Сортировать по";
+"explore_sort_longest" = "Самая длинная продолжительность";
+"explore_sort_newest" = "Новейший";
+"explore_sort_shortest" = "Кратчайшая продолжительность";
+"practice_check" = "Проверить";
+"practice_completed_message" = "Отличная работа! Вы на шаг ближе к свободному владению языком.";
+"practice_completed_title" = "Практика завершена!";
+"practice_correct_title" = "Хорошая работа";
+"practice_done" = "Исследуйте истории";
+"practice_finish" = "Готово";
+"practice_index_format" = "%1$d/%2$d";
+"practice_listen_build_subtitle" = "Воспроизведите аудио, затем коснитесь слов в том порядке, в котором вы их слышите.";
+"practice_listen_build_title" = "Послушай и построй предложение";
+"practice_listening_correct" = "Вы уловили полное предложение.";
+"practice_listening_incorrect" = "Почти. Послушайте еще раз и восстановите предложение.";
+"practice_listening_title" = "Практика прослушивания";
+"practice_mode" = "Режим практики";
+"practice_not_ready_message" = "В этом контенте пока нет коротких аудиопредложений для практики.";
+"practice_not_ready_title" = "Практика еще не готова";
+"practice_select_all_words" = "Используйте каждое слово, прежде чем проверять свой ответ.";
+"practice_speed_normal" = "1x";
+"practice_speed_slow" = "0.75x";
+"practice_tap_words_hint" = "Нажмите на слова ниже, чтобы построить предложение.";
+"practice_try_again_title" = "Попробуйте еще раз";
+"profile_feedback" = "Обратная связь";
+"profile_premium_plan" = "Премиум-план";
+"profile_restore_purchase" = "Восстановить покупку";
+"profile_restore_success" = "Покупки успешно восстановлены.";
+"profile_restoring" = "Восстановление...";
+"profile_title" = "Профиль";
+"profile_version" = "Версия";
+"reading_rate_story" = "ОЦЕНИТЕ ЭТУ ИСТОРИЮ";

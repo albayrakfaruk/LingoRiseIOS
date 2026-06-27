@@ -9,7 +9,7 @@
 "onboarding_practice_subtitle" = "Nehmen Sie sich selbst auf und erhalten Sie sofortiges Feedback zu Ihrem gesprochenen Englisch.";
 "onboarding_start_title" = "Beginnen Sie Ihre Redereise";
 "onboarding_start_subtitle" = "Öffnen Sie eine Story und beginnen Sie in Sekundenschnelle. Ihre Stimme ist bereit, gehört zu werden.";
-"onboarding_start_cta" = "Start";
+"onboarding_start_cta" = "Starten";
 "onboarding_trusted_by" = "Sprachlernenden weltweit vertrauen darauf";
 "onboarding_new_story" = "Neue Geschichte";
 "onboarding_the_lost_city" = "Die verlorene Stadt";
@@ -175,7 +175,7 @@
 "language_german" = "Deutsch";
 "language_turkish" = "Türkçe";
 "profile_premium_access" = "Premium-Zugang";
-"profile_master_english" = "Master English\n3x Schneller";
+"profile_master_english" = "Englisch meistern\n3x schneller";
 "profile_unlimited_speaking_desc" = "Schalte alle Geschichten, professionelles Audio und Satzbau-Übungen frei.";
 "profile_upgrade_now" = "Jetzt upgraden";
 "profile_all_unlocked" = "Alle Geschichten und Übungen freigeschaltet";
@@ -208,6 +208,7 @@
 "home_empty_title" = "Neue Geschichten sind unterwegs";
 "home_empty_message" = "Es sind noch keine veröffentlichten Inhalte vorhanden. Bitte schauen Sie bald wieder vorbei.";
 "common_retry" = "Versuchen Sie es noch einmal";
+"paywall_save_badge_format" = "%d%% SPAREN";
 "premium_badge_short" = "PRO";
 
 /* Story detail */
@@ -261,3 +262,51 @@
 "cd_replay" = "Wiederholung";
 "cd_play" = "Spielen";
 "cd_pause" = "Pause";
+
+/* Synced missing Android/iOS strings */
+"common_continue" = "Weiter";
+"error_audio_unavailable" = "Audio nicht verfügbar";
+"explore_apply" = "Bewerben";
+"explore_catalog_empty_message" = "Es sind noch keine veröffentlichten Inhalte vorhanden. Bitte schauen Sie bald wieder vorbei.";
+"explore_category" = "Kategorie";
+"explore_clear_all_filters" = "Alle Filter löschen";
+"explore_filters" = "Filter";
+"explore_level" = "Ebene";
+"explore_load_error_message" = "Überprüfen Sie Ihre Verbindung und versuchen Sie es erneut.";
+"explore_load_error_title" = "Die Storys konnten nicht geladen werden";
+"explore_no_stories_found" = "Keine Geschichten gefunden";
+"explore_no_stories_hint" = "Versuchen Sie, Ihre Filter anzupassen oder nach etwas anderem zu suchen, um Ihre nächste Geschichte zu finden.";
+"explore_reset" = "Zurücksetzen";
+"explore_search_placeholder" = "Suchen Sie nach Geschichten, Genres oder Levels...";
+"explore_sort_by" = "Sortieren nach";
+"explore_sort_longest" = "Längste Dauer";
+"explore_sort_newest" = "Neueste";
+"explore_sort_shortest" = "Kürzeste Dauer";
+"practice_check" = "Überprüfen";
+"practice_completed_message" = "Tolle Arbeit! Sie sind der Sprachkompetenz einen Schritt näher gekommen.";
+"practice_completed_title" = "Übung abgeschlossen!";
+"practice_correct_title" = "Schöne Arbeit";
+"practice_done" = "Entdecken Sie Geschichten";
+"practice_finish" = "Fertig";
+"practice_index_format" = "%1$d / %2$d";
+"practice_listen_build_subtitle" = "Spielen Sie den Ton ab und tippen Sie dann auf die Wörter in der Reihenfolge, in der Sie sie hören.";
+"practice_listen_build_title" = "Hören Sie zu und bilden Sie den Satz";
+"practice_listening_correct" = "Du hast den ganzen Satz verstanden.";
+"practice_listening_incorrect" = "Fast. Hören Sie noch einmal und bauen Sie den Satz neu auf.";
+"practice_listening_title" = "Hörübungen";
+"practice_mode" = "Übungsmodus";
+"practice_not_ready_message" = "Dieser Inhalt enthält noch keine kurzen Audiosätze zum Üben.";
+"practice_not_ready_title" = "Die Praxis ist noch nicht fertig";
+"practice_select_all_words" = "Verwenden Sie jedes Wort, bevor Sie Ihre Antwort überprüfen.";
+"practice_speed_normal" = "1x";
+"practice_speed_slow" = "0.75x";
+"practice_tap_words_hint" = "Tippen Sie auf die Wörter unten, um den Satz zu bilden.";
+"practice_try_again_title" = "Versuchen Sie es erneut";
+"profile_feedback" = "Rückmeldung";
+"profile_premium_plan" = "Premium-Plan";
+"profile_restore_purchase" = "Kauf wiederherstellen";
+"profile_restore_success" = "Käufe erfolgreich wiederhergestellt.";
+"profile_restoring" = "Wird wiederhergestellt...";
+"profile_title" = "Profil";
+"profile_version" = "Version";
+"reading_rate_story" = "Bewerten Sie diese Geschichte";

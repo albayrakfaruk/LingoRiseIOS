@@ -208,6 +208,7 @@
 "home_empty_title" = "Những câu chuyện mới đang trên đường";
 "home_empty_message" = "Chưa có nội dung được công bố. Vui lòng kiểm tra lại sớm.";
 "common_retry" = "Thử lại";
+"paywall_save_badge_format" = "TIẾT KIỆM %d%%";
 "premium_badge_short" = "PRO";
 
 /* Story detail */
@@ -261,3 +262,51 @@
 "cd_replay" = "Phát lại";
 "cd_play" = "Chơi";
 "cd_pause" = "Tạm dừng";
+
+/* Synced missing Android/iOS strings */
+"common_continue" = "Tiếp tục";
+"error_audio_unavailable" = "Không có âm thanh";
+"explore_apply" = "Áp dụng";
+"explore_catalog_empty_message" = "Chưa có nội dung được công bố. Vui lòng kiểm tra lại sớm.";
+"explore_category" = "Danh mục";
+"explore_clear_all_filters" = "Xóa tất cả bộ lọc";
+"explore_filters" = "Bộ lọc";
+"explore_level" = "Cấp độ";
+"explore_load_error_message" = "Hãy kiểm tra kết nối của bạn và thử lại.";
+"explore_load_error_title" = "Không thể tải câu chuyện";
+"explore_no_stories_found" = "Không tìm thấy câu chuyện nào";
+"explore_no_stories_hint" = "Hãy thử điều chỉnh bộ lọc hoặc tìm kiếm nội dung khác để tìm câu chuyện tiếp theo của bạn.";
+"explore_reset" = "Đặt lại";
+"explore_search_placeholder" = "Tìm kiếm câu chuyện, thể loại hoặc cấp độ…";
+"explore_sort_by" = "Sắp xếp theo";
+"explore_sort_longest" = "Thời lượng dài nhất";
+"explore_sort_newest" = "Mới nhất";
+"explore_sort_shortest" = "Thời lượng ngắn nhất";
+"practice_check" = "Kiểm tra";
+"practice_completed_message" = "Công việc tuyệt vời! Bạn đang tiến một bước gần hơn tới sự trôi chảy.";
+"practice_completed_title" = "Thực tập đã hoàn thành!";
+"practice_correct_title" = "Làm tốt lắm";
+"practice_done" = "Khám phá câu chuyện";
+"practice_finish" = "Kết thúc";
+"practice_index_format" = "%1$d / %2$d";
+"practice_listen_build_subtitle" = "Phát âm thanh, sau đó chạm vào các từ theo thứ tự bạn nghe thấy.";
+"practice_listen_build_title" = "Nghe và xây dựng câu";
+"practice_listening_correct" = "Bạn đã nắm bắt được câu đầy đủ.";
+"practice_listening_incorrect" = "Hầu hết. Nghe lại và xây dựng lại câu.";
+"practice_listening_title" = "Luyện nghe";
+"practice_mode" = "Chế độ luyện tập";
+"practice_not_ready_message" = "Nội dung này chưa có câu audio ngắn để luyện tập.";
+"practice_not_ready_title" = "Việc luyện tập vẫn chưa sẵn sàng";
+"practice_select_all_words" = "Sử dụng từng từ trước khi kiểm tra câu trả lời của bạn.";
+"practice_speed_normal" = "1x";
+"practice_speed_slow" = "0.75x";
+"practice_tap_words_hint" = "Nhấn vào các từ bên dưới để xây dựng câu.";
+"practice_try_again_title" = "Thử lại";
+"profile_feedback" = "Phản hồi";
+"profile_premium_plan" = "Gói cao cấp";
+"profile_restore_purchase" = "Khôi phục mua hàng";
+"profile_restore_success" = "Đã khôi phục giao dịch mua thành công.";
+"profile_restoring" = "Đang khôi phục...";
+"profile_title" = "Hồ sơ";
+"profile_version" = "Phiên bản";
+"reading_rate_story" = "ĐÁNH GIÁ CÂU CHUYỆN NÀY";

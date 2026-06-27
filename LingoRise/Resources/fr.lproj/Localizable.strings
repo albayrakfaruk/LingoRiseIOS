@@ -1,7 +1,7 @@
 /* Generated from Android string resources for onboarding, personalization, and personalized paywall. */
 
 "onboarding_continue" = "Continuer";
-"onboarding_follow_title" = "Propulsé par l\\\\’IA";
+"onboarding_follow_title" = "Propulsé par l’IA";
 "onboarding_follow_subtitle" = "Narration dynamique qui rend chaque histoire immersive.";
 "onboarding_speak_title" = "Parlez anglais avec des histoires";
 "onboarding_speak_subtitle" = "Écoutez, lisez et améliorez votre prononciation naturellement.";
@@ -31,10 +31,10 @@
 "onboarding_practice_headline_1" = "Perfectionnez votre ";
 "onboarding_practice_headline_2" = "prononciation.";
 "onboarding_start_headline_1" = "Commencez votre parcours ";
-"onboarding_start_headline_2" = "à l\\\\’oral";
+"onboarding_start_headline_2" = "à l’oral";
 "onboarding_ai_narrator_active" = "NARRATEUR IA ACTIF";
 "onboarding_story_lost_kingdom" = "Le royaume perdu";
-"onboarding_follow_teaser_before" = "La brume descendait des pics du nord, portant des murmures d\\\\’une langue oubliée. ";
+"onboarding_follow_teaser_before" = "La brume descendait des pics du nord, portant des murmures d’une langue oubliée. ";
 "onboarding_follow_teaser_highlight" = "Elle écouta attentivement";
 "onboarding_follow_teaser_after" = ", le cœur battant tandis que les pierres anciennes se mettaient à briller...";
 "onboarding_recording" = "ENREGISTREMENT";
@@ -54,7 +54,7 @@
 "paywall_yearly_plan" = "Abonnement annuel";
 "paywall_price_per_month" = "/ mois";
 "paywall_price_per_year" = "/ an";
-"paywall_cta_subscribe" = "S\\\\’Abonner Maintenant";
+"paywall_cta_subscribe" = "S’Abonner Maintenant";
 "personalization_transition_title" = "Créons maintenant votre plan d’apprentissage";
 "personalization_transition_subtitle" = "Répondez à 4 questions rapides";
 "personalization_continue" = "Continuer";
@@ -142,14 +142,14 @@
 "paywall_cta_year_growth" = "Débloquer Mon Année";
 "paywall_cta_week_rise" = "Commencer Cette Semaine";
 "profile_privacy_policy" = "Politique de confidentialité";
-"profile_terms_of_use" = "Conditions d\\\\’utilisation";
+"profile_terms_of_use" = "Conditions d’utilisation";
 "paywall_restore" = "Restaurer les Achats";
 "paywall_close" = "Fermer";
 "paywall_first_time_offer" = "Offre de bienvenue";
 "paywall_monthly_plan" = "Abonnement mensuel";
 
 /* Profile synchronized from Android */
-"error_revenuecat_not_configured" = "RevenueCat n\\’est pas configuré. Veuillez vérifier votre configuration.";
+"error_revenuecat_not_configured" = "RevenueCat n’est pas configuré. Veuillez vérifier votre configuration.";
 "profile_manage_account" = "Gérez votre compte et paramètres";
 "profile_general_settings" = "PARAMÈTRES GÉNÉRAUX";
 "profile_dark_theme" = "Thème sombre";
@@ -175,7 +175,7 @@
 "language_german" = "Deutsch";
 "language_turkish" = "Türkçe";
 "profile_premium_access" = "Accès Premium";
-"profile_master_english" = "Maîtrisez l\\’anglais\n3x plus vite";
+"profile_master_english" = "Maîtrisez l’anglais\n3x plus vite";
 "profile_unlimited_speaking_desc" = "Débloquez toutes les histoires, l’audio professionnel et les exercices de reconstruction de phrases.";
 "profile_upgrade_now" = "Améliorer maintenant";
 "profile_all_unlocked" = "Toutes les histoires et pratiques débloquées";
@@ -208,6 +208,7 @@
 "home_empty_title" = "De nouvelles histoires arrivent";
 "home_empty_message" = "Aucun contenu n’est encore publié. Revenez bientôt.";
 "common_retry" = "Réessayer";
+"paywall_save_badge_format" = "ÉCONOMISEZ %d%%";
 "premium_badge_short" = "PRO";
 
 /* Story detail */
@@ -241,7 +242,7 @@
 
 /* Reading */
 "common_error" = "Erreur";
-"error_something_went_wrong" = "Une erreur s\\\\’est produite";
+"error_something_went_wrong" = "Une erreur s’est produite";
 "reading_mode" = "Mode lecture";
 "reading_chapter_title" = "Chapitre 1: %1$@";
 "reading_completed_title" = "Histoire terminée";
@@ -261,3 +262,51 @@
 "cd_replay" = "Rejouer";
 "cd_play" = "Lecture";
 "cd_pause" = "Pause";
+
+/* Synced missing Android/iOS strings */
+"common_continue" = "Continuer";
+"error_audio_unavailable" = "Audio indisponible";
+"explore_apply" = "Appliquer";
+"explore_catalog_empty_message" = "Aucun contenu n’est encore publié. Revenez bientôt.";
+"explore_category" = "Catégorie";
+"explore_clear_all_filters" = "Effacer tous les filtres";
+"explore_filters" = "Filtres";
+"explore_level" = "Niveau";
+"explore_load_error_message" = "Vérifiez votre connexion et réessayez.";
+"explore_load_error_title" = "Impossible de charger les histoires";
+"explore_no_stories_found" = "Aucune histoire trouvée";
+"explore_no_stories_hint" = "Modifiez vos filtres ou votre recherche pour trouver votre prochaine histoire.";
+"explore_reset" = "Réinitialiser";
+"explore_search_placeholder" = "Rechercher histoires, genres ou niveaux…";
+"explore_sort_by" = "Trier par";
+"explore_sort_longest" = "Durée la plus longue";
+"explore_sort_newest" = "Plus récent";
+"explore_sort_shortest" = "Durée la plus courte";
+"practice_check" = "Vérifier";
+"practice_completed_message" = "Bravo ! Vous êtes encore plus proche de parler couramment.";
+"practice_completed_title" = "Exercice terminé !";
+"practice_correct_title" = "Bien joué";
+"practice_done" = "Explorer les histoires";
+"practice_finish" = "Terminer";
+"practice_index_format" = "%1$d / %2$d";
+"practice_listen_build_subtitle" = "Lancez l’audio, puis touchez les mots dans l’ordre entendu.";
+"practice_listen_build_title" = "Écoutez et reconstruisez la phrase";
+"practice_listening_correct" = "Vous avez compris toute la phrase.";
+"practice_listening_incorrect" = "Presque. Réécoutez et reconstruisez la phrase.";
+"practice_listening_title" = "Pratique d’écoute";
+"practice_mode" = "Mode pratique";
+"practice_not_ready_message" = "Ce contenu n’a pas encore de courtes phrases audio pour pratiquer.";
+"practice_not_ready_title" = "La pratique n’est pas encore prête";
+"practice_select_all_words" = "Utilisez tous les mots avant de vérifier votre réponse.";
+"practice_speed_normal" = "1x";
+"practice_speed_slow" = "0.75x";
+"practice_tap_words_hint" = "Touchez les mots ci-dessous pour reconstruire la phrase.";
+"practice_try_again_title" = "Réessayez";
+"profile_feedback" = "Commentaires";
+"profile_premium_plan" = "Offre Premium";
+"profile_restore_purchase" = "Restaurer l’achat";
+"profile_restore_success" = "Achats restaurés avec succès.";
+"profile_restoring" = "Restauration...";
+"profile_title" = "Profil";
+"profile_version" = "Version";
+"reading_rate_story" = "NOTER CETTE HISTOIRE";

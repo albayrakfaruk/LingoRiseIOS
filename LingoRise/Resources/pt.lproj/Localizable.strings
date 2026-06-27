@@ -1,7 +1,7 @@
 /* Generated from Android string resources for onboarding, personalization, and personalized paywall. */
 
 "onboarding_continue" = "Continuar";
-"onboarding_follow_title" = "Powered by AI";
+"onboarding_follow_title" = "Com tecnologia de IA";
 "onboarding_follow_subtitle" = "Narração dinâmica que torna cada história imersiva.";
 "onboarding_speak_title" = "Fale inglês com histórias";
 "onboarding_speak_subtitle" = "Ouça, leia e melhore sua pronúncia naturalmente.";
@@ -208,6 +208,7 @@
 "home_empty_title" = "Novas histórias estão chegando";
 "home_empty_message" = "Ainda não há conteúdo publicado. Volte em breve.";
 "common_retry" = "Tentar Novamente";
+"paywall_save_badge_format" = "POUPE %d%%";
 "premium_badge_short" = "PRO";
 
 /* Story detail */
@@ -261,3 +262,51 @@
 "cd_replay" = "Repetir";
 "cd_play" = "Reproduzir";
 "cd_pause" = "Pausar";
+
+/* Synced missing Android/iOS strings */
+"common_continue" = "Continuar";
+"error_audio_unavailable" = "Áudio indisponível";
+"explore_apply" = "Aplicar";
+"explore_catalog_empty_message" = "Ainda não há conteúdo publicado. Volte em breve.";
+"explore_category" = "Categoria";
+"explore_clear_all_filters" = "Limpar todos os filtros";
+"explore_filters" = "Filtros";
+"explore_level" = "Nível";
+"explore_load_error_message" = "Verifique sua conexão e tente novamente.";
+"explore_load_error_title" = "Não foi possível carregar as histórias";
+"explore_no_stories_found" = "Nenhuma história encontrada";
+"explore_no_stories_hint" = "Ajuste os filtros ou pesquise outra coisa para encontrar sua próxima história.";
+"explore_reset" = "Redefinir";
+"explore_search_placeholder" = "Buscar histórias, gêneros ou níveis…";
+"explore_sort_by" = "Ordenar por";
+"explore_sort_longest" = "Maior duração";
+"explore_sort_newest" = "Mais recentes";
+"explore_sort_shortest" = "Menor duração";
+"practice_check" = "Verificar";
+"practice_completed_message" = "Ótimo trabalho! Você está um passo mais perto da fluência.";
+"practice_completed_title" = "Prática concluída!";
+"practice_correct_title" = "Bom trabalho";
+"practice_done" = "Explorar histórias";
+"practice_finish" = "Finalizar";
+"practice_index_format" = "%1$d / %2$d";
+"practice_listen_build_subtitle" = "Reproduza o áudio e toque nas palavras na ordem em que as ouvir.";
+"practice_listen_build_title" = "Ouça e monte a frase";
+"practice_listening_correct" = "Você captou a frase completa.";
+"practice_listening_incorrect" = "Quase. Ouça novamente e monte a frase.";
+"practice_listening_title" = "Prática de escuta";
+"practice_mode" = "Modo de prática";
+"practice_not_ready_message" = "Este conteúdo ainda não tem frases curtas com áudio para praticar.";
+"practice_not_ready_title" = "A prática ainda não está pronta";
+"practice_select_all_words" = "Use todas as palavras antes de verificar sua resposta.";
+"practice_speed_normal" = "1x";
+"practice_speed_slow" = "0.75x";
+"practice_tap_words_hint" = "Toque nas palavras abaixo para montar a frase.";
+"practice_try_again_title" = "Tente novamente";
+"profile_feedback" = "Comentários";
+"profile_premium_plan" = "Plano Premium";
+"profile_restore_purchase" = "Restaurar compra";
+"profile_restore_success" = "Compras restauradas com sucesso.";
+"profile_restoring" = "A restaurar...";
+"profile_title" = "Perfil";
+"profile_version" = "Versão";
+"reading_rate_story" = "AVALIE ESTA HISTÓRIA";

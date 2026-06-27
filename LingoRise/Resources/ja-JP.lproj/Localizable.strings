@@ -149,8 +149,8 @@
 "paywall_monthly_plan" = "毎月";
 
 /* Profile synchronized from Android */
-"error_revenuecat_not_configured" = "RevenueCat not configured. Please check your configuration.";
-"profile_manage_account" = "Manage your account & settings";
+"error_revenuecat_not_configured" = "RevenueCat が設定されていません。設定を確認してください。";
+"profile_manage_account" = "アカウントと設定を管理";
 "profile_general_settings" = "一般設定";
 "profile_dark_theme" = "ダークテーマ";
 "profile_dark_theme_enabled" = "暗い外観";
@@ -175,15 +175,15 @@
 "language_german" = "Deutsch";
 "language_turkish" = "Türkçe";
 "profile_premium_access" = "プレミアムアクセス";
-"profile_master_english" = "Master English\n3x Faster";
+"profile_master_english" = "英語をマスター\n3倍速く";
 "profile_unlimited_speaking_desc" = "すべてのストーリー、プロ音声、文を組み立てる練習を解放しましょう。";
 "profile_upgrade_now" = "今すぐアップグレード";
-"profile_all_unlocked" = "All stories and practice unlocked";
+"profile_all_unlocked" = "すべてのストーリーと練習が利用可能";
 "profile_premium_benefit_stories" = "ストーリー";
 "profile_premium_benefit_practice" = "練習する";
 "profile_premium_benefit_audio" = "オーディオ";
 "profile_yearly_upgrade_title" = "毎年にアップグレードする";
-"profile_yearly_upgrade_subtitle" = "Keep Premium and get the best long-term value.";
+"profile_yearly_upgrade_subtitle" = "Premium を継続して、長期的に最もお得に利用しましょう。";
 "profile_yearly_best_value" = "年間最高の価値";
 "profile_yearly_upgrade_heading" = "\n一年中上昇を続ける";
 "profile_yearly_upgrade_desc" = "週ごとの Premium から年ごとの Premium に切り替えて、すべての機能を維持しながら長期的な価値を高めます。";
@@ -208,6 +208,7 @@
 "home_empty_title" = "新しい物語が進行中です";
 "home_empty_message" = "まだ公開されたコンテンツはありません。すぐにもう一度ご確認ください。";
 "common_retry" = "再試行";
+"paywall_save_badge_format" = "%d%% お得";
 "premium_badge_short" = "PRO";
 
 /* Story detail */
@@ -261,3 +262,51 @@
 "cd_replay" = "リプレイ";
 "cd_play" = "遊ぶ";
 "cd_pause" = "一時停止";
+
+/* Synced missing Android/iOS strings */
+"common_continue" = "続ける";
+"error_audio_unavailable" = "音声が利用できません";
+"explore_apply" = "申し込む";
+"explore_catalog_empty_message" = "まだ公開されたコンテンツはありません。すぐにもう一度ご確認ください。";
+"explore_category" = "カテゴリ";
+"explore_clear_all_filters" = "すべてのフィルターをクリア";
+"explore_filters" = "フィルター";
+"explore_level" = "レベル";
+"explore_load_error_message" = "接続を確認して、もう一度試してください。";
+"explore_load_error_title" = "ストーリーを読み込めませんでした";
+"explore_no_stories_found" = "ストーリーが見つかりませんでした";
+"explore_no_stories_hint" = "フィルターを調整するか、別のものを検索して次のストーリーを見つけてください。";
+"explore_reset" = "リセット";
+"explore_search_placeholder" = "ストーリー、ジャンル、レベルを検索…";
+"explore_sort_by" = "並べ替え順";
+"explore_sort_longest" = "最長期間";
+"explore_sort_newest" = "最新の";
+"explore_sort_shortest" = "最短期間";
+"practice_check" = "チェックする";
+"practice_completed_message" = "素晴らしい仕事です！流暢にまた一歩近づいています。";
+"practice_completed_title" = "練習完了！";
+"practice_correct_title" = "素晴らしい仕事だ";
+"practice_done" = "ストーリーを探索する";
+"practice_finish" = "終了";
+"practice_index_format" = "%1$d / %2$d";
+"practice_listen_build_subtitle" = "音声を再生し、聞こえた順に単語をタップします。";
+"practice_listen_build_title" = "聞いて文を組み立てる";
+"practice_listening_correct" = "あなたは全文を聞き取りました。";
+"practice_listening_incorrect" = "ほとんど。もう一度聞いて文を再構築してください。";
+"practice_listening_title" = "リスニングの練習";
+"practice_mode" = "練習モード";
+"practice_not_ready_message" = "このコンテンツには練習用の短い音声文がまだありません。";
+"practice_not_ready_title" = "練習はまだ準備ができていません";
+"practice_select_all_words" = "答えを確認する前に、すべての言葉を使ってください。";
+"practice_speed_normal" = "1x";
+"practice_speed_slow" = "0.75x";
+"practice_tap_words_hint" = "下の単語をタップして文を作成してください。";
+"practice_try_again_title" = "もう一度試してください";
+"profile_feedback" = "フィードバック";
+"profile_premium_plan" = "プレミアムプラン";
+"profile_restore_purchase" = "購入を復元する";
+"profile_restore_success" = "購入は正常に復元されました。";
+"profile_restoring" = "復元中...";
+"profile_title" = "プロフィール";
+"profile_version" = "バージョン";
+"reading_rate_story" = "このストーリーを評価する";

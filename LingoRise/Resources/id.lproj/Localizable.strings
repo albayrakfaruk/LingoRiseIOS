@@ -208,6 +208,7 @@
 "home_empty_title" = "Cerita baru sedang dalam perjalanan";
 "home_empty_message" = "Belum ada konten yang dipublikasikan. Harap segera periksa kembali.";
 "common_retry" = "Coba lagi";
+"paywall_save_badge_format" = "HEMAT %d%%";
 "premium_badge_short" = "PRO";
 
 /* Story detail */
@@ -261,3 +262,51 @@
 "cd_replay" = "Putar ulang";
 "cd_play" = "Mainkan";
 "cd_pause" = "Jeda";
+
+/* Synced missing Android/iOS strings */
+"common_continue" = "Lanjutkan";
+"error_audio_unavailable" = "Audio tidak tersedia";
+"explore_apply" = "Terapkan";
+"explore_catalog_empty_message" = "Belum ada konten yang dipublikasikan. Harap segera periksa kembali.";
+"explore_category" = "Kategori";
+"explore_clear_all_filters" = "Hapus semua filter";
+"explore_filters" = "Filter";
+"explore_level" = "Tingkat";
+"explore_load_error_message" = "Periksa koneksi Anda dan coba lagi.";
+"explore_load_error_title" = "Tidak dapat memuat cerita";
+"explore_no_stories_found" = "Tidak ada cerita yang ditemukan";
+"explore_no_stories_hint" = "Coba sesuaikan filter Anda atau cari hal lain untuk menemukan cerita Anda berikutnya.";
+"explore_reset" = "Setel ulang";
+"explore_search_placeholder" = "Telusuri cerita, genre, atau level…";
+"explore_sort_by" = "Urutkan berdasarkan";
+"explore_sort_longest" = "Durasi Terpanjang";
+"explore_sort_newest" = "Terbaru";
+"explore_sort_shortest" = "Durasi Terpendek";
+"practice_check" = "Periksa";
+"practice_completed_message" = "Kerja bagus! Anda selangkah lebih dekat dengan kelancaran.";
+"practice_completed_title" = "Latihan Selesai!";
+"practice_correct_title" = "Kerja bagus";
+"practice_done" = "Jelajahi Cerita";
+"practice_finish" = "Selesai";
+"practice_index_format" = "%1$d / %2$d";
+"practice_listen_build_subtitle" = "Putar audionya, lalu ketuk kata sesuai urutan yang Anda dengar.";
+"practice_listen_build_title" = "Dengarkan dan buat kalimatnya";
+"practice_listening_correct" = "Anda menangkap kalimat lengkapnya.";
+"practice_listening_incorrect" = "Hampir. Dengarkan lagi dan susun ulang kalimatnya.";
+"practice_listening_title" = "Latihan Mendengarkan";
+"practice_mode" = "Modus latihan";
+"practice_not_ready_message" = "Konten ini belum memiliki kalimat audio pendek untuk latihan.";
+"practice_not_ready_title" = "Latihan belum siap";
+"practice_select_all_words" = "Gunakan setiap kata sebelum memeriksa jawaban Anda.";
+"practice_speed_normal" = "1x";
+"practice_speed_slow" = "0.75x";
+"practice_tap_words_hint" = "Ketuk kata-kata di bawah ini untuk membuat kalimat.";
+"practice_try_again_title" = "Coba lagi";
+"profile_feedback" = "Umpan balik";
+"profile_premium_plan" = "Paket Premium";
+"profile_restore_purchase" = "Pulihkan pembelian";
+"profile_restore_success" = "Pembelian berhasil dipulihkan.";
+"profile_restoring" = "Memulihkan...";
+"profile_title" = "Profil";
+"profile_version" = "Versi";
+"reading_rate_story" = "NILAI CERITA INI";

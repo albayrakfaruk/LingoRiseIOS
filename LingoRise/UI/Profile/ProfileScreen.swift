@@ -159,8 +159,9 @@ struct ProfileScreen: View {
 
     private func openFeedbackEmail() {
         let address = AppRemoteConfig.shared.companyEmail
+        let subject = "LingoRise \(L10n.t("profile_feedback"))"
         guard !address.isEmpty,
-              let encodedSubject = "LingoRise Feedback".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+              let encodedSubject = subject.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
               let url = URL(string: "mailto:\(address)?subject=\(encodedSubject)")
         else {
             alert = ProfileAlert(message: L10n.t("profile_email_unavailable"))
