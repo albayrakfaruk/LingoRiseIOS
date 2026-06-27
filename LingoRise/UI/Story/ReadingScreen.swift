@@ -1,5 +1,6 @@
 import AVFoundation
 import CryptoKit
+import StoreKit
 import SwiftUI
 
 @MainActor
@@ -166,6 +167,11 @@ final class ReadingModel: NSObject, ObservableObject, AVAudioPlayerDelegate {
 
     func dismissPracticeCta() {
         showPracticeCta = false
+    }
+
+    func presentPracticeCta() {
+        pause()
+        showPracticeCta = true
     }
 
     private func seekGlobal(to targetMs: Int) {
@@ -496,8 +502,10 @@ final class ReadingModel: NSObject, ObservableObject, AVAudioPlayerDelegate {
 struct ReadingScreen: View {
     @EnvironmentObject private var appState: AppState
     @Environment(\.colorScheme) private var colorScheme
+    @Environment(\.requestReview) private var requestReview
     @Environment(\.scenePhase) private var scenePhase
     @StateObject private var model = ReadingModel()
+    @State private var didRequestCompletionReview = false
 
     let storyId: String
     let isDailyPick: Bool
@@ -521,6 +529,12 @@ struct ReadingScreen: View {
                         model.pause()
                         appState.route = .storyDetail(storyId, isDailyPick)
                     },
+                    onCloseComplete: {
+                        requestCompletionReviewOnce()
+                        model.dismissPracticeCta()
+                        model.pause()
+                        appState.route = .storyDetail(storyId, isDailyPick)
+                    },
                     onPractice: {
                         model.pause()
                         model.resetPlayback()
@@ -531,6 +545,7 @@ struct ReadingScreen: View {
                         }
                     },
                     onHome: {
+                        requestCompletionReviewOnce()
                         model.dismissPracticeCta()
                         model.pause()
                         appState.route = .main
@@ -556,12 +571,19 @@ struct ReadingScreen: View {
             }
         }
     }
+
+    private func requestCompletionReviewOnce() {
+        guard !didRequestCompletionReview else { return }
+        didRequestCompletionReview = true
+        requestReview()
+    }
 }
 
 private struct ReadingContent: View {
     @ObservedObject var model: ReadingModel
     let palette: ReadingPalette
     let onBack: () -> Void
+    let onCloseComplete: () -> Void
     let onPractice: () -> Void
     let onHome: () -> Void
 
@@ -603,11 +625,11 @@ private struct ReadingContent: View {
                 }
             }
 
-            ReadingAudioDock(model: model, palette: palette, onPractice: onPractice)
+            ReadingAudioDock(model: model, palette: palette, onShowPracticeCta: model.presentPracticeCta)
                 .frame(maxHeight: .infinity, alignment: .bottom)
 
             if model.showPracticeCta {
-                ReadingCompletedOverlay(palette: palette, onPractice: onPractice, onClose: onBack, onHome: onHome)
+                ReadingCompletedOverlay(palette: palette, onPractice: onPractice, onClose: onCloseComplete, onHome: onHome)
                     .transition(.opacity)
             }
         }
@@ -697,7 +719,7 @@ private struct ReadingSentenceRow: View {
 private struct ReadingAudioDock: View {
     @ObservedObject var model: ReadingModel
     let palette: ReadingPalette
-    let onPractice: () -> Void
+    let onShowPracticeCta: () -> Void
     @State private var sliderPosition: Double = 0
 
     var body: some View {
@@ -773,7 +795,7 @@ private struct ReadingAudioDock: View {
                     }
                     .frame(maxWidth: .infinity)
 
-                    ControlIcon(systemName: "mic.fill", label: L10n.t("cd_go_to_practice"), enabled: true, action: onPractice)
+                    ControlIcon(systemName: "mic.fill", label: L10n.t("cd_go_to_practice"), enabled: true, action: onShowPracticeCta)
                         .frame(width: 44)
                 }
                 .padding(.top, 16)
@@ -869,6 +891,7 @@ private struct ReadingCompletedOverlay: View {
     let onPractice: () -> Void
     let onClose: () -> Void
     let onHome: () -> Void
+    @State private var appeared = false
 
     var body: some View {
         ZStack {
@@ -900,37 +923,17 @@ private struct ReadingCompletedOverlay: View {
                     Spacer()
                     CircleButton(systemName: "xmark", palette: palette, action: onClose)
                 }
-                .padding(.top, 20)
+                .padding(.top, 8)
                 .padding(.bottom, 24)
+                .opacity(appeared ? 1 : 0)
+                .animation(.easeOut(duration: 0.25).delay(0.08), value: appeared)
 
                 VStack(spacing: 0) {
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 28, style: .continuous)
-                            .fill(palette.surface)
-                            .overlay(RoundedRectangle(cornerRadius: 28, style: .continuous).stroke(palette.outlineVariant, lineWidth: 1))
-                            .aspectRatio(4 / 3, contentMode: .fit)
-                        Circle().fill(LingoRiseColors.primary.opacity(0.12)).frame(width: 180, height: 180)
-                        Circle().fill(LinearGradient(colors: [LingoRiseColors.primary, Color(hex: 0x3B82F6)], startPoint: .topLeading, endPoint: .bottomTrailing)).frame(width: 132, height: 132)
-                        Image(systemName: "headphones")
-                            .font(.system(size: 58, weight: .bold))
-                            .foregroundStyle(.white)
-                        Image(systemName: "star.fill")
-                            .font(.system(size: 32))
-                            .foregroundStyle(Color(hex: 0xFACC15))
-                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
-                            .offset(x: -12, y: 8)
-                        Image(systemName: "star.fill")
-                            .font(.system(size: 26))
-                            .foregroundStyle(Color(hex: 0xFACC15))
-                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
-                            .offset(x: 8, y: -12)
-                        Image(systemName: "music.note")
-                            .font(.system(size: 22, weight: .semibold))
-                            .foregroundStyle(LingoRiseColors.primary.opacity(0.6))
-                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
-                            .offset(x: -32, y: -8)
-                    }
+                    completedArt
                     .frame(maxWidth: 360)
+                    .scaleEffect(appeared ? 1 : 0.94)
+                    .opacity(appeared ? 1 : 0)
+                    .animation(.spring(response: 0.48, dampingFraction: 0.82).delay(0.05), value: appeared)
 
                     Text(L10n.t("reading_completed_title"))
                         .font(LexendFont.font(28, weight: .bold))
@@ -943,28 +946,84 @@ private struct ReadingCompletedOverlay: View {
                         .padding(.top, 8)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .offset(y: appeared ? 0 : 10)
+                .animation(.easeOut(duration: 0.28).delay(0.10), value: appeared)
 
-                Spacer()
-
-                Button(action: onPractice) {
-                    HStack(spacing: 8) {
-                        Image(systemName: "mic.fill")
-                            .font(.system(size: 22, weight: .semibold))
-                        Text(L10n.t("reading_practice_now"))
-                            .font(LexendFont.font(16, weight: .semibold))
+                VStack(spacing: 0) {
+                    Button(action: onPractice) {
+                        HStack(spacing: 8) {
+                            Image(systemName: "mic.fill")
+                                .font(.system(size: 22, weight: .semibold))
+                            Text(L10n.t("reading_practice_now"))
+                                .font(LexendFont.font(16, weight: .semibold))
+                        }
+                        .foregroundStyle(.white)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 16)
+                        .padding(.horizontal, 20)
+                        .background(LingoRiseColors.primary)
+                        .clipShape(RoundedRectangle(cornerRadius: 28, style: .continuous))
                     }
-                    .foregroundStyle(.white)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 16)
-                    .padding(.horizontal, 20)
-                    .background(LingoRiseColors.primary)
-                    .clipShape(RoundedRectangle(cornerRadius: 28, style: .continuous))
+                    Spacer().frame(height: 24)
                 }
                 .frame(maxWidth: 480)
                 .padding(.top, 16)
-                .padding(.bottom, 24)
+                .opacity(appeared ? 1 : 0)
+                .offset(y: appeared ? 0 : 16)
+                .animation(.spring(response: 0.42, dampingFraction: 0.86).delay(0.18), value: appeared)
             }
             .padding(.horizontal, 24)
+            .padding(.top, 12)
+            .padding(.bottom, 24)
+        }
+        .onAppear {
+            appeared = false
+            DispatchQueue.main.async {
+                appeared = true
+            }
+        }
+    }
+
+    private var completedArt: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 28, style: .continuous)
+                .fill(palette.surface)
+                .overlay(RoundedRectangle(cornerRadius: 28, style: .continuous).stroke(palette.outlineVariant, lineWidth: 1))
+                .aspectRatio(4 / 3, contentMode: .fit)
+            Circle()
+                .fill(LingoRiseColors.primary.opacity(0.12))
+                .frame(width: 180, height: 180)
+                .scaleEffect(appeared ? 1.03 : 0.96)
+                .animation(.easeInOut(duration: 1.6).repeatForever(autoreverses: true), value: appeared)
+            Circle()
+                .fill(LinearGradient(colors: [LingoRiseColors.primary, Color(hex: 0x3B82F6)], startPoint: .topLeading, endPoint: .bottomTrailing))
+                .frame(width: 132, height: 132)
+            Image(systemName: "headphones")
+                .font(.system(size: 58, weight: .bold))
+                .foregroundStyle(.white)
+            Image(systemName: "star.fill")
+                .font(.system(size: 32))
+                .foregroundStyle(Color(hex: 0xFACC15))
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
+                .offset(x: -12, y: 8)
+                .scaleEffect(appeared ? 1.05 : 0.88)
+                .rotationEffect(.degrees(appeared ? 0 : -10))
+                .animation(.easeInOut(duration: 1.25).repeatForever(autoreverses: true), value: appeared)
+            Image(systemName: "star.fill")
+                .font(.system(size: 26))
+                .foregroundStyle(Color(hex: 0xFACC15))
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
+                .offset(x: 8, y: -12)
+                .scaleEffect(appeared ? 1.04 : 0.90)
+                .rotationEffect(.degrees(appeared ? 0 : 8))
+                .animation(.easeInOut(duration: 1.4).repeatForever(autoreverses: true), value: appeared)
+            Image(systemName: "music.note")
+                .font(.system(size: 22, weight: .semibold))
+                .foregroundStyle(LingoRiseColors.primary.opacity(0.6))
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+                .offset(x: -32, y: -8)
+                .opacity(appeared ? 1 : 0)
+                .animation(.easeOut(duration: 0.25).delay(0.20), value: appeared)
         }
     }
 }
