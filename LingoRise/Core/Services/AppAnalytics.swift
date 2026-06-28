@@ -276,6 +276,45 @@ enum AppAnalytics {
         ])
     }
 
+    static func logRetentionOfferView(source: PaywallSource, offerId: String) {
+        logEvent("retention_offer_view", parameters: [
+            "paywall_source": source.analyticsKey,
+            "offer_id": offerId,
+            "subscription_option": "yearly",
+            "has_intro_offer": true,
+            "shown_after": "paywall_close"
+        ])
+    }
+
+    static func logRetentionOfferAccept(source: PaywallSource, offerId: String, optionId: String) {
+        logEvent("retention_offer_accept", parameters: [
+            "paywall_source": source.analyticsKey,
+            "offer_id": offerId,
+            "item_id": optionId,
+            "subscription_option": "yearly",
+            "shown_after": "paywall_close"
+        ])
+    }
+
+    static func logRetentionOfferDecline(source: PaywallSource, offerId: String) {
+        logEvent("retention_offer_decline", parameters: [
+            "paywall_source": source.analyticsKey,
+            "offer_id": offerId,
+            "subscription_option": "yearly",
+            "shown_after": "paywall_close"
+        ])
+    }
+
+    static func logRetentionOfferNotEligible(source: PaywallSource, offerId: String, reason: String) {
+        logEvent("retention_offer_not_eligible", parameters: [
+            "paywall_source": source.analyticsKey,
+            "offer_id": offerId,
+            "subscription_option": "yearly",
+            "reason": String(reason.prefix(40)),
+            "shown_after": "paywall_close"
+        ])
+    }
+
     static func logAppLanguageChange(previousLanguage: String, newLanguage: String) {
         logEvent("app_language_change", parameters: [
             "previous_language": normalizedLanguageTag(previousLanguage),

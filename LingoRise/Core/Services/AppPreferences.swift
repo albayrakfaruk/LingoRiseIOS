@@ -6,6 +6,7 @@ final class AppPreferences {
 
     private let defaults: UserDefaults
     private let notificationPromptInterval = 3
+    private let retentionOfferLastShownDateKey = "retention_offer_last_shown_date"
 
     private init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
@@ -27,6 +28,14 @@ final class AppPreferences {
     func setDarkTheme(_ enabled: Bool) {
         defaults.set(enabled, forKey: "dark_theme")
         defaults.set(true, forKey: "dark_theme_configured")
+    }
+
+    func canShowRetentionOfferToday() -> Bool {
+        defaults.string(forKey: retentionOfferLastShownDateKey) != Self.todayKey()
+    }
+
+    func markRetentionOfferShownToday() {
+        defaults.set(Self.todayKey(), forKey: retentionOfferLastShownDateKey)
     }
 
     func recordHomeVisitAndShouldRequestNotificationPermission() -> Bool {
@@ -65,5 +74,13 @@ final class AppPreferences {
 
     private func storyRatingKey(_ storyId: String) -> String {
         "story_rating_\(storyId)"
+    }
+
+    private static func todayKey() -> String {
+        let formatter = DateFormatter()
+        formatter.calendar = Calendar(identifier: .gregorian)
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter.string(from: Date())
     }
 }

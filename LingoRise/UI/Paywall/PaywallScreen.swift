@@ -45,14 +45,22 @@ struct PaywallScreen: View {
 
     let source: PaywallSource
 
+    @AppStorage("personalization_display_name") private var displayName = ""
+    @AppStorage("personalization_goal") private var savedGoal = ""
+    @AppStorage("personalization_level") private var savedLevel = ""
+
     @State private var selectedPlan: PaywallPlanKind = .yearly
     @State private var canDismiss = false
     @State private var isLoading = true
+    @State private var isLoadingRetentionOffer = false
+    @State private var showRetentionOffer = false
     @State private var errorMessage: String?
     @State private var weeklyOption = AppSubscriptionOption.fallbackWeekly
     @State private var yearlyOption = AppSubscriptionOption.fallbackYearly
+    @State private var retentionOption: AppSubscriptionOption?
 
     private let panelReservedHeight: CGFloat = 200
+    private let retentionOfferId = AppSubscriptionOffering.retentionExit
 
     var body: some View {
         let palette = PaywallPalette(isDark: appState.effectiveDarkTheme(systemColorScheme: colorScheme))
@@ -97,7 +105,7 @@ struct PaywallScreen: View {
 
                 if canDismiss {
                     Button {
-                        appState.dismissPaywall(source: source)
+                        dismissOrShowRetentionOffer()
                     } label: {
                         Image(systemName: "xmark")
                             .font(.system(size: 16, weight: .semibold))
@@ -201,8 +209,27 @@ struct PaywallScreen: View {
                         .transition(.move(edge: .bottom).combined(with: .opacity))
                         .zIndex(4)
                 }
+
+                if showRetentionOffer, let retentionOption {
+                    RetentionOfferScreen(
+                        option: retentionOption,
+                        source: source,
+                        displayName: displayName,
+                        goalKey: savedGoal,
+                        levelKey: savedLevel,
+                        isLoading: isLoading,
+                        onPurchase: { purchaseRetentionOffer(retentionOption) },
+                        onContinueFree: { declineRetentionOffer() },
+                        onPrivacy: { openRemoteUrl(AppRemoteConfig.shared.privacyPolicyUrl) },
+                        onTerms: { openRemoteUrl(AppRemoteConfig.shared.termsOfUseUrl) },
+                        onRestore: { restorePurchases() }
+                    )
+                    .transition(.opacity.combined(with: .move(edge: .bottom)))
+                    .zIndex(5)
+                }
             }
             .animation(.easeInOut(duration: 0.26), value: canDismiss)
+            .animation(.spring(response: 0.34, dampingFraction: 0.9), value: showRetentionOffer)
             .animation(.spring(response: 0.28, dampingFraction: 0.9), value: errorMessage)
             .onAppear {
                 AppAnalytics.logPaywallView(source: source)
@@ -218,6 +245,44 @@ struct PaywallScreen: View {
                 }
             }
         }
+    }
+
+    private func dismissOrShowRetentionOffer() {
+        guard !isLoadingRetentionOffer else { return }
+        guard shouldAttemptRetentionOffer() else {
+            appState.dismissPaywall(source: source)
+            return
+        }
+        isLoadingRetentionOffer = true
+        Task {
+            let result = await AppSubscriptionService.shared.fetchOfferings(offeringId: retentionOfferId)
+            await MainActor.run {
+                isLoadingRetentionOffer = false
+                guard let option = result?.yearly, option.hasIntroOffer else {
+                    RetentionOfferGate.markShownThisSession()
+                    AppAnalytics.logRetentionOfferNotEligible(
+                        source: source,
+                        offerId: retentionOfferId,
+                        reason: result?.yearly == nil ? "missing_yearly_package" : "missing_intro_offer"
+                    )
+                    appState.dismissPaywall(source: source)
+                    return
+                }
+                retentionOption = option
+                RetentionOfferGate.markShownThisSession()
+                AppPreferences.shared.markRetentionOfferShownToday()
+                AppAnalytics.logRetentionOfferView(source: source, offerId: retentionOfferId)
+                showRetentionOffer = true
+            }
+        }
+    }
+
+    private func shouldAttemptRetentionOffer() -> Bool {
+        source != .profileYearlyUpgrade &&
+            appState.isPremium == false &&
+            AppSubscriptionService.shared.isConfigured() &&
+            RetentionOfferGate.canShowInSession &&
+            AppPreferences.shared.canShowRetentionOfferToday()
     }
 
     private var subtitle: String {
@@ -285,6 +350,42 @@ struct PaywallScreen: View {
                 }
             }
         }
+    }
+
+    private func purchaseRetentionOffer(_ option: AppSubscriptionOption) {
+        guard !isLoading else { return }
+        guard AppSubscriptionService.shared.isConfigured() else {
+            showError(L10n.t("error_revenuecat_not_configured"))
+            return
+        }
+        AppAnalytics.logRetentionOfferAccept(source: source, offerId: retentionOfferId, optionId: option.id)
+        AppAnalytics.logPurchaseStart(optionId: option.id, optionLabel: "yearly", source: source)
+        isLoading = true
+        errorMessage = nil
+        Task {
+            let result = await AppSubscriptionService.shared.purchase(optionId: option.id)
+            await MainActor.run {
+                isLoading = false
+                switch result {
+                case .success:
+                    AppAnalytics.logPurchaseSuccess(optionId: option.id, optionLabel: "yearly", source: source)
+                    appState.isPremium = true
+                    appState.completePaywall(source: source)
+                case let .failure(error):
+                    if error.message == "cancelled" {
+                        AppAnalytics.logPurchaseCancel(optionId: option.id, optionLabel: "yearly", source: source)
+                    } else {
+                        AppAnalytics.logPurchaseFail(optionId: option.id, errorMessage: error.message, source: source)
+                        showError(L10n.t("paywall_purchase_failed"))
+                    }
+                }
+            }
+        }
+    }
+
+    private func declineRetentionOffer() {
+        AppAnalytics.logRetentionOfferDecline(source: source, offerId: retentionOfferId)
+        appState.dismissPaywall(source: source)
     }
 
     private func restorePurchases() {
@@ -802,6 +903,369 @@ private struct PaywallSnackbar: View {
             )
             .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
             .shadow(color: .black.opacity(0.24), radius: 18, x: 0, y: 8)
+    }
+}
+
+@MainActor
+private enum RetentionOfferGate {
+    private static var shownInSession = false
+
+    static var canShowInSession: Bool {
+        shownInSession == false
+    }
+
+    static func markShownThisSession() {
+        shownInSession = true
+    }
+}
+
+private struct RetentionOfferScreen: View {
+    @Environment(\.colorScheme) private var colorScheme
+
+    let option: AppSubscriptionOption
+    let source: PaywallSource
+    let displayName: String
+    let goalKey: String
+    let levelKey: String
+    let isLoading: Bool
+    let onPurchase: () -> Void
+    let onContinueFree: () -> Void
+    let onPrivacy: () -> Void
+    let onTerms: () -> Void
+    let onRestore: () -> Void
+
+    @State private var pulse = false
+    @State private var pathProgress: CGFloat = 0.12
+
+    var body: some View {
+        let isDark = colorScheme == .dark
+        let palette = PaywallPalette(isDark: isDark)
+        GeometryReader { geometry in
+            ZStack(alignment: .bottom) {
+                LinearGradient(
+                    colors: [
+                        palette.background,
+                        palette.surfaceVariant,
+                        Color(hex: isDark ? 0x07101F : 0xEAF2FF)
+                    ],
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+                .ignoresSafeArea()
+
+                PremiumBackground()
+                    .ignoresSafeArea()
+
+                Button(action: onContinueFree) {
+                    Image(systemName: "xmark")
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundStyle(palette.onSurface)
+                        .frame(width: 40, height: 40)
+                        .background(palette.surfaceVariant)
+                        .overlay(Circle().stroke(palette.outlineVariant, lineWidth: 1))
+                        .clipShape(Circle())
+                }
+                .buttonStyle(.plain)
+                .accessibilityLabel(L10n.t("paywall_close"))
+                .padding(.top, max(geometry.safeAreaInsets.top - 72, 10))
+                .padding(.trailing, 18)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
+                .zIndex(2)
+
+                ScrollView(showsIndicators: false) {
+                    VStack(spacing: 10) {
+                        Text(L10n.t("retention_offer_eyebrow"))
+                            .font(LexendFont.font(11, weight: .bold))
+                            .foregroundStyle(Color(hex: 0xFACC15))
+                            .padding(.horizontal, 12)
+                            .padding(.vertical, 5)
+                            .background(Color(hex: 0xFACC15, alpha: 0.12))
+                            .clipShape(Capsule())
+
+                        VStack(spacing: 3) {
+                            Text(headline)
+                                .font(LexendFont.font(26, weight: .bold))
+                                .foregroundStyle(palette.onBackground)
+                                .multilineTextAlignment(.center)
+                                .fixedSize(horizontal: false, vertical: true)
+                            Text(L10n.t("retention_offer_subtitle"))
+                                .font(LexendFont.font(13, weight: .medium))
+                                .foregroundStyle(palette.onSurfaceVariant)
+                                .multilineTextAlignment(.center)
+                                .fixedSize(horizontal: false, vertical: true)
+                        }
+
+                        RetentionPlanCard(goalKey: goalKey, levelKey: levelKey, palette: palette)
+
+                        RetentionPathPreview(pulse: pulse, pathProgress: pathProgress, palette: palette)
+
+                        VStack(spacing: 11) {
+                            RetentionValueRow(
+                                symbol: "headphones",
+                                title: L10n.t("retention_value_listen_title"),
+                                subtitle: L10n.t("retention_value_listen_subtitle"),
+                                palette: palette
+                            )
+                            RetentionValueRow(
+                                symbol: "text.badge.checkmark",
+                                title: L10n.t("retention_value_complete_title"),
+                                subtitle: L10n.t("retention_value_complete_subtitle"),
+                                palette: palette
+                            )
+                            RetentionValueRow(
+                                symbol: "point.topleft.down.curvedto.point.bottomright.up",
+                                title: L10n.t("retention_value_path_title"),
+                                subtitle: L10n.t("retention_value_path_subtitle"),
+                                palette: palette
+                            )
+                        }
+                    }
+                    .frame(maxWidth: 440)
+                    .padding(.horizontal, 22)
+                    .padding(.top, max(geometry.safeAreaInsets.top - 38, 24))
+                    .padding(.bottom, max(geometry.safeAreaInsets.bottom, 8) + 226)
+                    .frame(maxWidth: .infinity)
+                }
+
+                VStack(spacing: 10) {
+                    RetentionOfferCard(option: option, palette: palette)
+                        .frame(maxWidth: 440)
+                    PremiumCtaButton(
+                        title: retentionCtaTitle,
+                        enabled: !isLoading,
+                        action: onPurchase
+                    )
+                    .frame(maxWidth: 440)
+
+                    HStack(spacing: 0) {
+                        FooterLink(title: L10n.t("profile_privacy_policy"), action: onPrivacy)
+                        FooterLink(title: L10n.t("profile_terms_of_use"), action: onTerms)
+                        FooterLink(title: L10n.t("paywall_restore"), action: onRestore)
+                    }
+                    .frame(maxWidth: 440)
+                }
+                .padding(.horizontal, 22)
+                .padding(.top, 14)
+                .padding(.bottom, max(geometry.safeAreaInsets.bottom, 6))
+                .frame(maxWidth: .infinity)
+                .background(
+                    LinearGradient(
+                        colors: [.clear, palette.background.opacity(0.98), palette.background],
+                        startPoint: .top,
+                        endPoint: .bottom
+                    )
+                )
+            }
+            .onAppear {
+                withAnimation(.easeInOut(duration: 1.4).repeatForever(autoreverses: true)) {
+                    pulse = true
+                }
+                withAnimation(.easeInOut(duration: 2.2).repeatForever(autoreverses: true)) {
+                    pathProgress = 0.88
+                }
+            }
+        }
+    }
+
+    private var headline: String {
+        let name = displayName.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard name.isEmpty == false else {
+            return L10n.t("retention_offer_title_generic")
+        }
+        return L10n.format("retention_offer_title_named", name)
+    }
+
+    private var retentionCtaTitle: String {
+        guard let percent = option.introDiscountPercent else {
+            return L10n.t("retention_offer_cta")
+        }
+        return L10n.format("retention_offer_cta_format", percent)
+    }
+}
+
+private struct RetentionPlanCard: View {
+    let goalKey: String
+    let levelKey: String
+    let palette: PaywallPalette
+
+    var body: some View {
+        HStack(spacing: 10) {
+            planItem(label: L10n.t("retention_offer_plan_goal"), value: goalText, symbol: "flag.fill")
+            planItem(label: L10n.t("retention_offer_plan_level"), value: levelText, symbol: "chart.line.uptrend.xyaxis")
+        }
+        .padding(10)
+        .background(palette.surface.opacity(0.96))
+        .overlay(
+            RoundedRectangle(cornerRadius: 20, style: .continuous)
+                .stroke(palette.outlineVariant, lineWidth: 1)
+        )
+        .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+    }
+
+    private func planItem(label: String, value: String, symbol: String) -> some View {
+        HStack(spacing: 8) {
+            Image(systemName: symbol)
+                .font(.system(size: 14, weight: .bold))
+                .foregroundStyle(Color(hex: 0x93C5FD))
+                .frame(width: 30, height: 30)
+                .background(LingoRiseColors.primary.opacity(0.16))
+                .clipShape(Circle())
+            VStack(alignment: .leading, spacing: 1) {
+                Text(label)
+                    .font(LexendFont.font(10, weight: .semibold))
+                    .foregroundStyle(palette.onSurfaceVariant)
+                Text(value)
+                    .font(LexendFont.font(12, weight: .bold))
+                    .foregroundStyle(palette.onSurface)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.78)
+            }
+            Spacer(minLength: 0)
+        }
+        .frame(maxWidth: .infinity)
+    }
+
+    private var goalText: String {
+        LearningGoal(rawValue: goalKey).map { L10n.t($0.titleKey) } ?? L10n.t("retention_offer_plan_default_goal")
+    }
+
+    private var levelText: String {
+        LearningLevel(rawValue: levelKey).map { L10n.t($0.titleKey) } ?? L10n.t("retention_offer_plan_default_level")
+    }
+}
+
+private struct RetentionPathPreview: View {
+    let pulse: Bool
+    let pathProgress: CGFloat
+    let palette: PaywallPalette
+
+    var body: some View {
+        VStack(spacing: 10) {
+            HStack(spacing: 10) {
+                ForEach(0..<3, id: \.self) { index in
+                    VStack(spacing: 6) {
+                        Image(systemName: ["headphones", "text.badge.checkmark", "checkmark.seal.fill"][index])
+                            .font(.system(size: 18, weight: .bold))
+                            .foregroundStyle(index == 2 ? Color(hex: 0x22C55E) : Color(hex: 0x60A5FA))
+                        Text([
+                            L10n.t("retention_offer_step_listen"),
+                            L10n.t("retention_offer_step_build"),
+                            L10n.t("retention_offer_step_grow")
+                        ][index])
+                            .font(LexendFont.font(10, weight: .bold))
+                            .foregroundStyle(palette.onSurface)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 64)
+                    .background(index == 1 ? LingoRiseColors.primary.opacity(pulse ? 0.22 : 0.12) : palette.surfaceVariant)
+                    .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                }
+            }
+
+            GeometryReader { proxy in
+                ZStack(alignment: .leading) {
+                    Capsule().fill(palette.surfaceVariant).frame(height: 8)
+                    Capsule()
+                        .fill(LinearGradient(colors: [Color(hex: 0x60A5FA), Color(hex: 0x8B5CF6)], startPoint: .leading, endPoint: .trailing))
+                        .frame(width: max(24, proxy.size.width * pathProgress), height: 8)
+                }
+            }
+            .frame(height: 8)
+        }
+        .padding(12)
+        .background(palette.surface.opacity(0.92))
+        .overlay(
+            RoundedRectangle(cornerRadius: 22, style: .continuous)
+                .stroke(palette.outlineVariant, lineWidth: 1)
+        )
+        .clipShape(RoundedRectangle(cornerRadius: 22, style: .continuous))
+    }
+}
+
+private struct RetentionValueRow: View {
+    let symbol: String
+    let title: String
+    let subtitle: String
+    let palette: PaywallPalette
+
+    var body: some View {
+        HStack(spacing: 10) {
+            Image(systemName: symbol)
+                .font(.system(size: 15, weight: .bold))
+                .foregroundStyle(Color(hex: 0x93C5FD))
+                .frame(width: 30, height: 30)
+                .background(LingoRiseColors.primary.opacity(0.16))
+                .clipShape(Circle())
+            VStack(alignment: .leading, spacing: 2) {
+                Text(title)
+                    .font(LexendFont.font(11.5, weight: .bold))
+                    .foregroundStyle(palette.onSurface)
+                    .lineLimit(1)
+                Text(subtitle)
+                    .font(LexendFont.font(9.5, weight: .medium))
+                    .foregroundStyle(palette.onSurfaceVariant)
+                    .lineLimit(1)
+            }
+            Spacer(minLength: 0)
+        }
+        .padding(.horizontal, 14)
+        .padding(.vertical, 11)
+        .background(palette.surface.opacity(0.92))
+        .overlay(
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                .stroke(palette.outlineVariant, lineWidth: 1)
+        )
+        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+    }
+}
+
+private struct RetentionOfferCard: View {
+    let option: AppSubscriptionOption
+    let palette: PaywallPalette
+
+    var body: some View {
+        HStack(spacing: 14) {
+            VStack(alignment: .leading, spacing: 2) {
+                Text(discountTitle)
+                    .font(LexendFont.font(22, weight: .bold))
+                    .foregroundStyle(Color(hex: 0xFACC15))
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.76)
+                Text(L10n.t("retention_offer_first_year"))
+                    .font(LexendFont.font(12, weight: .semibold))
+                    .foregroundStyle(palette.onSurfaceVariant)
+                    .lineLimit(1)
+            }
+            Spacer(minLength: 0)
+            VStack(alignment: .trailing, spacing: 0) {
+                Text(option.introPrice ?? option.price)
+                    .font(LexendFont.font(22, weight: .bold))
+                    .foregroundStyle(palette.onSurface)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.72)
+            }
+        }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 10)
+        .background(
+            LinearGradient(
+                colors: [Color(hex: 0x1D4ED8, alpha: 0.30), Color(hex: 0x7C3AED, alpha: 0.20)],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 18, style: .continuous)
+                .stroke(LinearGradient(colors: [Color(hex: 0xFACC15), Color(hex: 0x93C5FD)], startPoint: .leading, endPoint: .trailing), lineWidth: 1)
+        )
+        .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
+    }
+
+    private var discountTitle: String {
+        guard let percent = option.introDiscountPercent else {
+            return L10n.t("retention_offer_discount")
+        }
+        return L10n.format("retention_offer_discount_format", percent)
     }
 }
 

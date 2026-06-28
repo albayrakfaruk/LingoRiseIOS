@@ -11,40 +11,63 @@ enum AppSubscriptionPeriod {
     case yearly
 }
 
+enum AppSubscriptionOffering {
+    static let retentionExit = "retention_exit"
+}
+
 struct AppSubscriptionOption: Identifiable, Equatable {
     let id: String
     let title: String
     let price: String
+    let priceAmount: Decimal?
     let description: String
     let period: AppSubscriptionPeriod
     let weeklyPrice: String?
     let savingsPercent: Int?
     let hasIntroOffer: Bool
+    let introPrice: String?
+    let introPriceAmount: Decimal?
 
     var savingsTag: String? {
         savingsPercent.map { L10n.format("paywall_save_badge_format", $0) }
+    }
+
+    var introDiscountPercent: Int? {
+        guard let priceAmount, let introPriceAmount else { return nil }
+        let regular = NSDecimalNumber(decimal: priceAmount).doubleValue
+        let intro = NSDecimalNumber(decimal: introPriceAmount).doubleValue
+        guard regular > 0, intro > 0, intro < regular else { return nil }
+        let discount = ((regular - intro) / regular) * 100.0
+        guard discount > 0 else { return nil }
+        return max(1, Int(discount.rounded()))
     }
 
     static let fallbackWeekly = AppSubscriptionOption(
         id: "weekly",
         title: "Weekly",
         price: "$2.00",
+        priceAmount: nil,
         description: "Billed weekly",
         period: .weekly,
         weeklyPrice: nil,
         savingsPercent: nil,
-        hasIntroOffer: false
+        hasIntroOffer: false,
+        introPrice: nil,
+        introPriceAmount: nil
     )
 
     static let fallbackYearly = AppSubscriptionOption(
         id: "annual",
         title: "Yearly",
         price: "$79.98",
+        priceAmount: nil,
         description: "Billed yearly",
         period: .yearly,
         weeklyPrice: "$1.54",
         savingsPercent: 23,
-        hasIntroOffer: false
+        hasIntroOffer: false,
+        introPrice: nil,
+        introPriceAmount: nil
     )
 }
 
@@ -113,12 +136,15 @@ final class AppSubscriptionService {
         #endif
     }
 
-    func fetchOfferings() async -> AppOfferingsResult? {
+    func fetchOfferings(offeringId: String? = nil) async -> AppOfferingsResult? {
         #if canImport(RevenueCat)
         guard configured else { return nil }
         return await withCheckedContinuation { continuation in
             Purchases.shared.getOfferings { [weak self] offerings, _ in
-                guard let self, let current = offerings?.current else {
+                guard let self,
+                      let offerings,
+                      let current = offeringId.flatMap({ offerings.offering(identifier: $0) }) ?? offerings.current
+                else {
                     continuation.resume(returning: nil)
                     return
                 }
@@ -235,11 +261,14 @@ final class AppSubscriptionService {
             id: package.identifier,
             title: package.storeProduct.localizedTitle,
             price: package.storeProduct.localizedPriceString,
+            priceAmount: package.storeProduct.price,
             description: package.storeProduct.localizedDescription,
             period: period(for: package),
             weeklyPrice: weeklyPrice,
             savingsPercent: savingsPercent,
-            hasIntroOffer: package.storeProduct.introductoryDiscount != nil
+            hasIntroOffer: package.storeProduct.introductoryDiscount != nil,
+            introPrice: package.storeProduct.introductoryDiscount?.localizedPriceString,
+            introPriceAmount: package.storeProduct.introductoryDiscount?.price
         )
     }
 
