@@ -84,15 +84,11 @@ struct HomeScreen: View {
             VStack(spacing: 0) {
                 HStack(alignment: .center, spacing: 12) {
                     VStack(alignment: .leading, spacing: 0) {
-                        Text(formattedDate())
-                            .font(LexendFont.font(14, weight: .medium))
-                            .lineLimit(1)
-                            .truncationMode(.tail)
-                            .foregroundStyle(palette.onSurfaceVariant)
                         Text(greetingText())
-                            .font(LexendFont.font(32, weight: .bold))
+                            .font(LexendFont.font(26, weight: .bold))
                             .lineLimit(1)
-                            .minimumScaleFactor(0.82)
+                            .minimumScaleFactor(0.72)
+                            .truncationMode(.tail)
                             .foregroundStyle(palette.onBackground)
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -151,14 +147,6 @@ struct HomeScreen: View {
             }
             }
         }
-    }
-
-    private func formattedDate() -> String {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .full
-        formatter.timeStyle = .none
-        formatter.locale = Locale(identifier: AppLocalization.localeIdentifier(for: appState.appLanguage))
-        return formatter.string(from: Date())
     }
 
     private func greetingText() -> String {
