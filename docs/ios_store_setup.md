@@ -1,6 +1,6 @@
 # iOS Store Setup
 
-This file tracks the App Store, RevenueCat, and Firebase connections that cannot be completed until the Apple Developer account is active. The app code is already wired to these contracts.
+This file tracks the App Store and RevenueCat connections that cannot be completed until the Apple Developer account is active. Firebase is already wired and running; verify the existing values before review.
 
 ## Apple Developer
 
@@ -22,7 +22,7 @@ This file tracks the App Store, RevenueCat, and Firebase connections that cannot
    - yearly premium package
 3. Create the retention yearly product or offer used by the RevenueCat `retention_exit` offering.
 4. Configure localized subscription display names, descriptions, review screenshot, and pricing in every supported storefront.
-5. Add Terms of Use and Privacy Policy URLs before review.
+5. Verify the existing Terms of Use and Privacy Policy URLs from Firebase Remote Config before review.
 6. Finish Paid Applications Agreement, tax, and banking. StoreKit purchases will not work in production until this is complete.
 7. Reference docs:
    - https://developer.apple.com/help/app-store-connect/manage-subscriptions/
@@ -32,10 +32,8 @@ This file tracks the App Store, RevenueCat, and Firebase connections that cannot
 
 1. Create/select the iOS app in RevenueCat with bundle ID `com.lingorise.learn.english.listening.reading.stories`.
 2. Add the App Store Connect products.
-3. Entitlement IDs accepted by the app:
+3. Entitlement ID accepted by the app:
    - `premium`
-   - `pro`
-   - `premium_access`
 4. Create offerings:
    - `default`: weekly and yearly packages
    - `retention_exit`: yearly package only
@@ -58,10 +56,10 @@ Reference docs:
 
 ## Firebase
 
-1. Confirm `GoogleService-Info.plist` belongs to the same bundle ID.
-2. Enable Analytics, Firestore, Functions, Remote Config, Auth, and Messaging for iOS in Firebase.
+1. Firebase is already configured and working for the iOS app.
+2. Confirm `GoogleService-Info.plist` belongs to bundle ID `com.lingorise.learn.english.listening.reading.stories`.
 3. Upload the APNs authentication key or certificates to Firebase Cloud Messaging after Apple Developer access is ready.
-4. Remote Config keys used by the app:
+4. Remote Config keys used by both Android and iOS:
    - `TERMS_OF_USE`
    - `PRIVACY_POLICY`
    - `COMPANY_EMAIL`

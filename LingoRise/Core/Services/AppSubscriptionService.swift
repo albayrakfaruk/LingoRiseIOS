@@ -247,8 +247,7 @@ final class AppSubscriptionService {
     }
 
     private func hasPremiumEntitlement(_ customerInfo: CustomerInfo) -> Bool {
-        let entitlementIds = Set(["premium", "pro", "premium_access"])
-        return customerInfo.entitlements.active.keys.contains { entitlementIds.contains($0.lowercased()) }
+        customerInfo.entitlements.active.keys.contains { $0.lowercased() == "premium" }
     }
 
     private func resolveActiveSubscriptionPeriod(customerInfo: CustomerInfo) -> AppSubscriptionPeriod? {
