@@ -259,7 +259,6 @@ struct PaywallScreen: View {
             await MainActor.run {
                 isLoadingRetentionOffer = false
                 guard let option = result?.yearly, option.hasIntroOffer else {
-                    RetentionOfferGate.markShownThisSession()
                     AppAnalytics.logRetentionOfferNotEligible(
                         source: source,
                         offerId: retentionOfferId,
@@ -269,8 +268,6 @@ struct PaywallScreen: View {
                     return
                 }
                 retentionOption = option
-                RetentionOfferGate.markShownThisSession()
-                AppPreferences.shared.markRetentionOfferShownToday()
                 AppAnalytics.logRetentionOfferView(source: source, offerId: retentionOfferId)
                 showRetentionOffer = true
             }
@@ -280,9 +277,7 @@ struct PaywallScreen: View {
     private func shouldAttemptRetentionOffer() -> Bool {
         source != .profileYearlyUpgrade &&
             appState.isPremium == false &&
-            AppSubscriptionService.shared.isConfigured() &&
-            RetentionOfferGate.canShowInSession &&
-            AppPreferences.shared.canShowRetentionOfferToday()
+            AppSubscriptionService.shared.isConfigured()
     }
 
     private var subtitle: String {
@@ -903,19 +898,6 @@ private struct PaywallSnackbar: View {
             )
             .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
             .shadow(color: .black.opacity(0.24), radius: 18, x: 0, y: 8)
-    }
-}
-
-@MainActor
-private enum RetentionOfferGate {
-    private static var shownInSession = false
-
-    static var canShowInSession: Bool {
-        shownInSession == false
-    }
-
-    static func markShownThisSession() {
-        shownInSession = true
     }
 }
 
