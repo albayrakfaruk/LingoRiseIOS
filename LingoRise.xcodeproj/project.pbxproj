@@ -767,7 +767,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = LingoRise;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "LingoRise needs microphone access to evaluate your pronunciation.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "LingoRise needs microphone access for interactive listening and sentence practice.";
 				INFOPLIST_KEY_RevenueCatAPIKey = "$(REVENUECAT_API_KEY)";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -781,7 +781,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.lingorise.learn.english.listening.reading.stories;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				REVENUECAT_API_KEY = "";
+				REVENUECAT_API_KEY = "$(LINGORISE_REVENUECAT_IOS_API_KEY)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -800,7 +800,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = LingoRise;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "LingoRise needs microphone access to evaluate your pronunciation.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "LingoRise needs microphone access for interactive listening and sentence practice.";
 				INFOPLIST_KEY_RevenueCatAPIKey = "$(REVENUECAT_API_KEY)";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -814,7 +814,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.lingorise.learn.english.listening.reading.stories;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				REVENUECAT_API_KEY = "";
+				REVENUECAT_API_KEY = "$(LINGORISE_REVENUECAT_IOS_API_KEY)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

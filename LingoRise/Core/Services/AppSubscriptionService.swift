@@ -105,6 +105,9 @@ final class AppSubscriptionService {
               apiKey.isEmpty == false,
               apiKey.contains("$(") == false
         else {
+            #if DEBUG
+            print("revenuecat_not_configured_missing_api_key")
+            #endif
             return
         }
 
